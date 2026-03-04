@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Openclaw 背后的技术架构，记忆出奇的简洁</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Openclaw 背后的技术架构，记忆出奇的简洁</div>
+        <div class="content">
+            <html><body><div class="rich_media_content" id="js_content_wrapper" style="visibility: visible;"><div class="image_channel_desc" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333;">C̶l̶a̶w̶d̶b̶o̶t̶ M̶o̶l̶t̶b̶o̶t̶ Openclaw 背后的技术架构，有非常多值得思考的地方：串行优先、简化存储、浏览器语义抽象、安全设计等等。<br/><br/>架构流程 - 六步处理链路：<br/>1. Channel Adapter — 标准化不同渠道的消息格式<br/>2. Gateway Server — 核心协调器，路由到正确会话<br/>3. Agent Runner — 选择模型、组装提示词、管理上下文<br/>4. LLM API Call — 流式调用，支持多提供商<br/>5. Agentic Loop — 工具调用循环，默认最大 ~20 轮<br/>6. Response Path — 返回响应，持久化会话<br/><br/>Lane-based Command Queue<br/>传统 async/await 在多智能体场景下的问题：日志交错、竞态条件、调试困难。<br/>OpenClaw 的解决方案：Lane（通道）抽象<br/>· 每个会话有专属 Lane<br/>· 默认串行执行，仅显式标记的低风险任务并行<br/>· 心智模型从"需要锁什么"转变为"什么可以安全并行"<br/>这与 Cognition 的观点一致：序列化是默认架构，而非事后补救。<br/><br/>内存系统<br/>出乎意料地简单：<br/>· 会话历史：JSONL 文件<br/>· 长期记忆：Markdown 文件（MEMORY.md）<br/>· 检索：SQLite 向量搜索 + FTS5 关键词<br/>写入方式：无专门 API，智能体直接用文件写入工具写 Markdown。<br/>特点：无记忆合并、无压缩、无遗忘曲线，新会话开始时自动生成上次对话摘要。<br/><br/>浏览器：语义快照<br/>不用截图，使用可访问性树的文本表示：<br/>- button "Sign In" [ref=1]<br/>- textbox "Email" [ref=2]<br/>- link "Forgot password?" [ref=4]<br/>· 截图：~5MB，Token 成本高，需坐标定位<br/>· 语义快照：&lt;50KB，Token 成本极低，直接引用 ref<br/>核心洞见：浏览网页本质上不是视觉任务。<br/><br/>安全机制 - 白名单 + 黑名单组合：<br/>· 白名单：用户可配置，预批准安全命令（jq、grep、sort 等）<br/>· 黑名单：阻止危险构造（命令替换、重定向、链式执行、子 shell）<br/>设计哲学：给予用户所允许的最大自主权。<br/><br/>其他特性<br/>· 动态系统提示词：根据工具、技能、内存、用户身份等动态构建<br/>· 子智能体：可生成子智能体（但子智能体不能再生成），通过 session_send 通信<br/>· 上下文压缩：接近限制时，历史分块 → LLM 摘要 → 替换旧消息</div><p><img src="assets/bf3aca584576c5f2d62ec80e8c1a7105.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/17bfc567a05c6268ae49053d1c91c99f.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/e916b31da32b14816f70630c35be5ca6.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/277ae612ff7b85f35266838a6add644a.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/132a9e927bea2ec53bfcc3745ab4adfe.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/e44c503432b61130ae48f1a16dfc074d.png" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/></div></body></html>
+        </div>
+    </body>
+    </html>
+    
