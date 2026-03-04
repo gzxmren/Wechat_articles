@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>全自动、无人值守AI系统—OpenClaw</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">全自动、无人值守AI系统—OpenClaw</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><p>一个真正无人值守的 AI 系统，必须不断跑这个循环：<br/>1.Agent 提出想法（Proposal）<br/>2.系统自动判断是否批准<br/>3.生成任务 + 步骤（Mission + Steps）<br/>4.Worker 执行任务<br/>5.产生事件（Event）<br/>6.事件触发新反应（Trigger / Reaction）<br/>7.回到第一步</p><p><br/>采用OpenClaw+Supabase+Vercel方案，这套系统可以被理解为一家完全自动化的 AI 公司，没有老板盯着，但有制度、有流程、能自我运转。OpenClaw（部署在 VPS 上）相当于公司的员工团队和执行部门。每个 AI Agent 都是一个岗位：有人负责判断方向，有人分析问题，有人写内容，有人发布到社交平台，有人做质量审查。</p><section><img data-aiimageid="39390972741484544" data-aiimagesource="1" data-ratio="1" data-type="jpg" data-w="1024" src="assets/9c39dd526aeba2f75b19e19ea344c7b6.png"/></section><p>OpenClaw 不只是聊天工具，而是能真正执行操作的员工体系，比如生成内容、调用 API、发布推文、更新网站。Supabase 是公司的中央档案室 + 大脑皮层。公司里发生的一切都必须写进这里：<br/>1.提案（Proposal）表示“我觉得应该做这件事”，<br/>2.任务（Mission）表示“公司同意做”，<br/>3.步骤（Step）表示“具体怎么做”，<br/>4.事件（Event）记录“做完后发生了什么”，<br/>5.政策（Policy）则是公司制度，比如每日推文上限、是否允许自动发布。<br/></p><p><br/>Vercel 扮演的是管理与调度层，但不亲自干活。它通过一个 heartbeat 接口定期巡检：是否出现新情况需要响应、是否有事件触发新任务、是否有执行卡死需要纠正。真正执行任务的只有 VPS 上的 OpenClaw，避免多个系统同时抢活。可以把这套系统想象成一家24 小时运转的 AI 公司。没有老板在线盯着，但每个岗位都清楚自己该干什么。</p><p><br/>所以，OpenClaw（运行在 VPS 上）就是这家公司的员工体系。比如，设置六个 AI Agent ，各司其职：<br/>•Minion（负责人）：拍板是否值得做<br/>•Sage（策略官）：分析问题、找因果<br/>•Scout（情报员）：搜集外部信息<br/>•Quill（内容编辑）：写文章、写推文<br/>•Xalt（运营官）：发布内容、观察反馈<br/>•Observer（质检员）：检查质量、发现异常</p><p><br/>Supabase 是公司的工作台 + 记忆中枢。所有事情必须在这里留痕：谁提议、谁执行、做到哪一步、结果如何，全都一清二楚。Vercel 则像值班经理，每隔几分钟巡视一次，看看有没有新情况、有没有人卡住。</p><p><br/><span style="font-weight: bold;color: rgb(47, 118, 195);">场景一：一条推文突然火了</span><br/>早上，Xalt（运营官）通过 OpenClaw 发了一条推文。几小时后，Supabase 里的数据表明互动率异常高。Vercel 的 heartbeat 发现这个信号，自动生成一个提案：“要不要分析这条推文为什么爆了？”<br/>系统查看政策：分析类任务允许自动审批。<br/>Minion（负责人）不需要再投票，任务直接生成。<br/>Sage（策略官）接手任务，分析发布时间、话题结构和情绪点；Scout（情报员）补充同类账号的表现；最终结论被写回 Supabase，成为一条可复用经验。<br/><br/><span style="color: rgb(47, 118, 195);font-weight: bold;">场景二：内容想发，但公司不允许</span><br/>Quill（内容编辑）准备再发一条推文，于是提交提案。系统立刻检查 Supabase 里的政策： 今日推文配额已满。提案被明确拒绝，理由记录在案，没有生成任何执行步骤。Xalt不会白等，队列也不会越堆越多。<br/><br/><span style="font-weight: bold;color: rgb(47, 118, 195);">场景三：任务执行时卡住了</span><br/>晚上，一个分析任务因接口超时卡在执行中。Vercel 巡检发现超过 30 分钟无进展，自动标记失败。Observer（质检员）触发复盘提案，Sage分析失败原因，系统完成自我修复。<br/><br/>最终，这家公司每天都在自己发现机会、自己讨论、自己行动、自己纠错。它不是在假装上班，而是真的在运营。</p><p><span style='caret-color: rgb(255, 255, 255);color: rgb(255, 255, 255);font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;font-size: 17px;font-style: normal;font-variant-caps: normal;font-weight: 400;letter-spacing: normal;orphans: 2;text-align: start;text-indent: 0px;text-transform: none;white-space: pre-wrap;widows: 2;word-spacing: 0px;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);-webkit-text-stroke-width: 0px;background-color: rgb(0, 0, 0);text-decoration: none;display: inline !important;float: none;'><br/></span></p><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    

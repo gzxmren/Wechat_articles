@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>六招升级 OpenClaw 成为最强辅助！</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">六招升级 OpenClaw 成为最强辅助！</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section><section style="display: inline-block;"><img data-ratio="0.6666666666666666" data-type="jpg" data-w="1536" src="assets/80a3717fd3c9d99d9dcf6df769bccad7.jpg"/></section></section><p><br/>先搭一套「Mission Control」，看了一个博主分享、使用后效率立马提升十倍！Mission Control 本质是一套由 OpenClaw 自己长出来的专属控制台：<br/><br/>你能在同一个地方追踪它在做什么、把你的流程工具化、把记忆从藏在文件里升级为可检索的系统。越用越贴合你的工作流，而且不需要你手写代码、让 OpenClaw 生成即可。建议技术栈直接定死：Next.js + Convex（你在最开始就明确告诉它）！<br/><br/>//<br/><br/>1) Tasks Board｜任务看板（让它开始“主动做事”）<br/><br/>用途：你和 OpenClaw 的工作都透明化，谁在做什么、做到哪一步、卡在哪里一眼看清；它也能看见你在忙什么，从而主动接走任务并更新状态。<br/><br/>指令（直接复制给 OpenClaw）：<br/>Please build a task board for us that tracks all the tasks we are working on. I should be able to see the status of every task and who the task is assigned to, me or you. Moving forward please put all tasks you work on into this board and update it in real time. Build it as a Next.js app with a Convex database.<br/><br/>2) Content Pipeline｜内容流水线（把“分发”做成系统）<br/><br/>用途：把内容创作拆成流水线：Idea → Script → Thumbnail → Filming → Publish。你丢灵感，它每天固定时间把脚本写好、生成缩略图、把卡片推进到下一列，减少你“重复启动”的成本。<br/><br/>指令：<br/>Please build me a content pipeline tool. I want it to have every stage of content creation in it. I should be able to edit ideas and put full scripts in it and attach images if need be. I want you to manage this pipeline with me and add wherever you can. Build it as a Next.js app with a Convex database.<br/><br/>3) Calendar｜日历（验证它有没有真的排程）<br/><br/>用途：很多人觉得 Claw 不够主动，实际问题常常是“没有可见的排程”。日历就是你对它的 cron jobs / scheduled tasks 的审计面板：有没有排进来、什么时候跑、是否执行成功。<br/><br/>指令：<br/>Please build a calendar for us in the mission control. All your scheduled tasks and cron jobs should live here. Anytime I have you schedule a task, put it in the calendar so I can ensure you are doing them correctly.<br/>Build it as a Next.js app with a Convex database.<br/><br/>4) Memory｜记忆库（把记忆变成可搜索资产）<br/><br/>用途：把它产生的每一条 memory 变成 UI 里的文档集合，并且做全局搜索。你不再靠想起来去翻文件，而是像查资料一样检索你们过去的决定、偏好、策略、上下文。<br/><br/>指令：<br/>Please build a memory screen in our mission control. It should list all your memories in beautiful documents. We should also have a search component so I can quickly search through all our memories.<br/>Build it as a Next.js app with a Convex database.<br/><br/>5) Team｜团队结构（把 OpenClaw 当成公司在运营）<br/><br/>用途：你会反复用到开发 / 写作 / 设计 / 研究等不同能力，Team 页面把这些常用 sub-agents 固化成组织结构：角色、职责、正在做的事、对应的记忆与工具，方便管理，也能让它对“该叫谁出来做事”更确定。<br/><br/>指令：<br/>Please build me a team structure screen. It should show you, plus all the subagents you regularly spin up to do work. If you haven’t thought about which sub agents you spin up, please create them and organize them by roles and responsibilities. This should be developers, writers, and designers as examples.<br/>Build it as a Next.js app with a Convex database.<br/><br/>6) Office｜数字办公室（偏氛围，但能提升运营感）<br/><br/>用途：更像一个实时状态总览 + 组织效率仪表板。用头像/工位展示每个 agent 的当前状态与任务进度；谁空闲、谁卡住、谁在跑流程，一眼可见，也更有在带团队的感觉。<br/><br/>指令：<br/>Please build me a digital office screen where I can view each agent working. They should be represented by individual avatars and have their own work areas and computers. When they are working they should be at their computer. I should be able to quickly view the status of every team member.<br/>Build it as a Next.js app with a Convex database.<br/><br/>建议：先把 Tasks Board + Calendar + Memory 做出来，你会立刻感觉到它从对话助手变成可运营的系统。后面再按你的工作流一点点加组件，Mission Control 会越用越像你自己的 AI 控制台。<br/></p><p><br/></p><section class="mp_profile_iframe_wrp"><mp-common-profile class="custom_select_card mp_profile_iframe mp_common_widget" data-alias="mcp-sdk" data-from="0" data-headimg="http://mmbiz.qpic.cn/sz_mmbiz_png/W2nIJIR0bhiajO01ccLYTVds47M1FcLpibhOyHDS6lZnm41uIFAaz3gtHTWnAgZgksfg9e5SmRNtK5vRKyNPCjfw/0?wx_fmt=png" data-id="Mzk3NTg0MzgyNg==" data-nickname="AI开发者路线" data-pluginname="mp-common-profile" data-service_type="1" data-signature="AI开发者路线，专注于AI人工智能领域学习分享"></mp-common-profile></section><p><br/></p><section><section style="display: inline-block;"><img data-ratio="0.190625" data-type="jpg" data-w="640" src="assets/b184309a7541f1109899baa35894ee5e.jpg"/></section></section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
