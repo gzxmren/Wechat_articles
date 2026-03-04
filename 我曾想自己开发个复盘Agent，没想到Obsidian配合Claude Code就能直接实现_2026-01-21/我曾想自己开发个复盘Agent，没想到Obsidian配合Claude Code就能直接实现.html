@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>我曾想自己开发个复盘Agent，没想到Obsidian配合Claude Code就能直接实现</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">我曾想自己开发个复盘Agent，没想到Obsidian配合Claude Code就能直接实现</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content autoTypeSetting24psection" id="js_content" style="visibility: visible; opacity: 1; "><p data-pm-slice="0 0 []" style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">我曾想自己开发一个复盘Agent，没想到这个插件如此好用</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">上一篇给大家介绍了自己在Claude Skill上的探索，并如何与我的日常工作相结合，这篇想给大家分享个新的探索。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">我每天都有写复盘的习惯，一般会记下当日完成的事情、思考和收获，以及需要改进的点，还有个读书模块，会记录当天阅读的书籍、书评和摘录，在25年开始大量使用AI后，我新增了个AI评价的模块，我每天做完复盘后，会把自己的复盘发给AI，让它进行点评，并提出一些问题，帮我发现思维的盲区。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">但是，它有两个问题：</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">问题一：我每次都需要打开 Gemini 的对话框，粘贴我的复盘，大家都知道，大模型的上下文是有上限的，一般在一个对话框，我只能连续发一个月的复盘，再多的话，它就要出现幻觉了。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">所以，每当对话框的对话跨越了一个月时，我就会让AI总结当前会话的内容，开启新的会话窗口，把这份总结和新的复盘发过去，比较的繁琐。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">问题二：之前看李想的采访，他提到过终身成长的理念，他自己经常会回顾过去三年的复盘记录，看看是否有成长，如果我也要完成这类任务，仅在Gemini对话是难以办到的。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">于是，我想到打造一个复盘Agent的项目，包括编辑器、AI对话系统、记忆系统等，以实现终身成长的目标。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">一开始，我用Claude Code设计方案，Codex写代码，核心的记忆系统用了Mem0这个开源项目，并且也尝试了一种新的开发方式，第一版做demo，但是代码大部分不要，只是用来完善需求，第二版才正式开始做。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">花了我一周时间，把demo给搞出来，但是编辑器的效果依然不尽如人意，无法和Obsidian这类编辑器的体验相媲美。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">恰巧这时，我看到个开源项目叫claudian（https://github.com/YishenTu/claudian），它可以在Obsidian通过插件的形式，无缝使用Claude Code，能够使用包括 Skills、Sub-agent等完整的功能，而且它还可以实现上下文压缩。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">刚好之前探索Skill的时候，安装了Obsidian创始人写的三个skill，可以在Obsidian创建markdown、画布等。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">所以，我在想，是不是直接就可以用这个工具去做复盘了，它刚好能读取我在Obsidian里面的复盘记录，我就放弃了重复造轮子，尝试用这个插件开始后续的AI辅助复盘。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">我先让它读取我过往的复盘，帮我创建一个专门记录个人成长的文件，提取过往复盘中的关键点，后面每日复盘的时候，也及时更新这个文件，这样就解决了历史复盘内容过长，上下文爆炸的问题，每次复盘我只需对照这个文件即可。</span></p><section nodeleaf="" style="margin-bottom: 40px;"><img class="rich_pages wxw-img" data-aistatus="1" data-imgfileid="100000286" data-ratio="1.375" data-type="png" data-w="720" src="assets/23c763f517d655024e16497c97a7a44e.png" style="max-width: 100%;height: auto;margin-top: 1em;margin-right: auto;margin-left: auto;display: block;border-radius: 4px;transition: undefined;"/></section><section nodeleaf="" style="margin-bottom: 40px;"><img class="rich_pages wxw-img" data-aistatus="1" data-imgfileid="100000285" data-ratio="0.6569444444444444" data-type="png" data-w="720" src="assets/c553739264cd97184dc2750fd1709662.png" style="max-width: 100%;height: auto;margin-top: 1em;margin-right: auto;margin-left: auto;display: block;border-radius: 4px;transition: undefined;"/></section><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">这样就又迭代了一次个人AI复盘系统，后续我都会把自己的复盘内容搬到Obsidian上，配合这个工具使用，过一段时间，我再把自己的实践记录分享出来。</span></p><p style="margin: 1em 0px 40px;line-height: 1.75;"><span leaf="">在有了AI编程这样的好工具之后，我们能够很方便的把自己的idea动手实现，但有时候这些工具可能是重复造轮子，已经有前人做过，所以在做之前，可以先检索一下有没有对应的开源项目，少重复造轮子，我们的目的还是用，而不是为了造工具而造。</span></p><p style="display: none;"><mp-style-type data-value="3"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
