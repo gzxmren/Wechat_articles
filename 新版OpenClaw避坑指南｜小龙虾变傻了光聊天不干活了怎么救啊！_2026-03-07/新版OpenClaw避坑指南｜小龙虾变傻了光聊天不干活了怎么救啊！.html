@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>新版OpenClaw避坑指南｜小龙虾变傻了光聊天不干活了怎么救啊！</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">新版OpenClaw避坑指南｜小龙虾变傻了光聊天不干活了怎么救啊！</div>
+        <div class="content">
+            <html><body><div class="rich_media_content" id="js_content_wrapper" style="visibility: visible;"><div class="image_channel_text" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 15px; border-radius: 8px;">更新到2026.3.2版本的OpenClaw有个大雷，为了安全把工具权限和聊天能力做了隔离，用人话说就是光聊天不干活，直接变傻蛋了，问题出现在默认的配置变成了"messaging"。<br/><br/>那如何做快速的排查和修复呢？<br/>如果OpenClaw本身就没有命令执行权限的话，让它自己去修复是不可能的。<br/><br/>所以有两种方法，<br/><br/>1.本地，虚拟机，以及云服务器可以用Codex或者ClaudeCode做排查和修复，<br/><br/>用我这个提示语，<br/>…<br/>运行openclawconfiggettools，查看OpenClaw的profile，如果不是full的话，切换成full，切换之后重新gateway<br/>…<br/><br/>目前一共有5种profile，<br/>messaging是只能发消息、管理会话<br/>default是默认工具集<br/>coding是编程相关工具<br/>full是完整工具集，包含命令执行<br/>all是所有工具全开<br/><br/>2.如果你安装的环境不方便用编程工具的话还有一种方法不需要编程，<br/>OpenClaw的local模式默认端口是18789，访问127.0.0.1:18789就可以到对话界面。有些手机版OpenClaw打开就是这个默认对话界面，<br/><br/>页面左侧就有一个“配置”，打开把设置的json文件格式调整到Raw，找到tools的那一行把profile改成full，<br/><br/>"tools":{<br/>"profile":"full",<br/>}，<br/><br/>搞定！<br/>快去看看你的龙虾是不是还聪明着！</div><hr/></div></body></html>
+        </div>
+    </body>
+    </html>
+    
