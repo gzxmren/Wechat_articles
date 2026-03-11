@@ -1,0 +1,182 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Claude Code 官方最佳实践：10 条拿来就能用的技巧（来自 Claude Code 作者亲测）</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Claude Code 官方最佳实践：10 条拿来就能用的技巧（来自 Claude Code 作者亲测）</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;line-height: 1.6;word-wrap: break-word;text-align: left;"><p style="text-align: center;margin-bottom: 5px;"><span style="font-size: 11px;color: #bbb;">⭐ 设为星标 · 第一时间收到推送</span></p>
+<section style="margin: 0 10px;border-radius: 12px;overflow: hidden;box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+<img data-ratio="0.42407407407407405" data-w="1080" src="assets/5539764dd21805d4673bd0af825849ea.jpg" style="width: 100%;display: block;height: auto !important;"/>
+</section>
+<section style="margin: 10px 10px 15px;display: flex;justify-content: space-between;align-items: center;">
+<span style="font-size: 13px;color: #1e3a8a;font-weight: bold;">石臻说AI</span>
+<span style="font-size: 11px;color: #aaa;">编辑：石臻</span>
+</section>
+<section style="background-color: #f0f4ff;border-left: 4px solid #1e3a8a;padding: 15px;border-radius: 4px;font-size: 15px;color: #444;text-align: justify;margin-bottom: 20px;"><strong>导读：</strong> Claude Code 发布一年，已经有开发者拿它做了 Mars rover 的代码。但大部分人用了三个月还停在「我让它写个函数」的阶段——因为他们从来没搞清楚 Claude Code 真正的使用方式。<br/><br/>本文整合了 Claude Code 之父 Boris Cherny 的内部团队实践 + 官方最佳实践文档，10 条拿来就能用的技巧。</section>
+<section class="mp_profile_iframe_wrp"><mp-common-profile class="custom_select_card mp_profile_iframe mp_common_widget" data-alias="szzdzhp" data-from="0" data-headimg="http://mmbiz.qpic.cn/mmbiz_png/kmWVxLDDVAWrnbUPdHvpMzNBfrYgrv5y55OhZiaXYrfk5QaMAxjhcwOWdWDF5R4Hspkduve7wCBafm3XmFB1QCw/0?wx_fmt=png" data-id="Mzg4ODY1NTcxNg==" data-nickname="石臻说AI" data-pluginname="mp-common-profile" data-service_type="1" data-signature="科技博主,10年+大厂Coder专注于AI提效｜科技数码｜用AI提效，剩下时间摸鱼— AI摸鱼社区🛰：szzdzhp001"></mp-common-profile></section><h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">一切的根本：上下文窗口是你最贵的资源</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">在讲任何技巧之前，你得先理解这个：Claude 有个上下文窗口，相当于一块有限的白板。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">你发的每条消息、Claude 读的每个文件、运行的每条命令，都会写到这块白板上。白板越来越满，Claude 的表现就越来越差——它会忘记早期的指令，开始出错，开始变笨。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">后面所有的技巧，本质上都是在帮你<strong style="font-weight: bold;color: #333;">把白板用得更高效</strong>。</p>
+<img alt="上下文窗口示意图" data-ratio="0.5583333333333333" data-w="1080" src="assets/a3a3f2f7660b97fc8a7070714db64000.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧一：让 Claude 自己验证自己的工作</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">这是单一最高收益的改变。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">大部分人的用法：描述需求 → 等 Claude 输出 → 自己检查有没有 bug。结果就是你成了唯一的质检员，每个错误都得你来抓。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队的做法：<strong style="font-weight: bold;color: #333;">把验证标准直接写进 prompt</strong>。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">比如让 Claude 写一个邮箱校验函数，不要只说"写一个邮件校验函数"，而是说：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">写一个验证邮箱的函数。测试用例：hello@gmail.com 应该通过，hello@ 应该失败，@domain.com 应该失败。写完后跑一遍测试告诉我结果。</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">有了具体的验收标准，Claude 就能自主检查自己的输出，省去你一大半的人工审查。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">官方文档中也有个更进一步的玩法：给 Claude 截一张设计稿图，让它"实现这个设计，然后截图对比原稿，列出差异并修复"。这就是给 AI 装了个自动纠错回路。</p>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧二：先规划，再动手</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">这个坑踩过的人都懂。你描述了需求，Claude 直接开写，15 分钟后你发现它解决的是另一个问题。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Claude Code 有个 <strong style="font-weight: bold;color: #333;">Plan Mode</strong>（规划模式）。在这个模式下，Claude 只读文件、只理清脉络，不动一行代码。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队的标准流程：</p>
+<ol style="margin-bottom: 15px;padding-left: 0;list-style: none;background: #f8fafc;border-radius: 8px;padding: 12px 15px;border: 1px solid #e2e8f0;"><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">1</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">进入 Plan Mode，让 Claude 读相关文件，摸清项目结构</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">2</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">让 Claude 写出完整的执行计划：哪些文件要改、改动顺序、可能踩的坑</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">3</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">你自己读一遍计划，有问题直接改</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">4</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">切回普通模式，按计划执行</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">5</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">执行完让 Claude 写清晰的 commit message</span></li></ol>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">其中有人更极端：一个 Claude 写计划，再起一个 Claude 以高级工程师的身份审这个计划。计划过了才开始写代码。</p>
+<img alt="Boris Cherny：Tip 2 Plan Mode" data-ratio="1.2775919732441472" data-w="598" src="assets/d285faeca2c851e6456fdd4b4f273bc1.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<p style="font-weight: bold;color: #1e3a8a;font-size: 16px;margin-bottom: 15px;text-align: justify;">先花 10 分钟在计划上，省下后面 2 小时的返工。</p>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧三：CLAUDE.md 是你最被低估的工具</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">如果你每天用 Claude Code，还没建 CLAUDE.md 文件，你就是在白白浪费大量时间重复自己。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">CLAUDE.md 是 Claude 每次启动都会读的文件，放在项目根目录里。你写进去的规则，Claude 每次都会遵守，不用再一遍遍重申。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">比如这些常见但每次都要重复说的事：</p>
+<ul style="margin-bottom: 15px;padding-left: 30px;font-size: 15px;color: #334155;list-style-type: disc;"><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;">只用 ES modules，不用 CommonJS</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;">测试里不要用 mock</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;">每次改完必须跑 linter</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;">我们的分支命名规范是 <code style="font-family: monospace;font-size: 13px;padding: 2px 4px;background-color: #f1f5f9;color: #1e3a8a;border-radius: 3px;">feature/ticket-号</code></li></ul>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">把这些写进 CLAUDE.md，一劳永逸。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队还有个很妙的习惯：每次 Claude 犯了某个错，纠正完之后在对话末尾加一句：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">更新你的 CLAUDE.md，确保下次不再犯同样的错误。</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Claude 会把新规则写进文件。下次启动，自动生效。CLAUDE.md 随着时间变成一个能不断进化的规则系统。</p>
+<img alt="Boris Cherny：Tip 3 CLAUDE.md" data-ratio="1.0384615384615385" data-w="598" src="assets/b8e1a1bd2087a6e08a11191f2a4ce5c9.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">⚠️ 注意：</strong> 别让 CLAUDE.md 变成一个 500 行的怪兽。每一行都应该对应一个真实的错误。如果你想不出"没有这行 Claude 会犯什么错"，就删掉它。文件太长，Claude 开始忽略细节。</p>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧四：并行才是真正的效率杠杆</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">这是 Boris 整个团队认为收益最大的改变。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Claude Code 支持多个 session 同时运行，可以用 git worktrees 在同一个项目里开多个独立工作区。团队里有人同时跑 3-5 个 session，每个做不同的任务。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">一个典型的并行用法：</p>
+<ul style="margin-bottom: 15px;padding-left: 30px;font-size: 15px;color: #334155;list-style-type: disc;"><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">Session A</strong>：写新功能</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">Session B</strong>：审 Session A 写的代码，找边界情况和漏洞</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;">把 B 的反馈喂给 A</li></ul>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">一个写，一个审，代码质量比单个 session 反复修要好得多。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">还有一种用法：Session A 先写测试（Test-Driven Development），Session B 再写让测试通过的代码。让 Claude 帮你把 TDD 实践起来，不用你自己跑每一步。</p>
+<img alt="Boris Cherny：Tip 1 并行 Worktrees" data-ratio="1.4046822742474916" data-w="598" src="assets/c053bd4438dd7434646d16e6b302d63d.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<img alt="并行 Session 工作流" data-ratio="0.5583333333333333" data-w="1080" src="assets/840ccaea8528e98734ed4bf39a1ec396.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<p style="font-weight: bold;color: #1e3a8a;font-size: 16px;margin-bottom: 15px;text-align: justify;">并行不只是速度提升，是代码质量上的本质不同。</p>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧五：Bug 修复，直接扔原始数据给 Claude</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">很多人修 bug 的姿势是：把 bug 描述成文字，让 Claude 猜。然后 Claude 猜一遍，你纠正，再猜，再纠正。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队的做法直接得多：<strong style="font-weight: bold;color: #333;">把原始数据扔给 Claude，说"fix"。</strong></p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">他们的 Slack MCP 接上了 Claude Code。有 bug 报进来，直接把 Slack 对话贴进去，一个字："fix。" Claude 自己读报错、找代码、修 bug。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">或者直接说："去修一下 CI 上失败的测试。" 不解释为什么失败，不指定哪个文件。Claude 自己追。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">关键是：给 Claude <strong style="font-weight: bold;color: #333;">真实的信息</strong>——错误日志、Slack 线程、docker 输出——而不是你对这些信息的描述。前者让 Claude 可以自主追踪，后者让 Claude 在你的理解框架里猜。</p>
+<img alt="Boris Cherny：Tip 5 Bug Fix" data-ratio="1.6822742474916388" data-w="598" src="assets/20009f6c28cd1ba161e20d25694659fa.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧六：子智能体——让主对话保持干净</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">还记得那块白板吗？</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">当 Claude 需要深度调查一个问题时，它要读很多文件。读完之后白板已经半满了，才开始真正的工作。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">子智能体（Subagents）</strong> 解决这个问题：让一个独立的 Claude 实例去做调查工作，它有自己的独立上下文。调查完了把结论汇报给你的主 session，主白板不受影响。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">用法很简单，在任何调查类请求后面加一句：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">用子智能体来……（后面接具体任务）</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">比如："用子智能体来搞清楚我们的支付流程是怎么处理失败交易的。"</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队更进一步：他们用 Hooks + Opus 4.5 作为子智能体，自动扫描每一个权限请求，可疑的拦截，安全的自动通过。相当于给 Claude Code 装了个智能安全门卫。</p>
+<img alt="Boris Cherny：Tip 8 子智能体" data-ratio="1.625418060200669" data-w="598" src="assets/9b2a5db7836dbc89d944b1fc9f797576.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧七：写 Skill（自定义命令），消灭重复劳动</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 的规则很简单：<strong style="font-weight: bold;color: #333;">一天做了两次的事，就变成一个 skill。</strong></p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Skill 是保存下来的工作流，给它一个名字，以后直接调用。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">比如一个 <code style="font-family: monospace;font-size: 13px;padding: 2px 4px;background-color: #f1f5f9;color: #1e3a8a;border-radius: 3px;">/fix-issue</code> 的 skill，你只需要说 <code style="font-family: monospace;font-size: 13px;padding: 2px 4px;background-color: #f1f5f9;color: #1e3a8a;border-radius: 3px;">/fix-issue 447</code>，Claude 自动：</p>
+<ol style="margin-bottom: 15px;padding-left: 0;list-style: none;background: #f8fafc;border-radius: 8px;padding: 12px 15px;border: 1px solid #e2e8f0;"><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">1</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">读取 GitHub issue #447</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">2</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">找到项目里相关的文件</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">3</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">做修复</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">4</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">写测试并运行</span></li><li style="display: flex;align-items: flex-start;margin-bottom: 10px;text-align: left;list-style: none;"><span style="flex-shrink: 0;width: 22px;height: 22px;background-color: #1e3a8a;color: white;border-radius: 50%;display: inline-flex;align-items: center;justify-content: center;font-size: 12px;font-weight: bold;margin-right: 10px;margin-top: 2px;">5</span><span style="font-size: 15px;color: #334155;line-height: 1.75;">创建 Pull Request</span></li></ol>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">一个命令，零上下文切换。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 团队还有人专门建了 BigQuery skill，团队里任何人都可以直接在 Claude Code 里跑数据分析，不用写一行 SQL。Boris 本人说他已经 6 个月没手写过 SQL 了。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">最新发布的 <strong style="font-weight: bold;color: #333;">/simplify</strong> 和 <strong style="font-weight: bold;color: #333;">/batch</strong> 两个新 skill 也值得关注——前者自动并行审查 PR 并确保 CLAUDE.md 合规，后者批量处理可并行的代码迁移任务。</p>
+<img alt="Boris Cherny：新功能 /simplify + /batch" data-ratio="1.1387959866220736" data-w="598" src="assets/8138339930e56680572a73ffebb6af51.png" style="display: block;max-width: 100%;border-radius: 6px;margin: 10px auto 20px;height: auto !important;"/>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧八：提示词技巧——逼 Claude 给出更好的答案</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Boris 分享了三个他团队常用的 prompt 技巧，都有点反直觉：</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">① 让 Claude 审你</strong></p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">在你提交代码之前：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">用最挑剔的方式质问这些改动，直到我通过你的测试才能开 PR。</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">角色倒过来，Claude 成了 reviewer，你得为自己的决策辩护。这个方法抓出的问题，比你自己 review 多得多。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">② 让 Claude 重写一个更优雅的版本</strong></p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">Claude 第一次的方案往往取了个捷径。解决完之后说：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">你现在知道所有背景了。把这个方案推翻重来，给我一个优雅的实现。</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">这个时候 Claude 通常会给出比一开始更好的答案。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">③ 要求 Claude 证明</strong></p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">别只看测试绿了就信：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">证明给我看这个改动有效。把 main 分支和我的 feature 分支的行为差异展示出来。</p></section></section>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧九：用好 /clear 和 Checkpoint</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">当你在一个 session 里工作了很久，修了 bug、问了无关问题、聊到了另一个话题……这叫<strong style="font-weight: bold;color: #333;">上下文污染</strong>。白板乱了，Claude 开始飘。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">解法有两个：</p>
+<ul style="margin-bottom: 15px;padding-left: 30px;font-size: 15px;color: #334155;list-style-type: disc;"><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">/clear</strong>：硬重置，清空上下文。然后用一个更清晰的 prompt 重新开始。</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">/compact</strong>：软重置，告诉 Claude 保留什么，清掉其他噪音。比如 <code style="font-family: monospace;font-size: 13px;padding: 2px 4px;background-color: #f1f5f9;color: #1e3a8a;border-radius: 3px;">/compact 专注于支付集成的改动</code>。</li></ul>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">关于 Checkpoint：每次 Claude 做了改动，系统都会自动创建一个存档点。如果方向走错了，随时可以回滚——只回滚代码、只回滚对话、或者两个都回。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">存档点甚至在你关了终端之后还在。明天回来，还能回滚到昨天某个状态。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;"><strong style="font-weight: bold;color: #333;">建议：</strong> 如果你在 session 里对同一个问题纠正了两次，Claude 还是没改对——不要再纠正第三次了。清掉上下文，写一个更精准的起始 prompt，重头开始。</p>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">技巧十：把 Claude Code 当成学习工具</h2>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">大部分人只把 Claude Code 当生产工具。Boris 团队还把它当学习工具。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">进入新项目时，你可以直接问：</p>
+<section style="display: flex;place-items: flex-start;background-color: rgb(236,226,254);margin: 15px 0;padding: 12px 16px;border: 1px solid rgb(173,130,247);border-radius: 8px;text-align: left;"><section style="width: 100%;"><p style="font-size: 12px;color: rgb(130,90,200);margin: 0 0 6px 0;font-weight: bold;letter-spacing: 1px;">💡 PROMPT</p><p style="font-size: 15px;color: #1B1B1B;line-height: 1.8;margin: 0;word-break: break-all;">这个项目的日志系统是怎么工作的？<br/>这个函数具体在做什么，为什么要调这个方法而不是那个？<br/>用户登录的完整流程是什么，从第一个请求到 session 建立？</p></section></section>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">这些是你原本要问老员工的问题，Claude 答得一样好，还不嫌你问。</p>
+<p style="font-size: 15px;margin-bottom: 10px;line-height: 1.75;color: #334155;text-align: justify;">还有两个有意思的玩法：</p>
+<ul style="margin-bottom: 15px;padding-left: 30px;font-size: 15px;color: #334155;list-style-type: disc;"><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">让 Claude 生成 HTML 幻灯片</strong>，把复杂代码可视化成一张张 slides。Boris 说效果出乎意料地好。</li><li style="margin-bottom: 5px;line-height: 1.75;text-align: left;"><strong style="font-weight: bold;color: #333;">间隔重复学习</strong>：你向 Claude 解释你对某个模块的理解，Claude 通过追问来找出你理解的盲点，然后记下来以后反复考你。这是完整的学习工作流，完全在 Claude Code 里跑。</li></ul>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<h2 style="font-size: 18px;color: #1e3a8a;font-weight: bold;margin-bottom: 15px;display: flex;align-items: center;margin-top: 30px;">最后：最常见的四种失误</h2>
+<table style="width: 100%;font-size: 13px;text-align: center;border-collapse: collapse;margin-bottom: 20px;border: 1px solid #e5e7eb;">
+<thead><tr><th style="padding: 10px;border: 1px solid #e5e7eb;background: #1e3a8a;color: white;">失误模式</th><th style="padding: 10px;border: 1px solid #e5e7eb;background: #1e3a8a;color: white;">症状</th><th style="padding: 10px;border: 1px solid #e5e7eb;background: #1e3a8a;color: white;">解决方法</th></tr></thead>
+<tbody>
+<tr><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">厨房水槽 session</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">话题飘到五个方向</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">切任务就 /clear</td></tr> <tr><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">纠正死循环</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">同一个错误纠正 3 次+</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">清空上下文，重写 prompt</td></tr> <tr><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">CLAUDE.md 膨胀</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">规则文件 500 行</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">问自己"没这行会犯什么错"，删掉多余的</td></tr> <tr><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">无边界调查</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">Claude 读了几百个文件，上下文耗尽</td><td style="padding: 10px;border: 1px solid #e5e7eb;color: #334155;">给调查划定范围，或用子智能体隔离</td></tr>
+</tbody></table>
+<hr style="border: 0;border-top: 1px solid #e2e8f0;margin: 15px 0;"/>
+<ul style="background: #f0f9ff;border-radius: 8px;font-size: 14px;color: #0369a1;margin-bottom: 15px;border: 1px solid #bae6fd;text-align: left;padding: 15px 15px 15px 35px;list-style-type: disc;"><li style="margin-bottom: 8px;text-align: left;">用验证标准替代"希望 Claude 猜对"</li><li style="margin-bottom: 8px;text-align: left;">先规划后执行，投资在计划阶段</li><li style="margin-bottom: 8px;text-align: left;">CLAUDE.md 自我进化，把纠正转化成规则</li><li style="margin-bottom: 8px;text-align: left;">并行 sessions 是最大的效率杠杆</li><li style="margin-bottom: 8px;text-align: left;">子智能体保持主对话干净</li><li style="margin-bottom: 8px;text-align: left;">/clear 比重复纠正更有效</li><li style="margin-bottom: 8px;text-align: left;">把 Claude Code 当老工程师，不只是代码生成器</li></ul>
+<p style="font-size: 13px;color: #999;font-weight: normal;margin-bottom: 8px;margin-top: 25px;border-top: 1px solid #eee;padding-top: 15px;">参考链接</p>
+<ul style="margin-bottom: 15px;padding-left: 30px;font-size: 15px;color: #334155;list-style-type: disc;"><li style="font-size: 12px;color: #aaa;line-height: 1.8;margin-bottom: 2px;">Claude Code 官方最佳实践文档：https://code.claude.com/docs/en/best-practices</li><li style="font-size: 12px;color: #aaa;line-height: 1.8;margin-bottom: 2px;">Boris Cherny 原始 Tips 推文线程：https://x.com/bcherny/status/2017742741636321619</li></ul>
+<section style="margin-top: 30px;margin-bottom: 20px;border: 1px solid #e2e8f0;border-radius: 8px;overflow: hidden;">
+  <section style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);padding: 10px 15px;">
+    <span style="color: #ffffff;font-size: 13px;font-weight: bold;">📚 往期精选</span>
+  </section>
+<section style="padding: 10px 15px;border-bottom: 1px solid #f0f0f0;background: #f8fafc;">
+  <a href="https://mp.weixin.qq.com/s?__biz=Mzg4ODY1NTcxNg==&amp;mid=2247498257&amp;idx=1&amp;sn=547f0a4c295116130278566c1d39a4aa&amp;scene=21#wechat_redirect" style="text-decoration: none;color: #1e3a8a;font-size: 13px;line-height: 1.6;">一个人搞定整个营销团队：AI Agent 自动化获客的 10 个实战玩法</a>
+</section>
+<section style="padding: 10px 15px;border-bottom: 1px solid #f0f0f0;">
+  <a href="https://mp.weixin.qq.com/s?__biz=Mzg4ODY1NTcxNg==&amp;mid=2247497806&amp;idx=1&amp;sn=3f4661e99c0f70f266926dd7154c03aa&amp;scene=21#wechat_redirect" style="text-decoration: none;color: #1e3a8a;font-size: 13px;line-height: 1.6;">Token 省 89%、成功率 97.9%：Google 的 WebMCP 要把浏览器 Agent 从「瞎摸」变成「直连」</a>
+</section>
+<section style="padding: 10px 15px;border-bottom: 1px solid #f0f0f0;background: #f8fafc;">
+  <a href="https://mp.weixin.qq.com/s?__biz=Mzg4ODY1NTcxNg==&amp;mid=2247498255&amp;idx=1&amp;sn=f03ec2f73f644c789ecc7fac3bab60d6&amp;scene=21#wechat_redirect" style="text-decoration: none;color: #1e3a8a;font-size: 13px;line-height: 1.6;">我用 AI 一周赚了 500 万</a>
+</section>
+<section style="padding: 10px 15px;border-bottom: 1px solid #f0f0f0;">
+  <a href="https://mp.weixin.qq.com/s?__biz=Mzg4ODY1NTcxNg==&amp;mid=2247498072&amp;idx=1&amp;sn=46225f650ba62687db66f51c20a9c35a&amp;scene=21#wechat_redirect" style="text-decoration: none;color: #1e3a8a;font-size: 13px;line-height: 1.6;">Anthropic 官方 Claude Code 使用指南：10个内部团队的真实用法，附完整 PDF</a>
+</section>
+<section style="padding: 10px 15px;border-bottom: 1px solid #f0f0f0;background: #f8fafc;">
+  <a href="https://mp.weixin.qq.com/s?__biz=Mzg4ODY1NTcxNg==&amp;mid=2247497750&amp;idx=1&amp;sn=4d49781d9f1384129b884da23986493c&amp;scene=21#wechat_redirect" style="text-decoration: none;color: #1e3a8a;font-size: 13px;line-height: 1.6;">Chatbot时代结束了？在百度智能云一键部署OpenClaw，AI真的能炒股了</a>
+</section>
+</section>
+<section style="text-align: center;line-height: 27.2px;margin-top: 30px;">
+  <hr style="margin-bottom: 0;"/>
+  </section><section class="mp_profile_iframe_wrp"><mp-common-profile class="custom_select_card mp_profile_iframe mp_common_widget" data-alias="szzdzhp" data-from="0" data-headimg="http://mmbiz.qpic.cn/mmbiz_png/kmWVxLDDVAWrnbUPdHvpMzNBfrYgrv5y55OhZiaXYrfk5QaMAxjhcwOWdWDF5R4Hspkduve7wCBafm3XmFB1QCw/0?wx_fmt=png" data-id="Mzg4ODY1NTcxNg==" data-nickname="石臻说AI" data-pluginname="mp-common-profile" data-service_type="1" data-signature="科技博主,10年+大厂Coder专注于AI提效｜科技数码｜用AI提效，剩下时间摸鱼— AI摸鱼社区🛰：szzdzhp001"></mp-common-profile></section><section style="text-align: center;line-height: 27.2px;margin-top: 30px;"><p style="margin-top: 15px;margin-bottom: 5px;text-align: center;"><span style="font-size: 14px;color: #333333;">— <strong>完</strong> —</span></p>
+<br/></section>
+<p style="text-align: center;margin: 10px 0 5px 0;"><span style="font-size: 10px;color: #7a4442;text-decoration: underline;"><strong>围观朋友圈查看每日最前沿AI资讯</strong></span></p>
+<p style="text-align: center;margin: 0 0 5px 0;">
+  <img alt="二维码" data-ratio="1.1162280701754386" data-type="jpeg" data-w="912" src="assets/092650857280733b6a7e92fc4efff5cf.jpg" style="width: 200px;height: auto !important;"/>
+</p>
+<p style="text-align: center;margin: 0 0 3px 0;"><span style="font-size: 12px;color: #00997f;"><strong>一键关注 👇 点亮星标</strong></span></p>
+<p style="text-align: center;margin: 0 0 10px 0;"><span style="font-size: 12px;color: #00997f;"><strong>每日科技资讯和提效工具分享</strong></span></p></section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
