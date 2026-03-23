@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>把任何文件变成 Markdown：微软开源</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">把任何文件变成 Markdown：微软开源</div>
+        <div class="content">
+            <html><body><div class="rich_media_content" id="js_content_wrapper" style="visibility: visible;"><div class="image_channel_text" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 15px; border-radius: 8px;">微软开源了一个叫MarkItDown的Python工具，干的事情很简单：把各种文件转成Markdown。听起来不性感，但用起来真香。<br/><br/>为什么要转Markdown？因为现在的主流大模型，不管是GPT还是Claude，训练数据里包含海量Markdown文本，它们天生理解这种格式。同样的内容，Markdown比HTML省60-70%的token，而且能保留标题层级、表格结构和链接关系。直接扔PDF给AI容易乱码丢格式，先转Markdown再喂进去，效果完全不一样。<br/><br/>支持的格式非常全。PDF、Word、Excel、PowerPoint、图片、音频、HTML、CSV、JSON、XML、ZIP压缩包、YouTube视频链接、EPub电子书，基本上你能遇到的文件格式它都能处理。<br/><br/>使用方式也足够简单。命令行一行搞定：markitdownreport.pdf&gt;output.md。Python三行代码就能集成到你自己的项目里。不想装环境还能用Docker。<br/><br/>进阶功能值得关注。OCR插件能用LLMVision提取文档里嵌入图片中的文字，不需要装Tesseract。传入OpenAI客户端还能自动给图片生成文字描述。插件系统支持第三方扩展，社区生态在持续增长。<br/><br/>最实用的是MCP服务器功能。安装markitdown-mcp包配置到ClaudeDesktop，你就能在Claude对话里直接扔文件进去，AI自动转换后阅读分析。不需要手动转换，不需要复制粘贴。企业级场景还能接入AzureDocumentIntelligence做高精度文档解析。<br/><br/>实战场景很多。给AI喂文档做合同分析和论文总结，建知识库和RAG检索管线的预处理步骤，YouTube视频自动提取字幕做学习笔记，ZIP文件批量处理一行命令搞定。<br/><br/>一句话总结：给AI喂数据的第一步，从MarkItDown开始。<br/><br/>#MarkItDown#微软开源#AI工具#Markdown#LLM#RAG#文档处理#ClaudeDesktop#MCP#Python工具<br/></div><hr/><div class="image_channel_desc" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333;">微软开源了一个叫 MarkItDown 的 Python 工具，干的事情很简单：把各种文件转成 Markdown。听起来不性感，但用起来真香。<br/><br/>为什么要转 Markdown？因为现在的主流大模型，不管是 GPT 还是 Claude，训练数据里包含海量 Markdown 文本，它们天生理解这种格式。同样的内容，Markdown 比 HTML 省 60-70% 的 token，而且能保留标题层级、表格结构和链接关系。直接扔 PDF 给 AI 容易乱码丢格式，先转 Markdown 再喂进去，效果完全不一样。<br/><br/>支持的格式非常全。PDF、Word、Excel、PowerPoint、图片、音频、HTML、CSV、JSON、XML、ZIP 压缩包、YouTube 视频链接、EPub 电子书，基本上你能遇到的文件格式它都能处理。<br/><br/>使用方式也足够简单。命令行一行搞定：markitdown report.pdf &gt; output.md。Python 三行代码就能集成到你自己的项目里。不想装环境还能用 Docker。<br/><br/>进阶功能值得关注。OCR 插件能用 LLM Vision 提取文档里嵌入图片中的文字，不需要装 Tesseract。传入 OpenAI 客户端还能自动给图片生成文字描述。插件系统支持第三方扩展，社区生态在持续增长。<br/><br/>最实用的是 MCP 服务器功能。安装 markitdown-mcp 包配置到 Claude Desktop，你就能在 Claude 对话里直接扔文件进去，AI 自动转换后阅读分析。不需要手动转换，不需要复制粘贴。企业级场景还能接入 Azure Document Intelligence 做高精度文档解析。<br/><br/>实战场景很多。给 AI 喂文档做合同分析和论文总结，建知识库和 RAG 检索管线的预处理步骤，YouTube 视频自动提取字幕做学习笔记，ZIP 文件批量处理一行命令搞定。<br/><br/>一句话总结：给 AI 喂数据的第一步，从 MarkItDown 开始。<br/><br/>#MarkItDown #微软开源 #AI工具 #Markdown #LLM #RAG #文档处理 #ClaudeDesktop #MCP #Python工具<br/></div><p><img src="assets/53d316e7a9041012eb4ede9c7e8bfb0c.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/845cec3f8e59c3f70d8c07241470f978.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/9c14f9e6fe4e5cc72097213f642ced3b.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/7f3aa49760447a8335e167e566326d9c.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/3fb8f204c0994975f7c5fc36deb7a75f.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/454bfec52bdd0605c908e8c0c63b2ab4.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/1f4a2e31c068aeb7429155b483d38945.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/c09c1ef07e3c6174abcb71c140a25611.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/b22c60321062f82db0e2d56e25a684ac.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/></div></body></html>
+        </div>
+    </body>
+    </html>
+    
