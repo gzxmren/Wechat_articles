@@ -1,0 +1,103 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Anthropic 最新研究讲透了一件事：不是所有任务都适合多 Agents</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Anthropic 最新研究讲透了一件事：不是所有任务都适合多 Agents</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><div style='max-width: 100%;margin: 0 auto;padding: 24px 20px 48px 20px;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;font-size: 16px;line-height: 1.7 !important;color: #2b2b2b !important;background-color: #f8f6f0 !important;word-wrap: break-word;'><p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">✅点击上方🔺公众号🔺关注我✅</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><span style="letter-spacing: 0.034em;">今天看了</span><span style="letter-spacing: 0.034em;"> Anthropic 一篇文章，很是受到触动。文章链接放在结尾了，大家有需要可以看下原文。</span></p><p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><span style="letter-spacing: 0.034em;">现在大家聊起Agent，都在聊多Agent团队协作完成任务。而这篇 </span><code style='letter-spacing: 0.034em;font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;border-radius: 4px;background-color: rgb(240, 236, 228) !important;color: rgb(183, 92, 61) !important;font-size: 12px !important;line-height: 1.5 !important;'>long-running Claude</code><span style="letter-spacing: 0.034em;"> 想讲的，恰恰是另一件事：</span><strong style="letter-spacing: 0.034em;font-weight: 700;background-color: rgba(183, 92, 61, 0.08);padding-right: 4px;padding-left: 4px;border-radius: 4px;color: rgb(183, 92, 61) !important;">不是所有任务都适合多 Agents。</strong><br/></p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">有些任务，最怕的不是人手不够，而是上下文断掉。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><img alt="long-running Claude 封面" data-ratio="0.562962962962963" data-type="jpeg" data-w="1080" src="assets/4bdc2f0bac05d825dc4cc6aaa4630310.jpg" style="display: block;width: 100%;max-width: 100%;box-sizing: border-box;box-shadow: rgba(15, 23, 42, 0.22) 0px 16px 34px, rgba(15, 23, 42, 0.12) 0px 4px 10px;border: 1px solid rgba(15, 23, 42, 0.12);margin: 30px auto !important;padding: 8px !important;border-radius: 14px !important;height: auto !important;"/></p>
+<blockquote style="margin: 24px 0;padding: 16px 20px;background-color: rgba(183, 92, 61, 0.04) !important;border-left: 4px solid #b75c3d;color: #555 !important;border-radius: 4px;">
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 这次拿了一个很硬核的案例来说明这件事：当任务强耦合、错误会一路累积时，单 Agent 长跑，往往比多 Agent 并行更对路。</p>
+</blockquote>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">这篇文章真正想讲什么？</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">很多人看到标题，会先被“scientific computing”吸走注意力，以为重点是 Claude 又做了个科研 demo。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">不是。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 官方推文其实已经把核心说得很明白：模型在 long-horizon tasks 上确实越来越强，但 <strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">splitting work across many agents doesn’t suit every problem</strong>。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这才是全文中心。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">他们拿来举例的任务，是早期宇宙建模里的玻尔兹曼求解器。这个例子很硬，但并不妨碍普通开发者理解它要证明什么：</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">有些任务不是不能拆，而是拆了反而更容易做歪。</strong></p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">因为这类任务前后依赖太重。前面一个近似错了，后面整条链都会偏；某个数值处理不对，最终结果也会一起跑偏。你把这种任务切给很多 Agents，看上去像是在加速，实际上很可能是在放大协调成本和排错难度。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">为什么这类任务不适合多 Agents？</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">我觉得这里最值得记住的，不是那个宇宙学名词，而是任务结构。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这类任务通常有几个共同点：</p>
+<ul style="margin: 16px 0;padding-left: 28px;list-style-type: disc !important;list-style-position: outside;"><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">前后强耦合</strong>：不是几个独立模块拼起来，而是一条连续链路</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">错误会累积</strong>：前面的小错，后面会被放大</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">排错要追因果</strong>：不是“哪块没做完”，而是“哪一步开始歪了”</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">需要连续上下文</strong>：不能隔几步就把思路切断，再指望后面无损接回去</li></ul>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 对这种任务的判断很直接：比起一开始就上多 Agent 并行，更适合让一个 Agent 顺着问题链往下走，必要时再叫子 Agent 帮忙。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这点其实挺反直觉，但很合理。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">多 Agent 最擅长的，是把任务拆成很多边界清楚、结果容易合并的小块；单 Agent 更擅长的，是守住一条不断线的推理链。前者像多人流水线，后者像一个人盯着一张复杂地图慢慢往前走。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">最能说明问题的，是这张图</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 文里最值得放出来的，是这张误差收敛图。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><img alt="Claude 长周期科研编码的误差收敛图" data-ratio="0.524074074074074" data-type="png" data-w="1080" src="assets/e6ad8de69727ba74125e164b623bd117.png" style="display: block;width: 100%;max-width: 100%;box-sizing: border-box;box-shadow: rgba(15, 23, 42, 0.22) 0px 16px 34px, rgba(15, 23, 42, 0.12) 0px 4px 10px;border: 1px solid rgba(15, 23, 42, 0.12);margin: 30px auto !important;padding: 8px !important;border-radius: 14px !important;height: auto !important;"/></p>
+<blockquote style="margin: 24px 0;padding: 16px 20px;background-color: rgba(183, 92, 61, 0.04) !important;border-left: 4px solid #b75c3d;color: #555 !important;border-radius: 4px;">
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">横轴是连续推进的时间，纵轴是相对参考实现 <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;'>CLASS</code> 的误差。几条曲线一路往下掉，说明 Claude 不是只做出一个版本就停，而是在持续修、持续对齐、持续逼近目标。</p>
+</blockquote>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这张图的意思很硬，但不难懂。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">一开始误差很高，中间也有走弯路的时候，但整体趋势很清楚：它不是把任务拆散后同时开工，而是顺着同一条链慢慢把误差压下去。对这种任务来说，连续性本身就是生产力。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这也是为什么 Anthropic 明说：不是所有长任务都适合多 Agent。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">他们给出的，不是观点，是一套工作流</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这篇文章真正有用的地方，在于它没停留在观点上，而是把“单 Agent 长跑”怎么落地讲得很具体。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">核心脚手架大概有这几样：</p>
+<h3 style="font-size: 21px;font-weight: 600;color: #2b2b2b !important;line-height: 1.4 !important;margin: 28px 0 14px;">1. <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;color: inherit !important;background-color: transparent !important;border: none !important;padding: 0 !important;'>CLAUDE.md</code></h3>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">先把目标、边界、精度要求、交付标准写清楚。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这一步看起来老派，但很关键。长任务最怕边做边飘，前面没把目标钉住，后面很容易忙了半天却没打中靶。</p>
+<h3 style="font-size: 21px;font-weight: 600;color: #2b2b2b !important;line-height: 1.4 !important;margin: 28px 0 14px;">2. <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;color: inherit !important;background-color: transparent !important;border: none !important;padding: 0 !important;'>CHANGELOG.md</code></h3>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">把它当长期记忆和实验日志。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">不只是记“做了什么”，还要记：</p>
+<ul style="margin: 16px 0;padding-left: 28px;list-style-type: disc !important;list-style-position: outside;"><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">哪些尝试失败了</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">为什么失败</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">当前误差到了哪里</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">还剩哪些已知问题</li></ul>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">没有这份记录，下一轮 session 很容易把老坑再踩一遍。</p>
+<h3 style="font-size: 21px;font-weight: 600;color: #2b2b2b !important;line-height: 1.4 !important;margin: 28px 0 14px;">3. test oracle</h3>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这一点尤其重要。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">长时间自动工作，不能只靠“看起来像在进展”。必须有一个持续验证的基准。在这个例子里，Claude 会一直拿参考实现 <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;'>CLASS</code> 做对照，反复跑测试、扩测试、看偏差。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">没有 oracle，再强的模型也可能只是在很认真地往错方向狂奔。</p>
+<h3 style="font-size: 21px;font-weight: 600;color: #2b2b2b !important;line-height: 1.4 !important;margin: 28px 0 14px;">4. Git + tmux + 长时间运行环境</h3>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 这篇里最现实的一点，是它承认这种工作流不是聊十分钟就结束的。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">他们把 Claude Code 放进 <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;'>tmux</code>，再丢进跑 <code style='font-family: "SF Mono", Consolas, monospace;padding: 3px 6px;background-color: #f0ece4 !important;color: #b75c3d !important;border-radius: 4px;font-size: 12px !important;line-height: 1.5 !important;'>SLURM</code> 的 HPC 环境里，让它连续干几天。每完成一段有意义的工作就 commit / push，这样进度可见、结果可追、出错也能回滚。</p>
+<h3 style="font-size: 21px;font-weight: 600;color: #2b2b2b !important;line-height: 1.4 !important;margin: 28px 0 14px;">5. Ralph loop</h3>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">这个小东西看起来土，但很有用。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">它的作用很简单：当 Agent 声称“我做完了”时，再把它踢回去问一遍——真的做完了吗？做到标准了吗？</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">对长任务来说，这比很多华丽的 orchestration 都实在。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">这对普通开发者有什么用？</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">我觉得用处很大。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">因为 Anthropic 讲的表面上是科学计算，底下其实是在讲一类更普遍的任务：</p>
+<ul style="margin: 16px 0;padding-left: 28px;list-style-type: disc !important;list-style-position: outside;"><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">大型旧代码迁移</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">强依赖链的数据管线排错</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">跟参考实现做 feature parity</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">数值模拟或量化研究代码验证</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">一条链很长、错误会逐步放大的工程任务</li></ul>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">如果你手上的任务符合这些特征，那你优先该想的，不是“要不要再开几个 Agent”，而是：</p>
+<ul style="margin: 16px 0;padding-left: 28px;list-style-type: disc !important;list-style-position: outside;"><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">怎么保证上下文不断</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">怎么把失败路线记下来</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">怎么持续验证它是不是离目标更近了</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">怎么让它在一个可连续运行的环境里慢慢逼近答案</li></ul>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">很多时候，真正稀缺的不是并行度，而是连续性。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">那多 Agents 还重要吗？</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">当然重要。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">Anthropic 这篇不是在反对多 Agents，而是在纠正一个越来越常见的幻觉：<strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">多 Agent 不是默认答案。</strong></p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">多 Agent 更适合这些场景：</p>
+<ul style="margin: 16px 0;padding-left: 28px;list-style-type: disc !important;list-style-position: outside;"><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">任务边界清楚</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">子任务之间相对独立</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">结果容易合并</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">成败标准明确</li><li style="margin: 8px 0;line-height: 1.7 !important;color: #2b2b2b !important;">协调成本低于并行收益</li></ul>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">比如批量信息搜集、明确切块的页面生成、章节化文档整理、独立模块重构，这些都很适合多 Agent。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">但一旦任务变成“上下文不能断、错误会累积、排错要追整条因果链”，单 Agent 往往更稳。</p>
+<h2 style="font-size: 26px;font-weight: 600;color: #b75c3d !important;line-height: 1.35 !important;margin: 32px 0 16px;">最后一句</h2>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">我觉得 Anthropic 这篇最重要的价值，不是又证明了 Claude 很强，而是把一个很容易被说反的问题讲明白了：</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><strong style="font-weight: 700;color: #b75c3d !important;background-color: rgba(183,92,61,0.08);padding:0 4px;border-radius:4px;">选工作流，先看任务结构，再看 Agent 数量。</strong></p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">对一类高耦合任务来说，真正该优化的从来不是“再多叫几个 Agent”，而是连续性、记忆、验证和回路。</p>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;">多 Agent 不是万能解。对有些任务来说，最怕的不是人手不够，而是上下文断掉。</p><h2 style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);margin: 32px 0px 16px;padding: 0px;outline: 0px;font-weight: 600;font-size: 26px;max-width: 100%;box-sizing: border-box !important;overflow-wrap: break-word !important;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;font-style: normal;font-variant-caps: normal;letter-spacing: 0.544px;orphans: 2;text-align: justify;text-indent: 0px;text-transform: none;white-space: normal;widows: 2;word-spacing: 0px;-webkit-text-stroke-width: 0px;background-color: rgb(248, 246, 240);text-decoration-line: none;text-decoration-thickness: auto;text-decoration-style: solid;color: rgb(183, 92, 61) !important;line-height: 1.35 !important;'>参考链接</h2><ul style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);margin: 16px 0px;padding: 0px 0px 0px 28px;outline: 0px;max-width: 100%;box-sizing: border-box !important;overflow-wrap: break-word !important;caret-color: rgb(43, 43, 43);color: rgb(43, 43, 43);font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;font-size: 16px;font-style: normal;font-variant-caps: normal;font-weight: 400;letter-spacing: 0.544px;orphans: 2;text-align: justify;text-indent: 0px;text-transform: none;white-space: normal;widows: 2;word-spacing: 0px;-webkit-text-stroke-width: 0px;background-color: rgb(248, 246, 240);text-decoration-line: none;text-decoration-thickness: auto;text-decoration-style: solid;list-style-position: outside;list-style-type: disc !important;'><li style="text-align: left;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);margin: 8px 0px;padding: 0px;outline: 0px;max-width: 100%;box-sizing: border-box !important;overflow-wrap: break-word !important;line-height: 1.7 !important;color: rgb(43, 43, 43) !important;">Long-running Claude for scientific computing：https://www.anthropic.com/research/long-running-Claude</li></ul>
+<hr style="margin: 36px auto;border: none;height: 1px;background-color: #eaeaea !important;width: 100%;"/>
+<p style="margin: 18px 0 !important;line-height: 1.7 !important;color: #2b2b2b !important;"><em style="font-style: italic;color: #666 !important;">如果觉得这篇文章有帮助，欢迎点赞、在看、转发！有问题也可以在评论区留言，我会尽量回复！</em></p>
+</div><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
