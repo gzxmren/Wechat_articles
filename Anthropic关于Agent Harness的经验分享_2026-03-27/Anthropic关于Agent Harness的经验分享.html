@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Anthropic关于Agent Harness的经验分享</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Anthropic关于Agent Harness的经验分享</div>
+        <div class="content">
+            <html><body><div class="rich_media_content" id="js_content_wrapper" style="visibility: visible;"><div class="image_channel_text" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 15px; border-radius: 8px;">先说问题。AI长时间自主写代码有两个死穴。第一个叫ContextAnxiety，上下文窗口越满模型越失去连贯性，甚至以为快到极限就提前收工。Sonnet4.5这个问题严重到Compaction都救不了，必须ContextReset换新Agent。第二个是自我评价膨胀，让Agent评价自己作品它总说很棒，哪怕人眼一看就知道很平庸，设计类任务尤其严重。<br/><br/>解法来自GAN启发：把干活的和评判的分成两个独立Agent。调教Evaluator变严格比让Generator自我批评容易得多。<br/><br/>先拿前端设计练手。四个评分维度：设计质量、原创性、工艺、功能，刻意加权前两项因为Claude技术不差但审美太安全。评分标准惩罚AI味模式。Evaluator拿PlaywrightMCP直接操作页面再打分，5到15轮迭代，跑约4小时。<br/><br/>最惊艳的是荷兰美术馆案例。前9轮产出干净的暗色美术馆网站，精致但在预期内。第10轮突然推翻重来，变成CSS透视的3D房间、棋盘格地板、画作自由挂墙上、门形导航穿梭展厅。这种创意跳跃单次生成从未见过。prompt里写的museumquality意外推动了特定视觉收敛。<br/><br/>扩展到全栈后搭了三Agent架构。Planner接收1到4句描述扩写完整产品规格，只写高层不写细节防级联错误。Generator按Sprint逐功能实现。Evaluator用Playwright像用户一样操作测试。Sprint前双方协商合约定义完成标准。<br/><br/>实战对比：同一个复古游戏prompt，Solo20分钟/$9游戏核心功能坏了，Harness6小时/$200扩写16功能10个Sprint核心可玩。QA抓到具体bug：填充工具只放起点终点、Delete条件写错、路由顺序导致422。<br/><br/>Opus4.6发布后开始简化。去掉Sprint分解，Evaluator改为单次终审。核心原则：每个组件都是一个假设，一次删一个看影响。简化后跑浏览器DAW，3小时50分/$124，Generator连续跑2小时保持连贯，3轮QA抓出功能缺口，最终能用prompt自动编曲。<br/><br/>#Anthropic#Claude#MultiAgent#Harness#AI编程#AgentSDK#前端设计#全栈开发#Opus46#AI工程<br/></div><hr/><div class="image_channel_desc" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333;">先说问题。AI长时间自主写代码有两个死穴。第一个叫Context Anxiety，上下文窗口越满模型越失去连贯性，甚至以为快到极限就提前收工。Sonnet 4.5这个问题严重到Compaction都救不了，必须Context Reset换新Agent。第二个是自我评价膨胀，让Agent评价自己作品它总说很棒，哪怕人眼一看就知道很平庸，设计类任务尤其严重。<br/><br/>解法来自GAN启发：把干活的和评判的分成两个独立Agent。调教Evaluator变严格比让Generator自我批评容易得多。<br/><br/>先拿前端设计练手。四个评分维度：设计质量、原创性、工艺、功能，刻意加权前两项因为Claude技术不差但审美太安全。评分标准惩罚AI味模式。Evaluator拿Playwright MCP直接操作页面再打分，5到15轮迭代，跑约4小时。<br/><br/>最惊艳的是荷兰美术馆案例。前9轮产出干净的暗色美术馆网站，精致但在预期内。第10轮突然推翻重来，变成CSS透视的3D房间、棋盘格地板、画作自由挂墙上、门形导航穿梭展厅。这种创意跳跃单次生成从未见过。prompt里写的museum quality意外推动了特定视觉收敛。<br/><br/>扩展到全栈后搭了三Agent架构。Planner接收1到4句描述扩写完整产品规格，只写高层不写细节防级联错误。Generator按Sprint逐功能实现。Evaluator用Playwright像用户一样操作测试。Sprint前双方协商合约定义完成标准。<br/><br/>实战对比：同一个复古游戏prompt，Solo 20分钟/$9游戏核心功能坏了，Harness 6小时/$200扩写16功能10个Sprint核心可玩。QA抓到具体bug：填充工具只放起点终点、Delete条件写错、路由顺序导致422。<br/><br/>Opus 4.6发布后开始简化。去掉Sprint分解，Evaluator改为单次终审。核心原则：每个组件都是一个假设，一次删一个看影响。简化后跑浏览器DAW，3小时50分/$124，Generator连续跑2小时保持连贯，3轮QA抓出功能缺口，最终能用prompt自动编曲。<br/><br/>#Anthropic #Claude #MultiAgent #Harness #AI编程 #AgentSDK #前端设计 #全栈开发 #Opus46 #AI工程<br/></div><p><img src="assets/6d16c2d8ec8196b52cd9369140bcf3a6.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/beb5096bbf5b8e62a6bc571575ab397b.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/8e6c8ca424a61eb77b693947007e758b.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/7420b5a580a9d653376f941ea23e217d.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/caa1ff970a9650c6749836d4db3c14ed.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/7997a2de101a13b7adbfe1f2995a3392.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/b02acdfec814a5851a1e22aab0a60d9d.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/0301afd4064aa74201c7954deae0c2fc.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/123730e0c6120775e76e130132c982de.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/d5a51c2ad06493d34a18bbe7d2574ba0.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/38faf30326b4ac677b91340fba13f1b4.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/><p><img src="assets/7a57930d253953694446915a91171bbb.jpg" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/></p><br/></div></body></html>
+        </div>
+    </body>
+    </html>
+    
