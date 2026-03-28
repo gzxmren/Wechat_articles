@@ -1,0 +1,188 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>给 OpenClaw Agent Team 装上记忆——踩了19天坑，终于搞明白了</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">给 OpenClaw Agent Team 装上记忆——踩了19天坑，终于搞明白了</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;'><img data-ratio="0.5583333333333333" data-type="png" data-w="1080" src="assets/f278c275ba14955c447841eea08bd095.png" style="width: 100%;display: block;height: auto !important;"/>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">Wesley AI 日记 · 第2集</strong>｜一人公司 × AI Agent 实战复盘</p>
+<p style="margin: 1em 0px;">用 OpenClaw 搭建 AI Agent 团队的第19天，我终于搞清楚：给 AI 装记忆，不是写几个文件这么简单。这是一个需要系统设计的工程问题。</p>
+</blockquote>
+<p style="margin: 1em 0px;">三周前，我用 OpenClaw 组了一支 AI 员工团队：CEO Agent、公众号 Agent、小红书 Agent……六个 AI，一个人管，就是我所说的「一人公司」模式。</p>
+<p style="margin: 1em 0px;">搭完第一天，我挺得意的。</p>
+<p style="margin: 1em 0px;">到了第三天，我差点把 CEO Agent 炒了。</p>
+<p style="margin: 1em 0px;">原因很简单——<strong style="color: rgb(72, 112, 172);">同一个错误，我批评了三次，它每次都像第一次听到。</strong></p>
+<p style="margin: 1em 0px;">那一刻我才意识到，我忘了给 OpenClaw AI Agent 装一个最基础的东西：<strong style="color: rgb(72, 112, 172);">记忆。</strong></p>
+<p style="margin: 1em 0px;">接下来 19 天，我把装记忆这件事做成了一个系统工程。踩了五个阶段的坑，最终设计出一套 v2.0 方案。这篇文章，把整个过程完整复盘。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>第一部分：踩坑的 19 天</span></h2>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>阶段1：裸奔期（3/1-3/3）—— AI Agent 的金鱼记忆</span></h3>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">三次批评，三次"第一次犯"。</strong></p>
+<p style="margin: 1em 0px;">最初我完全没有给 OpenClaw Agent 任何记忆机制。每次对话开始，它就是一张白纸。</p>
+<p style="margin: 1em 0px;">头两天体验还行。第三天，CEO Agent 在飞书消息里用了 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>&lt;img&gt;</code> HTML 标签来嵌入图片。我说：飞书不支持 img 标签，要用 upload_image API。</p>
+<p style="margin: 1em 0px;">"好的，明白了。"</p>
+<p style="margin: 1em 0px;">第二天，又用了 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>&lt;img&gt;</code> 标签。</p>
+<p style="margin: 1em 0px;">我再次纠正。"好的，明白了。"</p>
+<p style="margin: 1em 0px;">第三天，还是 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>&lt;img&gt;</code> 标签。</p>
+<p style="margin: 1em 0px;">我终于反应过来：这不是 AI Agent 在摆烂，是它<strong style="color: rgb(72, 112, 172);">真的不记得</strong>。每次对话窗口一关，之前所有的信息都消失了。我批评过它三次，但对它来说，每次都是第一次犯这个错误。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">这就是 AI Agent 的金鱼记忆——不是记性差，是每天都是第一天上班的员工。</strong></p>
+<p style="margin: 1em 0px;"><img alt="金鱼记忆——AI裸奔阶段" data-ratio="0.5092592592592593" data-type="jpeg" data-w="1080" src="assets/405c0cb98d3fe1b8b82831dd9508f921.jpg" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="金鱼记忆——AI裸奔阶段"/></p>
+<p style="margin: 1em 0px;">金鱼的记忆据说只有 7 秒。AI Agent 的记忆，是一个 context window。Context 一清，全清零。在 OpenClaw 中，每个 Agent session 独立运行，不跨 session 共享状态——这是设计如此，不是 Bug。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>阶段2：随手笔记（3/3-3/6）—— 有记忆，但碎片化</span></h3>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">40+ 个文件，想找一条规则要翻半天。</strong></p>
+<p style="margin: 1em 0px;">解法很直觉：给 OpenClaw AI Agent 一个文件，让它自己记笔记。</p>
+<p style="margin: 1em 0px;">我设计了两层：</p>
+<ul style="list-style-type: disc;"><li><section><strong style="color: rgb(72, 112, 172);">MEMORY.md</strong>：存核心规则、偏好、关键决策</section></li><li><section><strong style="color: rgb(72, 112, 172);">memory/YYYY-MM-DD.md</strong>：每日工作日志</section></li></ul>
+<p style="margin: 1em 0px;">效果立竿见影。飞书图片问题再没出现。AI Agent 知道了我不喜欢啰嗦的回复，知道了发布前要内审，知道了不同 Agent 的分工。</p>
+<p style="margin: 1em 0px;">但很快，新问题浮现——<strong style="color: rgb(72, 112, 172);">文件越来越多，越来越乱。</strong></p>
+<p style="margin: 1em 0px;">三周，40+ 个 memory 文件。每个文件里都有信息，但"昨天那个 API 规范写在哪里"——没人知道，只能 grep。</p>
+<p style="margin: 1em 0px;">更危险的是：<strong style="color: rgb(72, 112, 172);">session compaction（会话压缩）。</strong></p>
+<p style="margin: 1em 0px;">当对话太长，OpenClaw 系统会自动截断历史上下文。Context 里的记忆，说没就没。</p>
+<p style="margin: 1em 0px;">有一次，我们聊了两个小时，做了很多决策。结果压缩后，AI Agent 对刚才发生的一切失忆了。它回答的是压缩前的旧状态——但那个状态，已经是两小时前的事了。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">记住了，其实被压缩那一刀切掉了。</strong></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>阶段3：共享知识库（3/8-3/12）—— 从私人笔记到团队知识</span></h3>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">子 AI Agent 被派出去时，终于带着最新规范。</strong></p>
+<p style="margin: 1em 0px;">问题的本质我想清楚了：记忆是分散的，但知识应该是共享的。</p>
+<p style="margin: 1em 0px;">每个 OpenClaw AI Agent 都有自己的 memory，但有些规范是全局的。这些规范写在哪个 Agent 的 memory 里，对其他 AI Agent 来说都是盲点。尤其是 spawn 子 Agent 时，它用的是初始化时的规范，可能已经过时。</p>
+<p style="margin: 1em 0px;">于是我建立了 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>shared-knowledge/</code> 目录——跨 Agent 的共享知识库：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>shared-knowledge/<br/>├── standards/          # 规范<br/>│   ├── team-architecture.md<br/>│   ├── feishu-api-guide.md<br/>│   └── image-style-guide.md<br/>├── runbooks/           # 操作手册<br/>└── history/            # 历史记录<br/>    ├── decisions-log.md<br/>    └── incidents.md<br/></code></pre><p style="margin: 1em 0px;">每次 OpenClaw spawn 子 Agent，把最新的 standards/ 作为 context 传入。<strong style="color: rgb(72, 112, 172);">一处修改，全员生效。</strong></p>
+<p style="margin: 1em 0px;">AI Agent 的记忆，从"一个人的笔记本"变成了"整个团队的知识库"。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>阶段4：任务追踪（3/13-3/17）—— 防遗忘，防重发</span></h3>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">不再丢任务，不再发两遍同一篇文章。</strong></p>
+<p style="margin: 1em 0px;">共享知识库解决了"知道什么规范"的问题，但还有另一个维度：<strong style="color: rgb(72, 112, 172);">任务状态管理。</strong></p>
+<p style="margin: 1em 0px;">一人公司里，CEO AI Agent 经常"失忆"自己在做什么。我交代了四件事，它做完了两件，重启后，忘了另外两件还没做。</p>
+<p style="margin: 1em 0px;">还有一个严重问题：<strong style="color: rgb(72, 112, 172);">重复发布。</strong> 小红书文章发了两次，飞书消息发了两条。不只是尴尬，是真实的运营风险。</p>
+<p style="margin: 1em 0px;">新增了四个机制：</p>
+<ul style="list-style-type: disc;"><li><section><strong style="color: rgb(72, 112, 172);">active-tasks.md</strong>——实时任务看板，CEO AI Agent 每 15 分钟检查一次</section></li><li><section><strong style="color: rgb(72, 112, 172);">.publish-locks/</strong>——发布互斥锁，有锁不发，发后生锁</section></li><li><section><strong style="color: rgb(72, 112, 172);">decisions-log.md</strong>——决策永久记录，重要决定不再靠回忆</section></li><li><section><strong style="color: rgb(72, 112, 172);">incidents.md</strong>——事故复盘日志，每次翻车都记录原因和修复方案</section></li></ul>
+<p style="margin: 1em 0px;">AI Agent 任务不再丢，重复发布问题基本消失。</p>
+<p style="margin: 1em 0px;"><img alt="Agent团队架构演进" data-ratio="0.799074074074074" data-type="jpeg" data-w="1080" src="assets/20d7e033eda63367dca9f4d9d38f4d00.jpg" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="Agent团队架构演进"/></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>阶段5：闭环失败（3/19）—— 记忆不更新比没记忆更危险</span></h3>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">AI Agent 用旧的记忆骗了我。</strong></p>
+<p style="margin: 1em 0px;">今天发生了一件事，让我意识到记忆系统还有一个根本性漏洞。</p>
+<p style="margin: 1em 0px;">我和 CEO AI Agent 确认了四件事"已完成"：小红书某篇已发、飞书文档已更新、某任务已关闭、某规范已修订。</p>
+<p style="margin: 1em 0px;">每次确认，CEO Agent 都说："收到，已记录。"</p>
+<p style="margin: 1em 0px;">但它没有实际更新 active-tasks.md。</p>
+<p style="margin: 1em 0px;">到了下午，OpenClaw 的心跳检查触发，AI Agent 从 active-tasks.md 读取状态——看到这四件事还在"进行中"，于是来问我：</p>
+<p style="margin: 1em 0px;">"这四件事进展怎么样了？"</p>
+<p style="margin: 1em 0px;">我已经告诉过它四次。</p>
+<p style="margin: 1em 0px;">这就像笔记本上写着"买牛奶"。买完了，但忘了划掉。第二天看到，又去买了一次。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">这次事故让我提炼出一个核心教训：</strong></p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">记忆 ≠ 存储。</strong>
+<strong style="color: rgb(72, 112, 172);">记忆 = 存储 + 检索 + 更新。三者缺一，AI Agent 的记忆会骗你自己。</strong></p>
+</blockquote>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>第二部分：体系化设计 v2.0</span></h2>
+<p style="margin: 1em 0px;">踩了五个阶段的坑之后，我做了一次系统性调研：</p>
+<ul style="list-style-type: disc;"><li><section><strong style="color: rgb(72, 112, 172);">OpenClaw 官方文档</strong>：两层基础记忆 + bank/ 架构 + Retain/Recall/Reflect 模型</section></li><li><section><strong style="color: rgb(72, 112, 172);">社区 proactive-agent 技能</strong>：WAL 协议（Write-Ahead Log）+ Working Buffer + Compaction 恢复</section></li><li><section><strong style="color: rgb(72, 112, 172);">业界框架</strong>：LangChain 记忆分类、MemGPT/Letta 核心/归档/回溯三层架构、CrewAI 共享记忆</section></li></ul>
+<p style="margin: 1em 0px;">综合调研结果和 OpenClaw AI Agent 团队的实战经验，设计了 v2.0 方案——5 个核心维度。</p>
+<p style="margin: 1em 0px;"><img alt="记忆系统三大核心维度" data-ratio="0.5092592592592593" data-type="jpeg" data-w="1080" src="assets/3ff96d6cf792344861011590d638f035.jpg" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="记忆系统三大核心维度"/></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>维度1：分层存储（热/温/冷）</span></h3>
+<p style="margin: 1em 0px;">OpenClaw AI Agent 的记忆需要三层架构：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>热记忆（每次会话必读，≤2000 tokens）<br/>├── MEMORY.md — 核心身份、OKR、关键规则<br/>└── SESSION-STATE.md — 当前任务状态（WAL 写入目标）<br/><br/>温记忆（按需检索）<br/>├── bank/ — 结构化知识库<br/>│   ├── decisions.md — 决策记录<br/>│   ├── entities/ — 实体页面（人、产品）<br/>│   └── lessons-learned.md — 经验教训<br/>└── memory/日期.md — 每日日志<br/><br/>冷记忆（归档存储）<br/>└── memory/archive/ — 30天以上日志自动归档<br/></code></pre><p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">关键约束</strong>：热记忆必须严格控制在 2000 tokens 以内。不是因为 token 贵，是因为旧规则和新规则并存，AI Agent 会搞混。精炼 = 主动删掉过时的东西。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>维度2：WAL 协议—— 先写，再回复</span></h3>
+<p style="margin: 1em 0px;">WAL（Write-Ahead Log），原本是数据库领域的概念——先写日志，再执行操作，保证不丢数据。</p>
+<p style="margin: 1em 0px;">我把这个思想用到了 OpenClaw AI Agent 记忆管理上。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">核心理念：先写，再回复。"想要回复的冲动就是敌人。"</strong></p>
+<p style="margin: 1em 0px;">具体流程：</p>
+<ol style="list-style-type: decimal;"><li><section>收到用户消息</section></li><li><section>扫描消息是否包含：<strong style="color: rgb(72, 112, 172);">纠正、决策、专有名词、偏好、具体数值</strong></section></li><li><section>有关键信息 → 先写入 SESSION-STATE.md → 再回复用户</section></li><li><section>无关键信息 → 直接回复</section></li></ol>
+<p style="margin: 1em 0px;">这直接解决了"收到≠记住"的根本问题。</p>
+<p style="margin: 1em 0px;">阶段5 那个闭环失败的事故，根本原因就是 AI Agent 先回复了"收到"，却没有写文件。WAL 协议要求：不写完文件，不许回复。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>维度3：分级检索——4步决策树</span></h3>
+<p style="margin: 1em 0px;">以前 OpenClaw AI Agent 靠直觉决定"要不要查"——有时候明明记录过，它却不查，直接编一个答案。</p>
+<p style="margin: 1em 0px;">v2.0 要求标准化的检索流程：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>用户提问<br/>    ↓<br/>Step 1: MEMORY.md（已加载，优先命中）<br/>    ↓ 未命中<br/>Step 2: memory_search（语义搜索，覆盖历史日志）<br/>    ↓ 未命中<br/>Step 3: memory_get（精确读取特定文件）<br/>    ↓ 未命中<br/>Step 4: grep（全局关键词兜底）<br/>    ↓ 全部未命中<br/>坦诚说"没有记录"<br/></code></pre><p style="margin: 1em 0px;">不再靠直觉，不再乱猜。没有就是没有，不要编。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>维度4：过期清理</span></h3>
+<p style="margin: 1em 0px;">AI Agent 记忆不只要写，要更新，还要<strong style="color: rgb(72, 112, 172);">主动清理</strong>。</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">类型</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">任务状态</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">完成即时归档，不拖延</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">每日日志</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">30天自动移入 archive/</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">规范/事故记录</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">永久保留 + 定期审计</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">90天以上归档</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">可选清理</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;">旧信息不清理，会产生噪音，甚至产生矛盾的规则。MEMORY.md 里如果同时存在"用 A 方案"和"用 B 方案"，AI Agent 会随机选一个执行。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h3 style="padding: 0px;color: rgb(72, 112, 172);margin: 1.2em 0px 1em;font-size: 1.3em;"><span>维度5：记忆健康监控</span></h3>
+<p style="margin: 1em 0px;">OpenClaw AI Agent 的记忆系统不能只有写，要有定期巡检。每日健康检查清单：</p>
+<ul style="list-style-type: disc;"><li><section>MEMORY.md 是否超出 2000 tokens？</section></li><li><section>每日日志是否有 Retain 段落？</section></li><li><section>SESSION-STATE.md 是否超过 24 小时未更新？</section></li><li><section>有没有相互矛盾的规则？</section></li><li><section>最近 7 天有没有重复发布事故？</section></li></ul>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">Retain 格式</strong>（结构化记忆提取）：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>## Retain<br/>- W @飞书API: 飞书不支持 img 标签，必须用 upload_image API<br/>- B @CEO-Agent: 今日完成选题审核，发布3篇小红书<br/>- O(c=0.9) @内容策略: 深度长文比短平快内容更受目标读者欢迎<br/></code></pre><p style="margin: 1em 0px;">三种标签：W（世界事实，客观持久）、B（我们做了什么）、O（观点/偏好，带信心度）。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>第三部分：5条根本性结论</span></h2>
+<p style="margin: 1em 0px;">19 天，5 个阶段，5 个维度的 OpenClaw AI Agent v2.0 记忆方案。我提炼出 5 条根本性结论：</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">1. AI Agent 的记忆问题，本质是知识管理问题。</strong></p>
+<p style="margin: 1em 0px;">企业 KM 遇到的所有挑战——信息孤岛、更新滞后、没人维护、检索困难——我们 19 天全踩了一遍。给 OpenClaw AI Agent 装记忆，就是在小规模、快速地经历企业知识管理的完整挑战。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">2. 记忆系统的成熟度，决定 AI Agent 的可靠性。</strong></p>
+<p style="margin: 1em 0px;">一个不记事的员工，你敢把关键任务交给他吗？一个 AI Agent 如果没有可靠的记忆机制，它就是一个永远的临时工——每次重启都是新员工第一天。一人公司不能容忍这种不可靠。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">3. 事故是最好的设计老师。</strong></p>
+<p style="margin: 1em 0px;">每一层新的记忆设计，背后都有一次翻车。不翻过车，想不到需要那层设计。OpenClaw AI Agent 团队每一条规则背后都有一次真实的事故。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">4. "收到" ≠ "记住"——不管是管人还是管 AI Agent。</strong></p>
+<p style="margin: 1em 0px;">这个坑，人类管理者也会踩。开会说"好的"，不等于真的做了记录。WAL 协议的本质，就是把"确认"和"记录"强绑定在一起。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">5. 从 v1.0（拼凑）到 v2.0（体系化）的跃迁，不是加更多文件。</strong></p>
+<p style="margin: 1em 0px;">是建立 OpenClaw AI Agent 的<strong style="color: rgb(72, 112, 172);">存储-检索-更新-清理</strong>完整闭环。任何一个环节缺失，整个系统都会出问题。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>写在最后</span></h2>
+<p style="margin: 1em 0px;">OpenClaw AI Agent 的记忆系统还没有做到足够好。接下来要解决的：</p>
+<ul style="list-style-type: disc;"><li><section><strong style="color: rgb(72, 112, 172);">语义检索</strong>：40+ 个日志文件靠 grep 不够，需要向量搜索</section></li><li><section><strong style="color: rgb(72, 112, 172);">Compaction 恢复</strong>：session 压缩时的关键信息保全机制</section></li><li><section><strong style="color: rgb(72, 112, 172);">规则版本管理</strong>：什么时候"忘掉"旧规则，怎么做无缝切换</section></li></ul>
+<p style="margin: 1em 0px;">但我对一件事越来越确定：</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">给 AI Agent 装记忆，是搭建一人公司 AI 团队的第一基础设施。</strong></p>
+<p style="margin: 1em 0px;">没有记忆，OpenClaw AI Agent 永远是临时工。
+有了体系化的记忆，它才开始像一个能成长的员工。</p>
+</blockquote>
+<p style="margin: 1em 0px;"><img alt="AI系统演进时间线" data-ratio="0.6064814814814815" data-type="jpeg" data-w="1080" src="assets/51f88b6842b3ccd66948e495a2e0d234.jpg" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="AI系统演进时间线"/></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<p style="margin: 1em 0px;">📚 <strong style="color: rgb(72, 112, 172);">往期精选：</strong> </p><p style="margin: 1em 0px;"><a class="normal_text_link mp_article_text_link" data-linktype="2" href="https://mp.weixin.qq.com/s?__biz=MzI3NjMyNzIxMg==&amp;mid=2247483701&amp;idx=1&amp;sn=600b8c76051bbff202ff854bd06caae1&amp;scene=21#wechat_redirect" localeditorid="1960x8pu3i3cqukq3gg" target="_blank" textvalue="实战复盘：OpenClaw 6人Agent Team险些全军覆没">实战复盘：OpenClaw 6人Agent Team险些全军覆没</a><br/></p><p style="margin: 1em 0px;"><a class="normal_text_link mp_article_text_link" data-linktype="2" href="https://mp.weixin.qq.com/s?__biz=MzI3NjMyNzIxMg==&amp;mid=2247483733&amp;idx=1&amp;sn=1ca191bca19aeede1a9fdafa840f74d5&amp;scene=21#wechat_redirect" localeditorid="5q1lu1e5ytw5u42qrk" target="_blank" textvalue='AI Agent 说"完成了"，我信了——然后被打脸了'>AI Agent 说"完成了"，我信了——然后被打脸了</a><br/></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<p style="margin: 1em 0px;">这里是「Wesley AI 日记」——一个人 + 六个 OpenClaw AI Agent，记录超级个体的真实战场。</p>
+<p style="margin: 1em 0px;">关注「Wesley AI 日记」，不错过每一次更新。</p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
