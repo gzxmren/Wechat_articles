@@ -1,0 +1,252 @@
+  <svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+   <defs>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#475569">
+     </path>
+    </marker>
+   </defs>
+   <text x="400" y="24" font-size="16" font-weight="700" fill="#1e293b" text-anchor="middle">
+    
+    
+    
+    OpenClaw Skills 子系统架构
+   </text>
+   <rect x="20" y="40" width="760" height="80" class="arch-layer" fill="#f0fdf4" stroke="#22c55e">
+   </rect>
+   <text x="40" y="58" class="arch-title" fill="#16a34a">
+    
+    
+    
+    发现层
+   </text>
+   <rect x="45" y="65" width="155" height="42" class="arch-module" fill="#bbf7d0" stroke="#4ade80">
+   </rect>
+   <text x="122" y="80" class="arch-mod-name">
+    
+    
+    
+    workspace.ts
+   </text>
+   <text x="122" y="96" class="arch-mod-desc">
+    
+    
+    
+    扫描目录 + 合并去重
+   </text>
+   <rect x="220" y="65" width="155" height="42" class="arch-module" fill="#bbf7d0" stroke="#4ade80">
+   </rect>
+   <text x="297" y="80" class="arch-mod-name">
+    
+    
+    
+    frontmatter.ts
+   </text>
+   <text x="297" y="96" class="arch-mod-desc">
+    
+    
+    
+    YAML 元数据解析
+   </text>
+   <rect x="395" y="65" width="155" height="42" class="arch-module" fill="#bbf7d0" stroke="#4ade80">
+   </rect>
+   <text x="472" y="80" class="arch-mod-name">
+    
+    
+    
+    plugin-skills.ts
+   </text>
+   <text x="472" y="96" class="arch-mod-desc">
+    
+    
+    
+    插件 Skill 目录解析
+   </text>
+   <rect x="570" y="65" width="190" height="42" class="arch-module" fill="#bbf7d0" stroke="#4ade80">
+   </rect>
+   <text x="665" y="80" class="arch-mod-name">
+    
+    
+    
+    bundled-dir.ts
+   </text>
+   <text x="665" y="96" class="arch-mod-desc">
+    
+    
+    
+    内置 Skill 目录定位
+   </text>
+   <line x1="400" y1="122" x2="400" y2="138" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-arch)">
+   </line>
+   <rect x="20" y="142" width="760" height="80" class="arch-layer" fill="#eff6ff" stroke="#3b82f6">
+   </rect>
+   <text x="40" y="160" class="arch-title" fill="#1d4ed8">
+    
+    
+    
+    调度层
+   </text>
+   <rect x="45" y="167" width="155" height="42" class="arch-module" fill="#bfdbfe" stroke="#60a5fa">
+   </rect>
+   <text x="122" y="182" class="arch-mod-name">
+    
+    
+    
+    config.ts
+   </text>
+   <text x="122" y="198" class="arch-mod-desc">
+    
+    
+    
+    资格判定 enabled/OS/env
+   </text>
+   <rect x="220" y="167" width="155" height="42" class="arch-module" fill="#bfdbfe" stroke="#60a5fa">
+   </rect>
+   <text x="297" y="182" class="arch-mod-name">
+    
+    
+    
+    filter.ts
+   </text>
+   <text x="297" y="198" class="arch-mod-desc">
+    
+    
+    
+    SkillFilter 归一化
+   </text>
+   <rect x="395" y="167" width="155" height="42" class="arch-module" fill="#bfdbfe" stroke="#60a5fa">
+   </rect>
+   <text x="472" y="182" class="arch-mod-name">
+    
+    
+    
+    refresh.ts
+   </text>
+   <text x="472" y="198" class="arch-mod-desc">
+    
+    
+    
+    文件监听 + 版本管理
+   </text>
+   <rect x="570" y="167" width="190" height="42" class="arch-module" fill="#bfdbfe" stroke="#60a5fa">
+   </rect>
+   <text x="665" y="182" class="arch-mod-name">
+    
+    
+    
+    serialize.ts
+   </text>
+   <text x="665" y="198" class="arch-mod-desc">
+    
+    
+    
+    并发锁（同步互斥）
+   </text>
+   <line x1="400" y1="224" x2="400" y2="240" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-arch)">
+   </line>
+   <rect x="20" y="244" width="760" height="80" class="arch-layer" fill="#fefce8" stroke="#eab308">
+   </rect>
+   <text x="40" y="262" class="arch-title" fill="#a16207">
+    
+    
+    
+    注入层
+   </text>
+   <rect x="45" y="269" width="175" height="42" class="arch-module" fill="#fef08a" stroke="#facc15">
+   </rect>
+   <text x="132" y="284" class="arch-mod-name">
+    
+    
+    
+    workspace.ts
+   </text>
+   <text x="132" y="300" class="arch-mod-desc">
+    
+    
+    
+    Prompt 生成 + 预算降级
+   </text>
+   <rect x="240" y="269" width="175" height="42" class="arch-module" fill="#fef08a" stroke="#facc15">
+   </rect>
+   <text x="327" y="284" class="arch-mod-name">
+    
+    
+    
+    env-overrides.ts
+   </text>
+   <text x="327" y="300" class="arch-mod-desc">
+    
+    
+    
+    环境变量注入 / 回收
+   </text>
+   <rect x="435" y="269" width="175" height="42" class="arch-module" fill="#fef08a" stroke="#facc15">
+   </rect>
+   <text x="522" y="284" class="arch-mod-name">
+    
+    
+    
+    skill-scanner.ts
+   </text>
+   <text x="522" y="300" class="arch-mod-desc">
+    
+    
+    
+    安全扫描（危险代码）
+   </text>
+   <rect x="630" y="269" width="130" height="42" class="arch-module" fill="#fef08a" stroke="#facc15">
+   </rect>
+   <text x="695" y="284" class="arch-mod-name">
+    
+    
+    
+    runtime-config
+   </text>
+   <text x="695" y="300" class="arch-mod-desc">
+    
+    
+    
+    运行时配置解析
+   </text>
+   <line x1="400" y1="326" x2="400" y2="342" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-arch)">
+   </line>
+   <rect x="20" y="346" width="760" height="65" class="arch-layer" fill="#fdf2f8" stroke="#ec4899">
+   </rect>
+   <text x="40" y="364" class="arch-title" fill="#be185d">
+    
+    
+    
+    集成层
+   </text>
+   <rect x="45" y="374" width="155" height="28" class="arch-module" fill="#fbcfe8" stroke="#f472b6">
+   </rect>
+   <text x="122" y="390" class="arch-mod-name">
+    
+    
+    
+    CLI (skills-cli.ts)
+   </text>
+   <rect x="220" y="374" width="175" height="28" class="arch-module" fill="#fbcfe8" stroke="#f472b6">
+   </rect>
+   <text x="307" y="390" class="arch-mod-name">
+    
+    
+    
+    Gateway (server-methods)
+   </text>
+   <rect x="415" y="374" width="175" height="28" class="arch-module" fill="#fbcfe8" stroke="#f472b6">
+   </rect>
+   <text x="502" y="390" class="arch-mod-name">
+    
+    
+    
+    Cron (skills-snapshot)
+   </text>
+   <rect x="610" y="374" width="150" height="28" class="arch-module" fill="#fbcfe8" stroke="#f472b6">
+   </rect>
+   <text x="685" y="390" class="arch-mod-name">
+    
+    
+    
+    Pi-Runner (skills-runtime)
+   </text>
+  </svg>

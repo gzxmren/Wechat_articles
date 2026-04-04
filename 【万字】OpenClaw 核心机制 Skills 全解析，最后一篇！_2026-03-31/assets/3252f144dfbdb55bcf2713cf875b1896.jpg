@@ -1,0 +1,150 @@
+  <svg width="750" height="320" viewBox="0 0 750 320" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+   <defs>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#334155">
+     </path>
+    </marker>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#ef4444">
+     </path>
+    </marker>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#22c55e">
+     </path>
+    </marker>
+   </defs>
+   <text x="375" y="25" font-size="15" font-weight="700" fill="#1e293b" text-anchor="middle">
+    
+    
+    
+    Skill 提示词注入：三级预算降级策略
+   </text>
+   <rect x="30" y="50" width="200" height="90" class="b-box" fill="#dbeafe" stroke="#3b82f6">
+   </rect>
+   <text x="130" y="75" class="b-title">
+    
+    
+    
+    完整格式
+   </text>
+   <text x="130" y="95" class="b-desc">
+    
+    
+    
+    name + description + instructions
+   </text>
+   <text x="130" y="112" class="b-desc" style="fill:#3b82f6">
+    
+    
+    
+    每个 Skill 完整内容
+   </text>
+   <text x="275" y="85" class="b-yes">
+    
+    
+    
+    ≤ 30K 字符?
+   </text>
+   <line x1="335" y1="80" x2="400" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-budget-ok)">
+   </line>
+   <text x="365" y="70" class="b-yes">
+    
+    
+    
+    Yes
+   </text>
+   <rect x="405" y="55" width="140" height="55" class="b-box" fill="#dcfce7" stroke="#22c55e">
+   </rect>
+   <text x="475" y="78" class="b-result" fill="#22c55e">
+    
+    
+    
+    直接使用
+   </text>
+   <text x="475" y="95" class="b-desc">
+    
+    
+    
+    formatSkillsForPrompt()
+   </text>
+   <line x1="255" y1="93" x2="255" y2="160" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr-budget-down)">
+   </line>
+   <text x="268" y="130" class="b-no">
+    
+    
+    
+    No
+   </text>
+   <rect x="120" y="165" width="220" height="80" class="b-box" fill="#fef3c7" stroke="#f59e0b">
+   </rect>
+   <text x="230" y="188" class="b-title">
+    
+    
+    
+    紧凑格式
+   </text>
+   <text x="230" y="208" class="b-desc">
+    
+    
+    
+    name + location only
+   </text>
+   <text x="230" y="225" class="b-desc" style="fill:#f59e0b">
+    
+    
+    
+    省略 description，保留路径
+   </text>
+   <text x="390" y="200" class="b-yes">
+    
+    
+    
+    ≤ 预算?
+   </text>
+   <line x1="440" y1="195" x2="490" y2="195" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-budget-ok)">
+   </line>
+   <text x="460" y="185" class="b-yes">
+    
+    
+    
+    Yes
+   </text>
+   <rect x="495" y="170" width="140" height="55" class="b-box" fill="#dcfce7" stroke="#22c55e">
+   </rect>
+   <text x="565" y="193" class="b-result" fill="#22c55e">
+    
+    
+    
+    紧凑模式
+   </text>
+   <text x="565" y="210" class="b-desc">
+    
+    
+    
+    formatSkillsCompact()
+   </text>
+   <line x1="370" y1="208" x2="370" y2="272" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr-budget-down)">
+   </line>
+   <text x="383" y="245" class="b-no">
+    
+    
+    
+    No
+   </text>
+   <rect x="250" y="275" width="230" height="40" class="b-box" fill="#fee2e2" stroke="#ef4444">
+   </rect>
+   <text x="365" y="298" class="b-result" fill="#ef4444">
+    
+    
+    
+    二分搜索截断（保留最大可行前缀）
+   </text>
+   <rect x="560" y="275" width="170" height="40" class="b-box" fill="#f1f5f9" stroke="#94a3b8">
+   </rect>
+   <text x="645" y="298" class="b-desc">
+    
+    
+    
+    源码: workspace.ts:567-613
+   </text>
+  </svg>

@@ -1,0 +1,172 @@
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+   <defs>
+    <filter x="-4%" y="-4%" width="108%" height="108%">
+     <fedropshadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1">
+     </fedropshadow>
+    </filter>
+    <linearGradient x1="0" y1="0" x2="0" y2="1">
+     <stop offset="0%" stop-color="#FEE2E2">
+     </stop>
+     <stop offset="100%" stop-color="#FFF5F5">
+     </stop>
+    </linearGradient>
+    <linearGradient x1="0" y1="0" x2="0" y2="1">
+     <stop offset="0%" stop-color="#DCFCE7">
+     </stop>
+     <stop offset="100%" stop-color="#F0FDF4">
+     </stop>
+    </linearGradient>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <polygon points="0 0,8 3,0 6" fill="#EF4444">
+     </polygon>
+    </marker>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <polygon points="0 0,8 3,0 6" fill="#22C55E">
+     </polygon>
+    </marker>
+   </defs>
+   <rect width="860" height="420" rx="16" fill="#FAFBFC">
+   </rect>
+   <text x="430" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#1E293B">
+    
+    
+    
+    Prompt vs Skill 工作流对比
+   </text>
+   <rect x="24" y="68" width="395" height="330" rx="14" fill="url(#redGrad)" stroke="#FECACA" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <rect x="24" y="68" width="395" height="44" rx="14" fill="#EF4444">
+   </rect>
+   <rect x="24" y="96" width="395" height="16" fill="#EF4444">
+   </rect>
+   <text x="221" y="96" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">
+    
+    
+    
+    Prompt 方式 — 一次性杯子
+   </text>
+   <rect x="52" y="135" width="120" height="46" rx="10" fill="#fff" stroke="#FCA5A5" stroke-width="1.5">
+   </rect>
+   <text x="112" y="163" text-anchor="middle" font-size="13" fill="#991B1B">
+    
+    
+    
+    查找提示词
+   </text>
+   <line x1="172" y1="158" x2="200" y2="158" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowR)">
+   </line>
+   <rect x="204" y="135" width="120" height="46" rx="10" fill="#fff" stroke="#FCA5A5" stroke-width="1.5">
+   </rect>
+   <text x="264" y="163" text-anchor="middle" font-size="13" fill="#991B1B">
+    
+    
+    
+    复制粘贴
+   </text>
+   <line x1="264" y1="181" x2="264" y2="215" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowR)">
+   </line>
+   <rect x="204" y="220" width="120" height="46" rx="10" fill="#fff" stroke="#FCA5A5" stroke-width="1.5">
+   </rect>
+   <text x="264" y="248" text-anchor="middle" font-size="13" fill="#991B1B">
+    
+    
+    
+    发送给AI
+   </text>
+   <line x1="324" y1="243" x2="352" y2="243" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowR)">
+   </line>
+   <rect x="356" y="220" width="46" height="46" rx="23" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5">
+   </rect>
+   <text x="379" y="248" text-anchor="middle" font-size="16" fill="#DC2626">
+    
+    
+    
+    ✓
+   </text>
+   <path d="M379 266 L379 296 L52 296 L52 181" stroke="#EF4444" stroke-width="1.8" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowR)">
+   </path>
+   <rect x="170" y="310" width="120" height="32" rx="8" fill="#EF4444" opacity="0.15">
+   </rect>
+   <text x="230" y="331" text-anchor="middle" font-size="12" font-weight="bold" fill="#DC2626">
+    
+    
+    
+    下次再来一遍
+   </text>
+   <text x="80" y="375" font-size="11" fill="#B91C1C">
+    
+    
+    
+    痛点：容易丢失 · 格式不一致 · 浪费时间
+   </text>
+   <rect x="441" y="68" width="395" height="330" rx="14" fill="url(#greenGrad)" stroke="#BBF7D0" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <rect x="441" y="68" width="395" height="44" rx="14" fill="#22C55E">
+   </rect>
+   <rect x="441" y="96" width="395" height="16" fill="#22C55E">
+   </rect>
+   <text x="638" y="96" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">
+    
+    
+    
+    Skill 方式 — 随身保温杯
+   </text>
+   <rect x="469" y="135" width="120" height="46" rx="10" fill="#fff" stroke="#86EFAC" stroke-width="1.5">
+   </rect>
+   <text x="529" y="163" text-anchor="middle" font-size="13" fill="#166534">
+    
+    
+    
+    编写 Skill
+   </text>
+   <line x1="589" y1="158" x2="617" y2="158" stroke="#22C55E" stroke-width="2" marker-end="url(#arrowG)">
+   </line>
+   <rect x="621" y="135" width="120" height="46" rx="10" fill="#fff" stroke="#86EFAC" stroke-width="1.5">
+   </rect>
+   <text x="681" y="163" text-anchor="middle" font-size="13" fill="#166534">
+    
+    
+    
+    工具托管
+   </text>
+   <line x1="681" y1="181" x2="681" y2="215" stroke="#22C55E" stroke-width="2" marker-end="url(#arrowG)">
+   </line>
+   <rect x="621" y="220" width="120" height="46" rx="10" fill="#fff" stroke="#86EFAC" stroke-width="1.5">
+   </rect>
+   <text x="681" y="248" text-anchor="middle" font-size="13" fill="#166534">
+    
+    
+    
+    自动触发
+   </text>
+   <line x1="621" y1="243" x2="593" y2="243" stroke="#22C55E" stroke-width="2" marker-end="url(#arrowG)">
+   </line>
+   <rect x="547" y="220" width="46" height="46" rx="23" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.5">
+   </rect>
+   <text x="570" y="248" text-anchor="middle" font-size="16" fill="#16A34A">
+    
+    
+    
+    ✓
+   </text>
+   <rect x="540" y="310" width="200" height="32" rx="8" fill="#22C55E" opacity="0.15">
+   </rect>
+   <text x="640" y="331" text-anchor="middle" font-size="12" font-weight="bold" fill="#16A34A">
+    
+    
+    
+    写好一次，反复使用
+   </text>
+   <text x="490" y="375" font-size="11" fill="#166534">
+    
+    
+    
+    优势：自动管理 · 精准触发 · 可共享复用
+   </text>
+   <text x="430" y="240" text-anchor="middle" font-size="24" font-weight="bold" fill="#94A3B8">
+    
+    
+    
+    VS
+   </text>
+  </svg>

@@ -1,0 +1,178 @@
+  <svg width="780" height="380" viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+   <defs>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#475569">
+     </path>
+    </marker>
+    <linearGradient x1="0%" y1="0%" x2="0%" y2="100%">
+     <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:1">
+     </stop>
+     <stop offset="100%" style="stop-color:#bfdbfe;stop-opacity:1">
+     </stop>
+    </linearGradient>
+   </defs>
+   <text x="390" y="22" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">
+    
+    
+    
+    四种触发方式的源码调用路径
+   </text>
+   <rect x="20" y="45" width="160" height="60" class="t-trigger" fill="#f0fdf4" stroke="#22c55e">
+   </rect>
+   <text x="100" y="65" class="t-name" style="fill:#16a34a">
+    
+    
+    
+    语义触发
+   </text>
+   <text x="100" y="82" class="t-detail">
+    
+    
+    
+    用户自然语言对话
+   </text>
+   <text x="28" y="96" class="t-src">
+    
+    
+    
+    system-prompt.ts
+   </text>
+   <rect x="210" y="45" width="160" height="60" class="t-trigger" fill="#fefce8" stroke="#eab308">
+   </rect>
+   <text x="290" y="65" class="t-name" style="fill:#a16207">
+    
+    
+    
+    /skill 指令
+   </text>
+   <text x="290" y="82" class="t-detail">
+    
+    
+    
+    用户显式输入指令
+   </text>
+   <text x="218" y="96" class="t-src">
+    
+    
+    
+    skill-commands.ts
+   </text>
+   <rect x="420" y="45" width="160" height="60" class="t-trigger" fill="#fdf2f8" stroke="#ec4899">
+   </rect>
+   <text x="500" y="65" class="t-name" style="fill:#be185d">
+    
+    
+    
+    Cron 定时
+   </text>
+   <text x="500" y="82" class="t-detail">
+    
+    
+    
+    定时任务触发执行
+   </text>
+   <text x="428" y="96" class="t-src">
+    
+    
+    
+    skills-snapshot.ts
+   </text>
+   <rect x="620" y="45" width="140" height="60" class="t-trigger" fill="#f5f3ff" stroke="#8b5cf6">
+   </rect>
+   <text x="690" y="65" class="t-name" style="fill:#7c3aed">
+    
+    
+    
+    Webhook 事件
+   </text>
+   <text x="690" y="82" class="t-detail">
+    
+    
+    
+    GitHub PR / Slack
+   </text>
+   <text x="628" y="96" class="t-src">
+    
+    
+    
+    server-methods/skills.ts
+   </text>
+   <line x1="100" y1="108" x2="100" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <line x1="290" y1="108" x2="290" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <line x1="500" y1="108" x2="500" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <line x1="690" y1="108" x2="690" y2="155" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <text x="100" y="138" font-size="9" fill="#64748b" text-anchor="middle">
+    
+    
+    
+    写入 System Prompt
+   </text>
+   <text x="290" y="138" font-size="9" fill="#64748b" text-anchor="middle">
+    
+    
+    
+    解析 /skill &lt;name&gt;
+   </text>
+   <text x="500" y="138" font-size="9" fill="#64748b" text-anchor="middle">
+    
+    
+    
+    使用 Snapshot 缓存
+   </text>
+   <text x="690" y="138" font-size="9" fill="#64748b" text-anchor="middle">
+    
+    
+    
+    Gateway RPC 路由
+   </text>
+   <rect x="130" y="160" width="520" height="50" class="t-core" fill="url(#grad-core)" stroke="#3b82f6">
+   </rect>
+   <text x="390" y="178" class="t-core-text">
+    
+    
+    
+    loadSkillEntries() — 扫描6个来源，按优先级合并去重
+   </text>
+   <text x="390" y="198" class="t-core-sub">
+    
+    
+    
+    workspace.ts:293-528
+   </text>
+   <line x1="390" y1="212" x2="390" y2="240" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <rect x="130" y="245" width="520" height="45" class="t-core" fill="url(#grad-core)" stroke="#3b82f6">
+   </rect>
+   <text x="390" y="262" class="t-core-text">
+    
+    
+    
+    filterSkillEntries() — 资格判定 + skillFilter 过滤
+   </text>
+   <text x="390" y="280" class="t-core-sub">
+    
+    
+    
+    config.ts shouldIncludeSkill() — enabled / allowBundled / OS / bins / env
+   </text>
+   <line x1="390" y1="292" x2="390" y2="320" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-trig)">
+   </line>
+   <rect x="130" y="325" width="520" height="45" class="t-core" fill="url(#grad-core)" stroke="#3b82f6">
+   </rect>
+   <text x="390" y="342" class="t-core-text">
+    
+    
+    
+    resolveWorkspaceSkillPromptState() — 注入 System Prompt
+   </text>
+   <text x="390" y="360" class="t-core-sub">
+    
+    
+    
+    完整格式 / 紧凑格式 / 截断 — 三级预算降级
+   </text>
+  </svg>

@@ -1,0 +1,167 @@
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 480" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+   <defs>
+    <filter x="-2%" y="-2%" width="104%" height="104%">
+     <fedropshadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1">
+     </fedropshadow>
+    </filter>
+   </defs>
+   <rect width="780" height="480" rx="16" fill="#FAFBFC">
+   </rect>
+   <text x="390" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1E293B">
+    
+    
+    
+    渐进式披露 — 三层加载架构
+   </text>
+   <text x="390" y="62" text-anchor="middle" font-size="13" fill="#94A3B8">
+    
+    
+    
+    用最小的上下文开销，换最大的能力覆盖
+   </text>
+   <rect x="40" y="80" width="700" height="370" rx="18" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2" filter="url(#shadow)">
+   </rect>
+   <rect x="40" y="80" width="160" height="36" rx="18" fill="#3B82F6">
+   </rect>
+   <text x="120" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">
+    
+    
+    
+    第一层：元数据
+   </text>
+   <text x="680" y="103" text-anchor="end" font-size="11" fill="#3B82F6" font-weight="bold">
+    
+    
+    
+    始终加载 · 极轻量
+   </text>
+   <rect x="520" y="95" width="200" height="50" rx="8" fill="#fff" stroke="#BFDBFE" stroke-width="1">
+   </rect>
+   <text x="530" y="115" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    name: douyin-summary
+   </text>
+   <text x="530" y="133" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    description: 抖音视频总结...
+   </text>
+   <rect x="90" y="165" width="600" height="270" rx="16" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2">
+   </rect>
+   <rect x="90" y="165" width="160" height="36" rx="18" fill="#22C55E">
+   </rect>
+   <text x="170" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">
+    
+    
+    
+    第二层：核心指令
+   </text>
+   <text x="630" y="188" text-anchor="end" font-size="11" fill="#22C55E" font-weight="bold">
+    
+    
+    
+    触发时加载 · 清晰指令
+   </text>
+   <rect x="420" y="175" width="250" height="55" rx="8" fill="#fff" stroke="#BBF7D0" stroke-width="1">
+   </rect>
+   <text x="430" y="195" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    # 抖音视频总结助手
+   </text>
+   <text x="430" y="211" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    ## 工作流程
+   </text>
+   <text x="430" y="227" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    1. 识别抖音链接 2. 获取内容...
+   </text>
+   <rect x="140" y="250" width="500" height="170" rx="14" fill="#FFF7ED" stroke="#FED7AA" stroke-width="2">
+   </rect>
+   <rect x="140" y="250" width="160" height="36" rx="18" fill="#F97316">
+   </rect>
+   <text x="220" y="273" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">
+    
+    
+    
+    第三层：代码与资源
+   </text>
+   <text x="590" y="273" text-anchor="end" font-size="11" fill="#F97316" font-weight="bold">
+    
+    
+    
+    按需调用 · 按需加载
+   </text>
+   <rect x="370" y="260" width="250" height="55" rx="8" fill="#fff" stroke="#FED7AA" stroke-width="1">
+   </rect>
+   <text x="380" y="280" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    scripts/
+   </text>
+   <text x="380" y="296" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    └── fetch_douyin.py
+   </text>
+   <text x="380" y="312" font-size="11" fill="#64748B" font-family="monospace">
+    
+    
+    
+    └── requirements.txt
+   </text>
+   <rect x="170" y="310" width="120" height="40" rx="8" fill="#fff" stroke="#E2E8F0" stroke-width="1">
+   </rect>
+   <text x="230" y="335" text-anchor="middle" font-size="12" fill="#475569">
+    
+    
+    
+    启动扫描
+   </text>
+   <line x1="230" y1="350" x2="230" y2="365" stroke="#94A3B8" stroke-width="1.5">
+   </line>
+   <polygon points="225,365 235,365 230,372" fill="#94A3B8">
+   </polygon>
+   <rect x="170" y="375" width="120" height="40" rx="8" fill="#fff" stroke="#E2E8F0" stroke-width="1">
+   </rect>
+   <text x="230" y="400" text-anchor="middle" font-size="12" fill="#475569">
+    
+    
+    
+    场景匹配
+   </text>
+   <text x="700" y="320" text-anchor="middle" font-size="10" fill="#94A3B8">
+    
+    
+    
+    上下文
+   </text>
+   <text x="700" y="336" text-anchor="middle" font-size="10" fill="#94A3B8">
+    
+    
+    
+    逐层递增
+   </text>
+   <line x1="700" y1="340" x2="700" y2="400" stroke="#94A3B8" stroke-width="1.5">
+   </line>
+   <polygon points="695,400 705,400 700,410" fill="#94A3B8">
+   </polygon>
+   <text x="390" y="465" text-anchor="middle" font-size="12" fill="#64748B">
+    
+    
+    
+    
+    元数据占上下文极小 → 指令按需加载节省空间 → 资源按需调用避免开销
+   </text>
+  </svg>

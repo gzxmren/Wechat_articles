@@ -1,0 +1,196 @@
+  <svg width="720" height="400" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+   <defs>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#475569">
+     </path>
+    </marker>
+   </defs>
+   <text x="360" y="20" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">
+    
+    
+    
+    六级优先级：Map&lt;name, Skill&gt; 后写入覆盖先写入
+   </text>
+   <rect x="40" y="38" width="280" height="38" class="pri-box" fill="#f1f5f9" stroke="#cbd5e1">
+   </rect>
+   <text x="52" y="58" class="pri-name">
+    
+    
+    
+    ① config 额外目录
+   </text>
+   <text x="180" y="58" class="pri-path">
+    
+    
+    
+    skills.load.extraDirs
+   </text>
+   <text x="325" y="58" class="pri-level" style="fill:#94a3b8">
+    
+    
+    
+    最低
+   </text>
+   <rect x="40" y="86" width="280" height="38" class="pri-box" fill="#f8fafc" stroke="#94a3b8">
+   </rect>
+   <text x="52" y="106" class="pri-name">
+    
+    
+    
+    ② 内置 bundled
+   </text>
+   <text x="180" y="106" class="pri-path">
+    
+    
+    
+    随 OpenClaw 安装
+   </text>
+   <text x="325" y="106" class="pri-level" style="fill:#94a3b8">
+    
+    
+    
+    ↑
+   </text>
+   <rect x="40" y="134" width="280" height="38" class="pri-box" fill="#eff6ff" stroke="#93c5fd">
+   </rect>
+   <text x="52" y="154" class="pri-name" style="fill:#1e40af">
+    
+    
+    
+    ③ 用户 managed
+   </text>
+   <text x="180" y="154" class="pri-path">
+    
+    
+    
+    ~/.openclaw/skills/
+   </text>
+   <text x="325" y="154" class="pri-level" style="fill:#3b82f6">
+    
+    
+    
+    ↑
+   </text>
+   <rect x="40" y="182" width="280" height="38" class="pri-box" fill="#dbeafe" stroke="#60a5fa">
+   </rect>
+   <text x="52" y="202" class="pri-name" style="fill:#1e40af">
+    
+    
+    
+    ④ 个人 Agent Skills
+   </text>
+   <text x="180" y="202" class="pri-path">
+    
+    
+    
+    ~/.agents/skills/
+   </text>
+   <text x="325" y="202" class="pri-level" style="fill:#3b82f6">
+    
+    
+    
+    ↑
+   </text>
+   <rect x="40" y="230" width="280" height="38" class="pri-box" fill="#bfdbfe" stroke="#3b82f6">
+   </rect>
+   <text x="52" y="250" class="pri-name" style="fill:#1e3a8a">
+    
+    
+    
+    ⑤ 项目 Agent Skills
+   </text>
+   <text x="180" y="250" class="pri-path">
+    
+    
+    
+    workspace/.agents/skills/
+   </text>
+   <text x="325" y="250" class="pri-level" style="fill:#2563eb">
+    
+    
+    
+    ↑
+   </text>
+   <rect x="40" y="278" width="280" height="38" class="pri-box" fill="#3b82f6" stroke="#1d4ed8">
+   </rect>
+   <text x="52" y="298" class="pri-name" style="fill:#ffffff">
+    
+    
+    
+    ⑥ 工作区 workspace
+   </text>
+   <text x="180" y="298" class="pri-path" style="fill:#dbeafe">
+    
+    
+    
+    workspace/skills/
+   </text>
+   <text x="325" y="298" class="pri-level" style="fill:#1d4ed8">
+    
+    
+    
+    最高
+   </text>
+   <line x1="325" y1="57" x2="420" y2="57" stroke="#cbd5e1" stroke-width="1" marker-end="url(#arr-merge)">
+   </line>
+   <line x1="325" y1="105" x2="420" y2="105" stroke="#94a3b8" stroke-width="1" marker-end="url(#arr-merge)">
+   </line>
+   <line x1="325" y1="153" x2="420" y2="153" stroke="#93c5fd" stroke-width="1" marker-end="url(#arr-merge)">
+   </line>
+   <line x1="325" y1="201" x2="420" y2="201" stroke="#60a5fa" stroke-width="1" marker-end="url(#arr-merge)">
+   </line>
+   <line x1="325" y1="249" x2="420" y2="249" stroke="#3b82f6" stroke-width="1" marker-end="url(#arr-merge)">
+   </line>
+   <line x1="325" y1="297" x2="420" y2="297" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-merge)">
+   </line>
+   <rect x="423" y="130" width="140" height="100" class="pri-result" fill="#fef3c7" stroke="#f59e0b">
+   </rect>
+   <text x="493" y="162" class="pri-result-text">
+    
+    
+    
+    Map&lt;name, Skill&gt;
+   </text>
+   <text x="493" y="182" class="pri-result-sub">
+    
+    
+    
+    同名 Skill
+   </text>
+   <text x="493" y="200" class="pri-result-sub">
+    
+    
+    
+    高优先级覆盖低优先级
+   </text>
+   <line x1="565" y1="180" x2="600" y2="180" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-merge)">
+   </line>
+   <rect x="605" y="145" width="105" height="70" class="pri-result" fill="#dcfce7" stroke="#22c55e">
+   </rect>
+   <text x="657" y="172" class="pri-result-text" style="fill:#16a34a">
+    
+    
+    
+    最终
+   </text>
+   <text x="657" y="192" class="pri-result-text" style="fill:#16a34a">
+    
+    
+    
+    Skill 列表
+   </text>
+   <rect x="40" y="340" width="670" height="45" rx="6" ry="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1">
+   </rect>
+   <text x="52" y="358" font-size="11" fill="#475569" font-style="italic">
+    
+    
+    
+    源码: src/agents/skills/workspace.ts:459-510
+   </text>
+   <text x="52" y="375" font-size="10" fill="#94a3b8">
+    
+    
+    
+    loadSkillEntries() 依次从 6 个来源加载，用 Map&lt;string, Skill&gt; 合并，后写入覆盖先写入
+   </text>
+  </svg>

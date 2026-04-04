@@ -1,0 +1,222 @@
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 320" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+   <defs>
+    <filter x="-4%" y="-4%" width="108%" height="108%">
+     <fedropshadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1">
+     </fedropshadow>
+    </filter>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <polygon points="0 0,8 3,0 6" fill="#6366F1">
+     </polygon>
+    </marker>
+   </defs>
+   <rect width="860" height="320" rx="16" fill="#FAFBFC">
+   </rect>
+   <text x="430" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#1E293B">
+    
+    
+    
+    写好一个 Skill 的完整流程
+   </text>
+   <text x="430" y="58" text-anchor="middle" font-size="12" fill="#94A3B8">
+    
+    
+    
+    先看见问题 → 再动手写 → 持续迭代优化
+   </text>
+   <rect x="30" y="80" width="140" height="120" rx="12" fill="#FFF" stroke="#C7D2FE" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <circle cx="100" cy="108" r="16" fill="#6366F1">
+   </circle>
+   <text x="100" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">
+    
+    
+    
+    1
+   </text>
+   <text x="100" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#4338CA">
+    
+    
+    
+    裸模型试跑
+   </text>
+   <text x="100" y="162" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    直接让模型做
+   </text>
+   <text x="100" y="178" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    找出所有问题
+   </text>
+   <text x="100" y="194" text-anchor="middle" font-size="10" fill="#EF4444">
+    
+    
+    
+    记录翻车点
+   </text>
+   <line x1="170" y1="140" x2="198" y2="140" stroke="#6366F1" stroke-width="2" marker-end="url(#flowArrow)">
+   </line>
+   <rect x="200" y="80" width="140" height="120" rx="12" fill="#FFF" stroke="#A7F3D0" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <circle cx="270" cy="108" r="16" fill="#22C55E">
+   </circle>
+   <text x="270" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">
+    
+    
+    
+    2
+   </text>
+   <text x="270" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#166534">
+    
+    
+    
+    定标准
+   </text>
+   <text x="270" y="162" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    明确及格线
+   </text>
+   <text x="270" y="178" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    定义输入输出
+   </text>
+   <text x="270" y="194" text-anchor="middle" font-size="10" fill="#22C55E">
+    
+    
+    
+    什么算好/坏
+   </text>
+   <line x1="340" y1="140" x2="368" y2="140" stroke="#6366F1" stroke-width="2" marker-end="url(#flowArrow)">
+   </line>
+   <rect x="370" y="80" width="140" height="120" rx="12" fill="#FFF" stroke="#FDE68A" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <circle cx="440" cy="108" r="16" fill="#F59E0B">
+   </circle>
+   <text x="440" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">
+    
+    
+    
+    3
+   </text>
+   <text x="440" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400E">
+    
+    
+    
+    写最小版本
+   </text>
+   <text x="440" y="162" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    先解决核心问题
+   </text>
+   <text x="440" y="178" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    一个Skill一件事
+   </text>
+   <text x="440" y="194" text-anchor="middle" font-size="10" fill="#F59E0B">
+    
+    
+    
+    能跑就行
+   </text>
+   <line x1="510" y1="140" x2="538" y2="140" stroke="#6366F1" stroke-width="2" marker-end="url(#flowArrow)">
+   </line>
+   <rect x="540" y="80" width="140" height="120" rx="12" fill="#FFF" stroke="#FBCFE8" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <circle cx="610" cy="108" r="16" fill="#EC4899">
+   </circle>
+   <text x="610" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">
+    
+    
+    
+    4
+   </text>
+   <text x="610" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#9D174D">
+    
+    
+    
+    补边界
+   </text>
+   <text x="610" y="162" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    明确边界条件
+   </text>
+   <text x="610" y="178" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    给输入输出示例
+   </text>
+   <text x="610" y="194" text-anchor="middle" font-size="10" fill="#EC4899">
+    
+    
+    
+    覆盖关键场景
+   </text>
+   <line x1="680" y1="140" x2="708" y2="140" stroke="#6366F1" stroke-width="2" marker-end="url(#flowArrow)">
+   </line>
+   <rect x="710" y="80" width="120" height="120" rx="12" fill="#FFF" stroke="#C7D2FE" stroke-width="1.5" filter="url(#shadow)">
+   </rect>
+   <circle cx="770" cy="108" r="16" fill="#6366F1">
+   </circle>
+   <text x="770" y="113" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">
+    
+    
+    
+    5
+   </text>
+   <text x="770" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#4338CA">
+    
+    
+    
+    持续观察
+   </text>
+   <text x="770" y="162" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    上线后监控
+   </text>
+   <text x="770" y="178" text-anchor="middle" font-size="11" fill="#64748B">
+    
+    
+    
+    迭代优化
+   </text>
+   <text x="770" y="194" text-anchor="middle" font-size="10" fill="#6366F1">
+    
+    
+    
+    闭环迭代
+   </text>
+   <path d="M770 200 L770 240 L100 240 L100 200" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5,4" fill="none">
+   </path>
+   <polygon points="95,200 105,200 100,190" fill="#94A3B8">
+   </polygon>
+   <text x="435" y="260" text-anchor="middle" font-size="12" fill="#94A3B8">
+    
+    
+    
+    发现问题 → 加评测用例 → 改 Skill → 继续观察
+   </text>
+   <rect x="100" y="280" width="660" height="28" rx="8" fill="#EEF2FF">
+   </rect>
+   <text x="430" y="299" text-anchor="middle" font-size="11" fill="#4338CA">
+    
+    
+    
+    核心原则：先看见问题在哪，再动手写 — 顺序别搞反。评测暴露什么问题，就先解决什么问题。
+   </text>
+  </svg>

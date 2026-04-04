@@ -1,0 +1,104 @@
+  <svg width="700" height="180" viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+   <defs>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#6366f1">
+     </path>
+    </marker>
+    <marker markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+     <path d="M0,0 L8,3 L0,6" fill="#8b5cf6">
+     </path>
+    </marker>
+   </defs>
+   <text x="350" y="25" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">
+    
+    
+    
+    热更新流程：文件变更 → Prompt 自动刷新
+   </text>
+   <rect x="10" y="55" width="120" height="70" class="hot-box" fill="#fef3c7" stroke="#f59e0b">
+   </rect>
+   <text x="70" y="78" class="hot-text">
+    
+    
+    
+    SKILL.md
+   </text>
+   <text x="70" y="98" class="hot-sub">
+    
+    
+    
+    文件变更
+   </text>
+   <line x1="130" y1="90" x2="175" y2="90" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow-hot)">
+   </line>
+   <text x="152" y="78" class="hot-label">
+    
+    
+    
+    事件
+   </text>
+   <rect x="178" y="55" width="120" height="70" class="hot-box" fill="#ede9fe" stroke="#8b5cf6">
+   </rect>
+   <text x="238" y="78" class="hot-text">
+    
+    
+    
+    Chokidar
+   </text>
+   <text x="238" y="98" class="hot-sub">
+    
+    
+    
+    250ms 去抖
+   </text>
+   <line x1="298" y1="90" x2="343" y2="90" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-hot2)">
+   </line>
+   <text x="320" y="78" class="hot-label" style="fill:#8b5cf6">
+    
+    
+    
+    递增
+   </text>
+   <rect x="346" y="55" width="120" height="70" class="hot-box" fill="#e0f2fe" stroke="#0ea5e9">
+   </rect>
+   <text x="406" y="78" class="hot-text">
+    
+    
+    
+    版本号 +1
+   </text>
+   <text x="406" y="98" class="hot-sub">
+    
+    
+    
+    snapshotVersion
+   </text>
+   <line x1="466" y1="90" x2="511" y2="90" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrow-hot)">
+   </line>
+   <text x="488" y="78" class="hot-label" style="fill:#0ea5e9">
+    
+    
+    
+    重建
+   </text>
+   <rect x="514" y="55" width="170" height="70" class="hot-box" fill="#dcfce7" stroke="#22c55e">
+   </rect>
+   <text x="599" y="78" class="hot-text">
+    
+    
+    
+    System Prompt 刷新
+   </text>
+   <text x="599" y="98" class="hot-sub">
+    
+    
+    
+    下次对话自动生效
+   </text>
+   <text x="350" y="160" font-size="11" fill="#94a3b8" text-anchor="middle">
+    
+    
+    
+    无需重启，正在进行的对话也能感知新技能
+   </text>
+  </svg>
