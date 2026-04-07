@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Andrej Karpathy：大语言模型不仅仅是写代码，还可以用来构建个人知识库</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Andrej Karpathy：大语言模型不仅仅是写代码，还可以用来构建个人知识库</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content autoTypeSetting24psection" id="js_content" style="visibility: visible; opacity: 1; "><section data-layout-id="0" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">Andrej Karpathy 在 X 上发表一篇标题为《大语言模型知识库》的文章，内容如下：</span></section><blockquote style="font-size: 15px;font-weight: 400;color: rgba(0,0,0,0.55);line-height: 1.8;margin-bottom: 24px;"><p><span leaf="">太长不看（TLDR）：收集来自特定数量来源的原始数据，然后由大语言模型将其编译成一个 .md 格式的 wiki，接着由大语言模型通过各种 CLI 进行操作以完成问答并逐步增强 wiki，所有这些都可以在 Obsidian 中查看。你几乎不需要手动编写或编辑 wiki，这是大语言模型的领域。我认为这里有空间诞生一个令人惊叹的新产品，而不是一堆拼凑起来的脚本。</span></p></blockquote><section data-layout-id="2" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">最近我发现一件非常实用的事情：使用大语言模型为各种感兴趣的研究主题构建个人知识库。通过这种方式，我近期很大一部分的 token 吞吐量不再用于处理代码，而是更多地用于处理知识（以 markdown 和图片的形式存储）。最新的 大语言模型 在这方面做得非常好。具体如下：</span></section><section data-layout-id="3" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">数据摄取（Data ingest）</span>：我将源文档（文章、论文、代码库、数据集、图片等）索引到一个 raw/ 目录中，然后使用大语言模型逐步“编译”出一个 wiki，这其实就是一个特定目录结构下 .md 文件的集合。这个 wiki 包含了 raw/ 目录下所有数据的摘要和反向链接，接着它会将数据按概念进行分类，为这些概念撰写文章，并将它们全部链接起来。为了将网络文章转换为 .md 文件，我喜欢使用 Obsidian Web Clipper 扩展，然后我还使用快捷键将所有相关图片下载到本地，以便我的大语言模型能够轻松引用它们。</span></section><section data-layout-id="4" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">IDE：</span>我使用 Obsidian 作为 IDE 的“前端”，在这里我可以查看原始数据、编译后的 wiki 以及衍生出的可视化内容。需要重点指出的是，大语言模型负责编写和维护这个 wiki 的所有数据，我很少直接去碰它。我也玩过一些 Obsidian 插件，用以通过其他方式渲染和查看数据（比如用 Marp 制作幻灯片）。</span></section><section data-layout-id="5" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">问答（Q&amp;A）：</span>有趣的地方在于，一旦你的 wiki 变得足够大（例如，我关于近期一些研究的 wiki 大约有 100 篇文章和 40 万字），你就可以针对这个 wiki 向你的智能体提出各种复杂的问题，它就会去寻找、研究答案等等。我原以为必须得用上花哨的 RAG（检索增强生成）技术，但在这种相对较小的规模下，大语言模型在自动维护索引文件和所有文档的简短摘要方面表现得相当好，而且它能相当轻松地读取所有重要的相关数据。</span></section><section data-layout-id="6" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">输出（Output）：</span>我不喜欢在文本/终端中获取答案，我更喜欢让它为我渲染 markdown 文件、幻灯片（Marp 格式）或 matplotlib 图像，然后我再次在 Obsidian 中查看这些内容。你可以想象，根据查询的不同，还能生成许多其他的视觉输出格式。通常，我最后会将这些输出“归档”回 wiki 中，以丰富它，为后续的查询做准备。因此，我自己的探索和查询总是在知识库中不断“累加”。</span></section><section data-layout-id="7" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">数据检查（Linting）：</span>我对 wiki 进行了一些大语言模型“健康检查”，例如寻找不一致的数据、填补缺失的数据（通过网络搜索）、为潜在的新文章寻找有趣的联系等，从而逐步清理 wiki 并提高其整体的数据完整性。大语言模型在建议提出进一步的问题和深入研究方面表现得非常出色。</span></section><section data-layout-id="8" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">额外工具（Extra tools）：</span>我发现自己正在开发额外的工具来处理数据，例如，我 vibe coded 了一个基于此 wiki 的简单且粗糙的搜索引擎，我既会直接使用它（在 Web UI 中），但更多时候，我想通过 CLI 把它作为一个工具交给大语言模型，用于处理更大的查询。</span></section><section data-layout-id="9" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: 500;" textstyle="">进一步探索（Further explorations）：</span>随着知识库的增长，很自然的一个愿望就是考虑合成数据生成 + 微调，让你的大语言模型在其权重中“记住”这些数据，而不仅仅是停留在上下文窗口里。</span></section><p style="display: none;"><mp-style-type data-value="3"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
