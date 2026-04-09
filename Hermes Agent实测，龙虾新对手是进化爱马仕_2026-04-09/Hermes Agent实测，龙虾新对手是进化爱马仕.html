@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hermes Agent实测，龙虾新对手是进化爱马仕</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Hermes Agent实测，龙虾新对手是进化爱马仕</div>
+        <div class="content">
+            <html><body><div class="rich_media_content" id="js_content_wrapper" style="visibility: visible;"><div class="image_channel_text" style="margin-bottom: 20px; font-size: 16px; line-height: 1.6; color: #333; background: #f9f9f9; padding: 15px; border-radius: 8px;">X今天狂推的OpenClaw的真对手，Hermes（爱马仕）Agent，我也是测上了。<br/><br/>和Openclaw不同，Hermes是针对怎么让Agent自进化来设计的，<br/>支持Karpathy大神的LLMwiki✔️<br/>能在Obsidian围绕各种主题做持续迭代的本地知识库✔️<br/>能用Claude额度✔️（Openclaw不行了！）<br/><br/>用下来它们其实是互补🔄的：<br/>OpenClaw当执行位，因为Skills的数量和接入平台的数量还是领先。Hermes当指挥位，自带完整对话收录，能记住我偏好设定使用习惯和Skill自迭代。所以我现在尝试在discord里，指挥爱马仕用虾用CC用CLI。<br/><br/>Hermes有意思的设定是当它完成一个复杂任务的时候（调用工具五次以上），会把整个解决的过程做成一个markdown格式的skill。后续在用这个技能的时候发现了更好的路径，还会更新文档。<br/><br/>这解决了我一个超大痛点，比如不同平台的浏览器自动化的时候，我要专门写Rules去规定不同skills的调用顺序。<br/><br/>Hermes做了三层记忆系统，用SQLite+数据库全文检索+大模型自动摘要，把所有历史对话存下来。<br/><br/>跟OpenClaw依赖大模型本身判断能力来规避风险不同，Hermes在框架上拉满了，做了用户授权，危险命令审批，还做了容器隔离和上下文扫描。这样就算是用一般的模型也够安全。<br/><br/>安装方式很简单，还能把OpenClaw带的记忆，技能和设置一键导入进来。用OpenClaw，CodexApp，ClaudeCode运行这段提示语就行：<br/><br/>Prompt<br/>…<br/>帮我安装这个项目，<br/>curl-fsSL<br/>https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh<br/>|bash<br/><br/>安装好了，检查我本地OpenClaw，运行hermesclawmigrate迁移指令。<br/>…<br/><br/>不用担心本地电脑会不会没有环境，这个从Python3.11，Node.js，环境依赖，仓库克隆都装了，还做了全局hermes命令。<br/><br/>先写到这，<br/>手机就剩1%的电了，<br/>要是Agent能解决就好了。。。<br/>我多用一周后开源一把配置文件[得意]</div><hr/></div></body></html>
+        </div>
+    </body>
+    </html>
+    
