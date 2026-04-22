@@ -1,0 +1,35 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>看到一个 6000+ 星的 agent 仓库，我没收藏，顺手把它做成了一个技能</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">看到一个 6000+ 星的 agent 仓库，我没收藏，顺手把它做成了一个技能</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section class="container" style="font-family: -apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif;font-size: 16px;line-height: 1.75;text-align: left;"><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;margin-top: 0 !important;">同样是看到一个 6000+ 星的 GitHub agent 项目，很多人第一反应是先 star、先收藏。我没这么干。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">我更关心一件事：它能不能今天就接进我的工作流。看完 <code class="codespan" style="font-size: 90%;color: #d14;background: rgba(27, 31, 35, 0.05);padding: 3px 5px;border-radius: 4px;">agency-agents-zh</code> 之后，我没有停在"这个项目真强"，而是顺手把它封装成了一个可调用的 skill。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">这里面真正值钱的，不是它有多少角色，而是这些角色能不能被你稳定调出来。很多人刷 GitHub，最后只多了几个书签；但一旦你把开源项目接进 workflow，它就不再是"资料库"，而是"能力源"。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">我这次的方法很简单，只有 4 步。</p><h2 class="h2" data-heading="true" style="display: table;padding: 0 0.2em;margin: 4em auto 2em;color: #fff;background: #0F4C81;font-weight: bold;text-align: center;">第一步：先找一个持续更新的上游能力源</h2><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">像 <code class="codespan" style="font-size: 90%;color: #d14;background: rgba(27, 31, 35, 0.05);padding: 3px 5px;border-radius: 4px;">agency-agents-zh</code> 这种仓库，价值不在"角色多"，而在目录清楚、内容持续更新、能被抓取。</p><h2 class="h2" data-heading="true" style="display: table;padding: 0 0.2em;margin: 4em auto 2em;color: #fff;background: #0F4C81;font-weight: bold;text-align: center;">第二步：不要急着全量搬运，先做一层路由</h2><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">也就是先定义：什么任务该调用它、去哪里找 source、怎么搜到合适角色。这样做的好处是，你不是把仓库原样搬进来，而是先把"调用规则"搭起来。</p><h2 class="h2" data-heading="true" style="display: table;padding: 0 0.2em;margin: 4em auto 2em;color: #fff;background: #0F4C81;font-weight: bold;text-align: center;">第三步：补一个最小抓取脚本</h2><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">只要能搜索、拉取、做基础容错，就已经能把"开源仓库"变成"可用工具"。</p><h2 class="h2" data-heading="true" style="display: table;padding: 0 0.2em;margin: 4em auto 2em;color: #fff;background: #0F4C81;font-weight: bold;text-align: center;">第四步：用输出合同约束交付</h2><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">不是把一堆 prompt 甩给用户，而是明确：这次用了哪些角色、为什么这么选、最终交付什么结果。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;"><img data-ratio="0.562037037037037" data-w="1080" src="assets/18a2737d5ab89989e0b2d3162b6af4d7.jpg" style="display: block;width: 100%;margin: 1.5em auto;height: auto !important;"/></p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">比如我这次做出来的 <code class="codespan" style="font-size: 90%;color: #d14;background: rgba(27, 31, 35, 0.05);padding: 3px 5px;border-radius: 4px;">xiancai-agent-router</code>，本质上就不是新建一个 agent，而是把 GitHub 上现成的 agent 库，封成一个可按需调用的路由层。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">你只要丢进一个任务，它就会先搜索匹配角色，再抓取对应角色文件，再按预设工作流执行。它最值钱的地方，不是"又多了一个 agent"，而是把原本得手动翻仓库、人工挑角色的过程自动化了。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">所以我现在看开源项目，已经不是"值不值得收藏"，而是"能不能顺手做成自己的 skill"。做 skill 最快的方法，往往也不是从零写 prompt，而是先给现成能力源加一层路由。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">如果你也想把 GitHub 上的 agent 项目，顺手做成自己的 skill，评论区留"技能"，我把这套结构发你。</p><p class="p" style="margin: 1.5em 8px;letter-spacing: 0.1em;color: #3f3f3f;">#GitHub项目# #Agent工作流# #Prompt工程# #效率工具#</p>
+    
+  
+    
+  
+    
+  </section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
