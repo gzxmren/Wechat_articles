@@ -1,0 +1,221 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>OpenClaw 实战系列：Harness 工程 — 当一切都可以被套上缰绳</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">OpenClaw 实战系列：Harness 工程 — 当一切都可以被套上缰绳</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;'><blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;">🤖 AI 很强，但 AI 很野。直到有人给它套上了缰绳。</p><p style="margin: 1em 0px;">⏱️ <strong>阅读时间</strong>：约 8 分钟</p><p style="margin: 1em 0px;">💡 <strong>前置要求</strong>：对 AI 有基本了解</p></blockquote><p style="margin: 1em 0px;"><span style="background-color: transparent;letter-spacing: 0.034em;"></span></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🐎 一个有趣的比喻</span></h2>
+<p style="margin: 1em 0px;">想象你有一匹千里马。</p>
+<p style="margin: 1em 0px;">这匹马聪明、速度快、力气大。但问题来了——它不听话。它想往哪跑就往哪跑，它想吃草就吃草，它心情不好就撂蹄子。</p>
+<p style="margin: 1em 0px;">这时候你需要的不是换一匹马，而是<strong>给它套上缰绳</strong>。</p>
+<p style="margin: 1em 0px;"><strong>Harness，就是 AI 的缰绳。</strong></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🤔 什么是 Harness？</span></h2>
+<p style="margin: 1em 0px;"><strong>Harness</strong>（缰绳）是什么？</p>
+<p style="margin: 1em 0px;">简单说：它是让 AI 从"能说话"变成"能干活"的那层东西。</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>Agent = Model + Harness</strong></p>
+<p style="margin: 1em 0px;">模型 = 马的大脑，聪明但野
+Harness = 马的缰绳，让它听指挥</p>
+</blockquote>
+<p style="margin: 1em 0px;">你可能见过这样的场景：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>老板：AI，帮我写一份季度报告<br/>AI：好的（然后开始写，写了 2 万字，全是废话）<br/><br/>老板：...<br/><br/>AI：请问还有什么需要修改的吗？<br/><br/>老板：我要的是报告，不是论文...<br/></code></pre><p style="margin: 1em 0px;">问题出在哪？模型不聪明吗？不，它很聪明。但它没有：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>不知道你要什么格式</section></li><li style="margin-left: 1.2em;"><section>不知道你有多少时间</section></li><li style="margin-left: 1.2em;"><section>不知道报告要给谁看</section></li><li style="margin-left: 1.2em;"><section>不知道哪些数据重要</section></li></ul>
+<p style="margin: 1em 0px;"><strong>模型有智能，但 Harness 给了它"上下文"、"记忆"和"边界"。</strong></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>😤 为什么 AI 经常"发疯"？</span></h2>
+<p style="margin: 1em 0px;">你有没有遇到过这种情况：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>AI 突然开始用奇怪的语气说话</section></li><li style="margin-left: 1.2em;"><section>AI 越写越偏，最后跑题到十万八千里</section></li><li style="margin-left: 1.2em;"><section>AI 删了你不想删的文件</section></li><li style="margin-left: 1.2em;"><section>AI 把你的秘密发给了别人</section></li><li style="margin-left: 1.2em;"><section>AI 在关键时刻卡住了，但不知道它在干嘛</section></li></ul>
+<p style="margin: 1em 0px;">这些都是因为 <strong>Harness 没做好</strong>。</p>
+<p style="margin: 1em 0px;">就像没有缰绳的马：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>方向不受控制 → AI 跑偏</section></li><li style="margin-left: 1.2em;"><section>不知道什么时候停 → AI 停不下来</section></li><li style="margin-left: 1.2em;"><section>没有安全护栏 → AI 可能伤害你或自己</section></li><li style="margin-left: 1.2em;"><section>执行过程不透明 → 你不知道马跑到哪了</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🔧 Harness 的六大组件</span></h2>
+<p style="margin: 1em 0px;">一个好的 Harness，就像一副完整的马具，包含六个关键部分：</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>1️⃣ 感知层——AI 的"眼睛和耳朵"</span></h3>
+<p style="margin: 1em 0px;">让 AI 知道<strong>现在发生了什么</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>上下文管理：它知道你们聊到哪了</section></li><li style="margin-left: 1.2em;"><section>记忆机制：它记得你们之前说过什么</section></li><li style="margin-left: 1.2em;"><section>状态追踪：它知道自己在执行什么任务</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>2️⃣ 行动层——AI 的"手脚"</span></h3>
+<p style="margin: 1em 0px;">让 AI 能<strong>真正做事</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>工具调用：它能调用 API，写代码、操作文件</section></li><li style="margin-left: 1.2em;"><section>执行控制：它知道什么时候该停、什么时候该继续</section></li><li style="margin-left: 1.2em;"><section>权限管理：它知道自己能做什么、不能做什么</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>3️⃣ 记忆层——AI 的"笔记本"</span></h3>
+<p style="margin: 1em 0px;">让 AI <strong>积累经验</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>状态持久化：关掉再打开，它还记得之前的事</section></li><li style="margin-left: 1.2em;"><section>经验积累：犯过的错，下次不再犯</section></li><li style="margin-left: 1.2em;"><section>知识检索：需要什么信息，能快速找到</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>4️⃣ 约束层——AI 的"安全带"</span></h3>
+<p style="margin: 1em 0px;">让 AI <strong>做该做的事</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>安全护栏：防止它做出格的举动</section></li><li style="margin-left: 1.2em;"><section>预算控制：防止它花光你的钱</section></li><li style="margin-left: 1.2em;"><section>审批流程：关键操作必须经过你同意</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>5️⃣ 生命周期层——AI 的"健康管理"</span></h3>
+<p style="margin: 1em 0px;">让 AI <strong>持续稳定运行</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>启动/停止：随时控制它的开关</section></li><li style="margin-left: 1.2em;"><section>健康监控：它挂了，你能第一时间知道</section></li><li style="margin-left: 1.2em;"><section>版本管理：更新后出问题，能回滚</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>6️⃣ 可观测层——AI 的"行车记录仪"</span></h3>
+<p style="margin: 1em 0px;">让 AI <strong>全程透明</strong>。</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>追踪：它做的每一步都有记录</section></li><li style="margin-left: 1.2em;"><section>日志：出问题了，能倒回去看</section></li><li style="margin-left: 1.2em;"><section>指标：花了多少 Token，成功率多少，一目了然</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>💡 为什么说 Harness 是"机器的操作系统"？</span></h2>
+<p style="margin: 1em 0px;">有人打过一个比方：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>Harness 是机器代理的"操作系统"</strong>——就像 Windows 让你能稳定地运行各种程序一样，Harness 让 AI 能稳定地完成各种任务。</p>
+</blockquote>
+<p style="margin: 1em 0px;">没有操作系统，你的电脑就是一堆会发热的金属和塑料。</p>
+<p style="margin: 1em 0px;">没有 Harness，你的 AI 就是一台会思考但无法无天的机器。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🔄 框架 vs Harness：别再搞混了</span></h2>
+<table style="border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;text-align: left;overflow: auto;display: table;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"></th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>Framework（框架）</strong></th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>Harness（缰绳）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>像什么</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">汽车的零部件和设计图</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">汽车的引擎管理和安全系统</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>解决什么问题</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">"怎么造这个 Agent？"</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">"这个 Agent 怎么跑稳？"</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>代表产品</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">LangChain、CrewAI、AutoGen</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">OpenClaw、Harness.io</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>常见抱怨</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">"文档太烂了"</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">"Agent 跑着跑着就挂了"</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;"><strong>类比理解</strong>：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>Framework = 教你骑马的教科书</section></li><li style="margin-left: 1.2em;"><section>Harness = 骑马时手里的缰绳</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>⚡ OpenClaw：Harness 的优秀实践</span></h2>
+<p style="margin: 1em 0px;"><strong>OpenClaw</strong> 是一个典型的 Harness 实现，它让 Harness 的六大组件全部落地：</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>SOUL.md——给 AI 一颗"灵魂"</span></h3>
+<p style="margin: 1em 0px;">你想让 AI 扮演什么角色？用它做什么？</p>
+<p style="margin: 1em 0px;">在 OpenClaw 里，你可以通过 <strong>SOUL.md</strong> 定义：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>这个 AI 是谁（身份定位）</section></li><li style="margin-left: 1.2em;"><section>它应该怎么说话（语气风格）</section></li><li style="margin-left: 1.2em;"><section>它绝对不能做什么（硬规则）</section></li><li style="margin-left: 1.2em;"><section>它遇到问题该怎么办（行为准则）</section></li></ul>
+<p style="margin: 1em 0px;">就像给马植入"性格基因"，让它不再是通用工具，而是一个<strong>有灵魂的工作者</strong>。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Skills——给 AI 装上"瑞士军刀"</span></h3>
+<p style="margin: 1em 0px;">通用 AI 什么都会一点，但什么都不精。</p>
+<p style="margin: 1em 0px;">OpenClaw 的 <strong>Skills</strong> 系统让你可以：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>给 AI 添加专业技能（比如专门写代码的 Skill）</section></li><li style="margin-left: 1.2em;"><section>从社区导入别人做好的 Skill</section></li><li style="margin-left: 1.2em;"><section>让不同的 AI 做不同的事</section></li></ul>
+<p style="margin: 1em 0px;">就像给马装上不同的装备：跑马用马鞍，赛马用赛鞍，载货用货车。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>多 Agent 协作——让马群有序奔跑</span></h3>
+<p style="margin: 1em 0px;">一个人的力量有限，一个 AI 的能力也有限。</p>
+<p style="margin: 1em 0px;">OpenClaw 支持<strong>多个 AI 协作</strong>：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>主 Agent 负责指挥</section></li><li style="margin-left: 1.2em;"><section>子 Agent 负责执行</section></li><li style="margin-left: 1.2em;"><section>它们之间有权限控制，不会乱来</section></li></ul>
+<p style="margin: 1em 0px;">就像马队：有领头的马，有拉边的马，有殿后的马，各司其职。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>安全护栏——不让马乱跑</span></h3>
+<p style="margin: 1em 0px;">最后，Harness 最重要的职责：<strong>安全</strong>。</p>
+<p style="margin: 1em 0px;">OpenClaw 提供：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section><strong>权限矩阵</strong>：谁可以给谁发消息，白纸黑字规定好</section></li><li style="margin-left: 1.2em;"><section><strong>审批流程</strong>：危险操作必须经过你同意</section></li><li style="margin-left: 1.2em;"><section><strong>预算控制</strong>：Token 花了多少，实时监控</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🎯 什么时候你需要 Harness？</span></h2>
+<table style="border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;text-align: left;overflow: auto;display: table;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>场景</strong></th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>不需要 Harness</strong></th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>需要 Harness</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">写一篇文章</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ AI 直接写就行</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">做一个项目</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ 多步骤、长周期、需要协作</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">一次问答</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ 问完就结束</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">自动化流程</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ 定时任务、持续运行</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">简单任务</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ 一步到位</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">复杂任务</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">✅ 需要记忆、需要工具调用</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;"><strong>简单判断</strong>：如果你的 AI 任务只需要"一问一答"，不需要 Harness。如果 AI 需要<strong>持续做事、多步骤协作、长期运行</strong>，你需要 Harness。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>📚 相关资源</span></h2>
+<table style="border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;text-align: left;overflow: auto;display: table;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>资源</strong></th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);"><strong>链接</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>Agent Harness 官网</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">https://agent-harness.ai<sup class="footnote" style="color: rgb(0, 105, 194);">[1]</sup></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>Harness 工程指南</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">https://harness-engineering.ai<sup class="footnote" style="color: rgb(0, 105, 194);">[2]</sup></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>Martin Fowler - Harness Engineering</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">https://martinfowler.com/articles/harness-engineering.html<sup class="footnote" style="color: rgb(0, 105, 194);">[3]</sup></td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>Awesome Harness Engineering</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">https://github.com/walkinglabs/awesome-harness-engineering<sup class="footnote" style="color: rgb(0, 105, 194);">[4]</sup></td>
+</tr>
+</tbody></table>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 总结</span></h2>
+<p style="margin: 1em 0px;"><strong>Harness 工程</strong>解决的问题很简单：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>让 AI 从"能说话"变成"能干活"，从"会思考"变成"可信赖"。</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">六个关键词记住 Harness：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>🐎 <strong>感知</strong>：知道现在发生了什么</section></li><li style="margin-left: 1.2em;"><section>🦶 <strong>行动</strong>：真正能做事</section></li><li style="margin-left: 1.2em;"><section>📖 <strong>记忆</strong>：积累经验不忘事</section></li><li style="margin-left: 1.2em;"><section>🛡️ <strong>约束</strong>：知道什么不能做</section></li><li style="margin-left: 1.2em;"><section>💓 <strong>生命周期</strong>：持续稳定运行</section></li><li style="margin-left: 1.2em;"><section>👁️ <strong>可观测</strong>：全程透明可控</section></li></ul>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>"AI 很强，但 AI 很野。给它套上缰绳，它才能成为你最可靠的伙伴。"</strong></p>
+</blockquote>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<p style="margin: 1em 0px;"><em>公众号：OpenClaw 研习社</em> </p><p style="margin: 1em 0px;"><strong>系列</strong>：实战系列 </p><p style="margin: 1em 0px;"><strong>作者</strong>：OpenClaw 研习社</p></section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
