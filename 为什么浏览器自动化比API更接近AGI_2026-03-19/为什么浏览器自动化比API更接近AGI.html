@@ -1,0 +1,96 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>为什么浏览器自动化比API更接近AGI</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">为什么浏览器自动化比API更接近AGI</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section class="hero" style="background-color: #1a1a2e;color: #ffffff;padding: 56px 24px 44px;text-align: center;">
+      <section class="hero-accent" style="display: block;width: 40px;height: 4px;background-color: #e76f51;margin: 0 auto 24px;"></section>
+      <section class="hero-title" style="font-size: 26px;font-weight: bold;line-height: 1.5;color: #ffffff;margin-bottom: 12px;letter-spacing: 1px;">为什么浏览器自动化比API更接近AGI</section>
+      <section class="hero-sub" style="font-size: 14px;color: #999999;margin-bottom: 0;letter-spacing: 0.5px;">一个200人团队的真实验证</section>
+    </section><p>
+
+    </p><section class="content" style="max-width: 100%;padding: 24px 20px 48px;margin: 0 auto;">
+      <p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">坚持两年每周手动上传视频的人，突然不干了。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">Swix 在 Latent Space 社区的 AI in Action 分享会上，打开了自己的 Claude Cowork 界面。屏幕上，一个 AI 代理正在他的 Chrome 浏览器里，打开 Zoom 后台，点击「云录制」，下载共享屏幕视图，然后切换到 YouTube，逐个填写标题、描述、时间戳。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">整个过程没有调用一行 YouTube API。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「我知道这听起来很蠢，」Swix 说，「但这就是我意识到 AGI 已经到来的时刻。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">会议室里19个人，有人在问技术细节，有人在质疑为什么不用 API。但 Swix 团队的200多名员工已经全员订阅了 Claude Cowork 的企业计划——<span class="hl" style="background-color: #fff3b0;padding: 2px 4px;font-weight: bold;color: #1a1a2e;">每人每月200美元</span>。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">这不是演示。这是生产环境。</p>
+<section class="sh" style="margin-top: 48px;margin-bottom: 24px;"><section class="sh-num" style="font-size: 36px;font-weight: bold;color: #f5d0c5;letter-spacing: 2px;line-height: 1;">01</section><section class="sh-part" style="font-size: 11px;font-weight: bold;color: #e76f51;letter-spacing: 4px;margin-top: 0;">PART</section><section class="sh-line" style="display: block;width: 100%;height: 1px;background-color: #e8e8e8;margin: 10px 0;"></section><section class="sh-title" style="font-size: 20px;font-weight: bold;color: #1a1a2e;line-height: 1.4;">两年的手工劳动，浓缩成一句话</section></section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">让我们看看 Swix 过去的工作流程。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">每周五下午3点，Zoom 会议结束。然后他要做的事：进入 Zoom 后台找到最新录制，选择「共享屏幕+画廊视图」模式下载 MP4，切换到 YouTube Studio 上传视频，填写标题、描述，设置发布时间，裁剪静音片段，生成缩略图，最后点击发布。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「这些都是点击操作，完全不需要动脑。但就是烦。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">烦到什么程度？<span class="hl" style="background-color: #fff3b0;padding: 2px 4px;font-weight: bold;color: #1a1a2e;">104周 x 15分钟 = 26小时</span>。一整天的工作时间，用来做机械点击。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">然后他给 Claude Cowork 写了一段话：「请下载 Zoom 云录制中的最新视频，上传到 YouTube，根据内容生成标题和描述，裁剪掉静音片段。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">第一次运行时出了错。但关键在于——Swix 可以实时看到它在做什么，可以在它卡住时帮它一把，可以在它完成后告诉它：「记住这个操作，写成一个 Skill。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">第二次调用了上次保存的 Skill。第三次，它主动询问：「需要我去 Zoom 设置里开启自动转录功能吗？」第四次，Swix 直接设置了定时任务：每周五下午3点自动运行。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">从此，他再也没有手动上传过视频。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"></p><section class="iw" style="margin: 28px 0;text-align: center;"><img alt="从手动操作到AI自动化的进化过程" data-ratio="0.5583333333333333" data-type="png" data-w="1080" height="auto" src="assets/ec4e32a3dc6e6f6be1727e10977d8daa.png" style="max-width: 100%;border-radius: 6px;height: auto !important;"/><p class="ic" style="font-size: 12px;color: #aaaaaa;margin-top: 8px;text-align: center;">从手动操作到AI自动化的进化过程</p></section>
+<p></p>
+<section class="sh" style="margin-top: 48px;margin-bottom: 24px;"><section class="sh-num" style="font-size: 36px;font-weight: bold;color: #f5d0c5;letter-spacing: 2px;line-height: 1;">02</section><section class="sh-part" style="font-size: 11px;font-weight: bold;color: #e76f51;letter-spacing: 4px;margin-top: 0;">PART</section><section class="sh-line" style="display: block;width: 100%;height: 1px;background-color: #e8e8e8;margin: 10px 0;"></section><section class="sh-title" style="font-size: 20px;font-weight: bold;color: #1a1a2e;line-height: 1.4;">为什么不用API？这是个好问题</section></section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">会议聊天区里，Kevin 提问：「为什么不用 YouTube API？」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">每个工程师都会问这个问题。调用 API 更快、更稳定、更便宜。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">Swix 的回答很直接：「你看，YouTube API 需要我去 Google Cloud Console 注册应用，创建 OAuth 凭证，设置回调 URL，然后写代码处理 token 刷新逻辑。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">然后他展开一个浏览器标签页——Claude Cowork 正在自动执行他补充的任务：去 Google Cloud 后台注册 YouTube Data API 密钥。它自己点击「创建项目」，自己填写表单，自己复制 API Key，然后把密钥存到本地配置文件里。</p>
+<section class="hbox" style="background-color: #1a1a2e;color: #ffffff;padding: 24px 20px;border-radius: 8px;margin: 28px 0;font-size: 16px;line-height: 1.9;border-left: 4px solid #e76f51;">核心差异：API 是为工程师设计的，假设你懂文档、懂认证流程、懂错误处理。浏览器自动化是为「我就是想把事情做完」的人设计的。</section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">更关键的是——它在你的浏览器里运行。你已经登录了 YouTube，已经登录了 Zoom。Claude Cowork 不需要管理 token，不需要处理权限过期，因为它用的是你的会话。</p>
+<section class="qb" style="margin: 24px 0;padding: 18px 20px;background-color: #f9f9f9;border-left: 3px solid #cccccc;font-size: 15px;color: #666666;line-height: 1.8;"><p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「真正的 AGI，不是写出更优雅的代码，是让不会写代码的人也能自动化一切。」</p>
+</section>
+<section class="sh" style="margin-top: 48px;margin-bottom: 24px;"><section class="sh-num" style="font-size: 36px;font-weight: bold;color: #f5d0c5;letter-spacing: 2px;line-height: 1;">03</section><section class="sh-part" style="font-size: 11px;font-weight: bold;color: #e76f51;letter-spacing: 4px;margin-top: 0;">PART</section><section class="sh-line" style="display: block;width: 100%;height: 1px;background-color: #e8e8e8;margin: 10px 0;"></section><section class="sh-title" style="font-size: 20px;font-weight: bold;color: #1a1a2e;line-height: 1.4;">一个设计师，一夜之间部署了整个网站</section></section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">会议进行到一半，Swix 切换到另一个对话窗口。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「这是我的设计师在用的，这家伙在印度尼西亚，时差正好相反。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">屏幕上是一个长达97条回复的对话线程。设计师发出一个 Figma 设计稿链接，Claude Cowork 自动读取设计稿，生成 React 组件代码，部署到 Vercel，把预览链接发回来。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">设计师看了预览，说：「按钮的圆角不对。」改。「动画需要慢一点。」改。「颜色跟 Figma 里的不一样。」改。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">整个对话从晚上12点持续到早上9点。<span class="hl" style="background-color: #fff3b0;padding: 2px 4px;font-weight: bold;color: #1a1a2e;">Swix 醒来时，AI Engineer 大会的官网已经完全重构完毕并部署上线了</span>。</p>
+<section class="qbox" style="background-color: #fffdf5;border: 1px solid #f0e6d0;border-radius: 8px;padding: 20px 24px;margin: 24px 0;">当维护一个精美网站的成本变成零，那些以前「不值得做」的工作，是不是都值得做了？</section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"><span class="b" style="color: #1a1a2e;font-weight: bold;">不是让现有工作变快。是让以前「不值得做」的工作，变得值得做。</span></p>
+<section class="div" style="text-align: center;margin: 40px 0;"><section class="div-line" style="display: block;width: 48px;height: 2px;background-color: #e0e0e0;margin: 0 auto;"></section></section>
+<section class="sh" style="margin-top: 48px;margin-bottom: 24px;"><section class="sh-num" style="font-size: 36px;font-weight: bold;color: #f5d0c5;letter-spacing: 2px;line-height: 1;">04</section><section class="sh-part" style="font-size: 11px;font-weight: bold;color: #e76f51;letter-spacing: 4px;margin-top: 0;">PART</section><section class="sh-line" style="display: block;width: 100%;height: 1px;background-color: #e8e8e8;margin: 10px 0;"></section><section class="sh-title" style="font-size: 20px;font-weight: bold;color: #1a1a2e;line-height: 1.4;">Skills：一种极慢的进化算法</section></section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">回到 YouTube 上传的例子。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">第一次运行，Claude Cowork 需要你告诉它每一步该怎么做。第二次，你告诉它「把操作写成 Skill」，它在本地生成一个配置文件。第三次，有人建议加入自动下载 Zoom 转录。第四次，又有人建议让 AI 生成封面图。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"><span class="hl" style="background-color: #fff3b0;padding: 2px 4px;font-weight: bold;color: #1a1a2e;">每一次反馈，都让这个 Skill 变得更完整</span>。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「这就是记忆，」Swix 说，「一种非常慢的进化。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">可正是这种「慢」，让 Claude Cowork 和其他 AI 工具拉开了差距。OpenClaw、DevGPT、Bolt.new——都很强大，但都是「一次性执行者」。你给它任务，它完成，然后忘记。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">Claude Cowork 不一样。它记住每一次你纠正它的方式，记住每一次你补充的细节，然后把这些记忆固化成 Skills。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">这些 Skills 不是通用的。它们是从你的真实需求中长出来的。</p>
+<section class="qb" style="margin: 24px 0;padding: 18px 20px;background-color: #f9f9f9;border-left: 3px solid #cccccc;font-size: 15px;color: #666666;line-height: 1.8;"><p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「第一次运行你需要高强度监督，第二次给反馈让它更新，第三次它就能自己跑了——这才是自动化的正确路径。」</p>
+</section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">而这个路径，API 做不到。因为 API 是静态的，只能做开发者定义好的操作。但真实世界里，每个人的工作流程都不一样。你需要的不是一个完美的 API，而是一个能学会你习惯的代理。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"></p><section class="iw" style="margin: 28px 0;text-align: center;"><img alt="Skills进化路径：从人工监督到自主运行" data-ratio="0.5583333333333333" data-type="png" data-w="1080" height="auto" src="assets/e9466fe388736c21787a072e5b2fdfdc.png" style="max-width: 100%;border-radius: 6px;height: auto !important;"/><p class="ic" style="font-size: 12px;color: #aaaaaa;margin-top: 8px;text-align: center;">Skills进化路径：从人工监督到自主运行</p></section>
+<p></p>
+<section class="sh" style="margin-top: 48px;margin-bottom: 24px;"><section class="sh-num" style="font-size: 36px;font-weight: bold;color: #f5d0c5;letter-spacing: 2px;line-height: 1;">05</section><section class="sh-part" style="font-size: 11px;font-weight: bold;color: #e76f51;letter-spacing: 4px;margin-top: 0;">PART</section><section class="sh-line" style="display: block;width: 100%;height: 1px;background-color: #e8e8e8;margin: 10px 0;"></section><section class="sh-title" style="font-size: 20px;font-weight: bold;color: #1a1a2e;line-height: 1.4;">200人全员订阅，发生了什么</section></section>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">会议最后，Swix 透露了一个数字：Latent Space 团队200多名成员，全都订阅了 Claude Cowork 企业计划。每人每月200美元。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">「这不是演示工具，这是生产环境。我们在用它处理 Zoom 设置、YouTube 上传、网站部署、表单填写——任何那种『你需要花5到15分钟在各种设置页面里点来点去』的任务。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">有人问：「非技术人员真的会用吗？」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">Swix 的回答很简单：「你问问他们愿不愿意花200美元，换回每周15分钟被浪费在 Zoom 后台的时间。」</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">会议结束后，聊天区里有人说「我刚订阅了」，有人说「我在试着让它帮我填报销单」，还有人说「我让它自动生成周报，现在它已经能自己去 Jira 抓数据了」。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">这不是技术爱好者的玩具。这是白领工作者的生产力革命。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"></p><section class="iw" style="margin: 28px 0;text-align: center;"><img alt="AGI的真实定义：不是基准测试，是200人的生产环境" data-ratio="0.5583333333333333" data-type="png" data-w="1080" height="auto" src="assets/c109c50f25a2b7cff540c7788a659645.png" style="max-width: 100%;border-radius: 6px;height: auto !important;"/><p class="ic" style="font-size: 12px;color: #aaaaaa;margin-top: 8px;text-align: center;">AGI的真实定义：不是基准测试，是200人的生产环境</p></section>
+<p></p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;">而这场革命的核心，不是更快的 API、更强的模型、更复杂的 Agent 架构。是一个简单到反直觉的设计：让 AI 在你的浏览器里，用你的账号，做你会做的事。然后记住。然后越做越好。</p>
+<p class="p" style="margin-bottom: 18px;text-align: justify;font-size: 16px;color: #333333;line-height: 2.0;"><span class="b" style="color: #1a1a2e;font-weight: bold;">AGI 不是在 SWE-bench 上拿高分。AGI 是200个人在生产环境里每天都在用它干活。</span></p>
+
+    </section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
