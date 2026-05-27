@@ -1,0 +1,153 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Agent vs Workflow：你真的分得清吗？</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Agent vs Workflow：你真的分得清吗？</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;'><blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;">本文深入浅出地拆解 Agent 和 Workflow 的区别，帮你搞明白什么时候该用哪个。</p>
+</blockquote>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<p style="margin: 1em 0px;"><img alt="封面图片" data-ratio="0.5" data-type="png" data-w="1080" src="assets/1076ab22109666e088db2c2bf8c66714.png" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="封面图片"/></p>
+<p style="margin: 1em 0px;">AI 圈有两个词快被说烂了——<strong>Agent（智能体）</strong> 和 <strong>Workflow（工作流）</strong>。</p>
+<p style="margin: 1em 0px;">打开任何 AI 平台，左边是"AI Agent"，右边是"自动化工作流"。看得人一头雾水：这不都是自动干活的东西吗？有啥区别？</p>
+<p style="margin: 1em 0px;">如果你也有这个困惑，今天这篇文章就是为你写的。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>先讲一个故事</span></h2>
+<p style="margin: 1em 0px;">假设你要开一家奶茶店。</p>
+<p style="margin: 1em 0px;"><strong>Workflow 的思路</strong>是这样的：你写一本操作手册——</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>客人下单 → 店员拿杯子 → 加糖/加料 → 倒茶底 → 加冰 → 封口 → 递给客人<br/></code></pre><p style="margin: 1em 0px;">每一步都是固定的。只要按手册来，就不会出错。这就是 Workflow。</p>
+<p style="margin: 1em 0px;"><strong>Agent 的思路</strong>是这样的：你招了一个老店员——</p>
+<p style="margin: 1em 0px;">你跟他说："今天生意不错，你看着办，保证每个客人 3 分钟内拿到满意的奶茶。"</p>
+<p style="margin: 1em 0px;">他自己决定怎么做：排队多了就多开一个窗口，某款卖完了就推荐替代品，天热了多加点冰。<strong>他有判断力，能灵活应对。</strong></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>那 Workflow 到底是什么？</span></h2>
+<p style="margin: 1em 0px;"><strong>Workflow（工作流）</strong> = 预先编排好的自动化流程。</p>
+<p style="margin: 1em 0px;">核心特征就是**"确定性"**：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>输入什么 → 经过什么步骤 → 输出什么 → <strong>完全可预期</strong></section></li><li style="margin-left: 1.2em;"><section>每个环节都明确定义，没有"自由度"</section></li><li style="margin-left: 1.2em;"><section>像流水线，一旦设计好就能稳定运行</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>典型场景</span></h3>
+<p style="margin: 1em 0px;"><strong>场景 1：每天早上的信息汇总</strong></p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>抓取 RSS 源 → 提取标题 → 汇总到文档 → 发送通知<br/></code></pre><p style="margin: 1em 0px;">每天早上 8 点，重复同一套流程，输出格式一致，稳定可靠。</p>
+<p style="margin: 1em 0px;"><strong>场景 2：客户支持自动回复</strong></p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>客户发消息 → 匹配关键词 → 回复对应模板答案<br/>→ 如果匹配不上 → 转人工<br/></code></pre><p style="margin: 1em 0px;">逻辑清晰，分支可控。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Workflow 的优势</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>✅ <strong>可预测</strong>：走 100 遍也不会有意外</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>易排查</strong>：出问题了，卡在哪一步一目了然</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>不费算力</strong>：不需要大模型反复思考，成本极低</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>稳定可靠</strong>：适合生产环境</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Workflow 的局限</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>❌ <strong>死板</strong>：超出预设规则就傻眼</section></li><li style="margin-left: 1.2em;"><section>❌ <strong>维护成本高</strong>：每个变体都要写新分支</section></li><li style="margin-left: 1.2em;"><section>❌ <strong>扩展性差</strong>：规则越多，越难管理</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>Agent 又是什么？</span></h2>
+<p style="margin: 1em 0px;"><strong>Agent（智能体）</strong> = 具有自主决策能力的 AI 程序。</p>
+<p style="margin: 1em 0px;">核心特征是**"不确定性"**（这是好事）：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>你给一个<strong>目标</strong>，它自己决定怎么达成</section></li><li style="margin-left: 1.2em;"><section>遇到意外情况，它能自己想办法</section></li><li style="margin-left: 1.2em;"><section>像一个有经验的人，不是一本操作手册</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Agent 的典型架构（了解即可）</span></h3>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>感知环境 → 分析判断 → 决定行动 → 执行行动 → 观察结果 → 调整策略 → 再行动...<br/></code></pre><p style="margin: 1em 0px;">关键区别在于 <strong>"观察-调整"</strong> 这个循环（也叫"反馈闭环"）。Agent 会自己看效果好不好，不好就换个方法。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>典型场景</span></h3>
+<p style="margin: 1em 0px;"><strong>场景 1：写一篇文章</strong></p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>用户说："帮我写一篇介绍 Agent 和 Workflow 区别的文章"<br/><br/>Agent 做的是：<br/>1. 想 Outline → 2. 写初稿 → 3. 自己读一遍，觉得某段不够清楚<br/>   → 4. 重写那段 → 5. 检查有没有遗漏 → 6. 调整语气 → 7. 输出终稿<br/></code></pre><p style="margin: 1em 0px;">整个过程中，<strong>每一步的产出都影响下一步怎么做</strong>。这是 Workflow 做不到的。</p>
+<p style="margin: 1em 0px;"><strong>场景 2：软件开发的编码 Agent</strong></p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>用户说："给这个功能写个单元测试"<br/><br/>Agent 做的是：<br/>1. 读源码理解功能 → 2. 写测试 → 3. 跑测试<br/>   → 4. 测试没通过 → 5. 分析报错 → 6. 修正测试或代码<br/>   → 7. 再跑，直到全部通过<br/></code></pre><h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Agent 的优势</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>✅ <strong>灵活</strong>：能处理没见过的场景</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>适应性强</strong>：同一套机制可以套到不同任务上</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>产出质量高</strong>：有自我纠错能力</section></li><li style="margin-left: 1.2em;"><section>✅ <strong>用户体验好</strong>：不用事无巨细地指挥</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>Agent 的挑战</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>❌ <strong>不可预测</strong>：每次跑的结果可能不一样</section></li><li style="margin-left: 1.2em;"><section>❌ <strong>成本高</strong>：每一步都在调大模型，Token 消耗大</section></li><li style="margin-left: 1.2em;"><section>❌ <strong>行为不稳定</strong>：可能有时超常发挥，有时翻车</section></li><li style="margin-left: 1.2em;"><section>❌ <strong>调试困难</strong>：出了问题，很难复现</section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>一张表看懂区别</span></h2>
+<table style="border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;text-align: left;overflow: auto;display: table;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);">维度</th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);">Workflow</th>
+<th style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;font-weight: bold;background-color: rgb(240, 240, 240);">Agent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>决策方式</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">预设规则</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">自主推理</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>输出一致性</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">完全一致</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">每次可能不同</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>适应性</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">低（超出规则就挂）</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">高（遇到新情况也能应对）</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>成本</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">较低</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">较高（反复调 LLM）</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>调试难度</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">低（线性流程，容易定位）</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">高（链式推理，难复现）</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>适合场景</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">稳定、高频、确定性任务</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">复杂、多变、创造性任务</td>
+</tr>
+<tr>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;"><strong>人力介入</strong></td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">规则需要人工设计</td>
+<td style="font-size: 0.75em;padding: 9px 12px;line-height: 22px;color: rgb(34, 34, 34);border: 1px solid rgb(216, 216, 216);vertical-align: top;">只需要给目标和边界</td>
+</tr>
+</tbody></table>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>那到底该用哪个？</span></h2>
+<p style="margin: 1em 0px;"><strong>答案是：看场景，不要二极管。</strong></p>
+<p style="margin: 1em 0px;">Andrew Ng（吴恩达）在 2025 年初写了篇很火的文章，核心观点就是：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>复杂的 Workflow &gt; 简单的 Agent</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">我翻译一下：不是哪个更"高级"的问题，而是<strong>哪个更合适</strong>的问题。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>选 Workflow 的场景</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>流程稳定不变 → 如每日数据汇总</section></li><li style="margin-left: 1.2em;"><section>出错成本高 → 如财务审批</section></li><li style="margin-left: 1.2em;"><section>需要精确控制 → 如营销邮件匹配规则</section></li><li style="margin-left: 1.2em;"><section>高频执行 → 如客服自动回复的 80% 标准问题</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>选 Agent 的场景</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>输入不确定性高 → 如写文案、做设计</section></li><li style="margin-left: 1.2em;"><section>需要自主推理 → 如代码调试、数据分析</section></li><li style="margin-left: 1.2em;"><section>需要迭代优化 → 如内容创作、方案评估</section></li><li style="margin-left: 1.2em;"><section>任务边界模糊 → 如"帮我规划一次旅行"（没有标准答案）</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>很多情况下，两者搭配才是最优解</span></h3>
+<p style="margin: 1em 0px;">一个很成熟的模式叫 <strong>Agentic Workflow（智能工作流）</strong>：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>外层是 Workflow（稳定可靠）<br/>  └─ 内层是关键节点用 Agent（灵活智能）<br/></code></pre><p style="margin: 1em 0px;">举个例子：</p>
+<p style="margin: 1em 0px;"><strong>客户支持系统：</strong></p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-plaintext" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>Workflow 层：<br/>  客户消息进入 → 用 Agent 理解意图 → <br/>    如果是退换货 → 进入退换货 Workflow（固定步骤）<br/>    如果是投诉 → 进入投诉处理 Workflow<br/>    如果是复杂问题 → Agent 自己跟进<br/><br/>这里 "理解意图" 这个节点就是 Agent，<br/>而整体框架是 Workflow。<br/></code></pre><p style="margin: 1em 0px;">这样设计，既有 Workflow 的稳定可控，又有 Agent 的灵活智能。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>所以，不要纠结工具，要纠结问题</span></h2>
+<p style="margin: 1em 0px;">最后说一个很多人会踩的坑——<strong>追新概念</strong>。</p>
+<p style="margin: 1em 0px;">当你听到别人说"我们已经在全面用 Agent 替代 Workflow 了"时，先问自己：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>❓ 你的任务确定性高吗？</section></li><li style="margin-left: 1.2em;"><section>❓ 允许输出每次不一样吗？</section></li><li style="margin-left: 1.2em;"><section>❓ 能接受更高的成本和更低的稳定性吗？</section></li></ul>
+<p style="margin: 1em 0px;">如果答案是"否"，那 Workflow 仍然是你的最佳选择。</p>
+<p style="margin: 1em 0px;">如果答案是"是"，或者你正在处理那些"没有人告诉你具体怎么做"的问题，那就是 Agent 大显身手的时候。</p>
+<p style="margin: 1em 0px;"><strong>工具没有高低之分，只有合不合适。</strong></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>一句话总结</span></h2>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>Workflow 是把确定的事做到 100% 稳定，Agent 是把不确定的事做到 80 分以上。</strong></p>
+<p style="margin: 1em 0px;"><strong>聪明的做法不是二选一，而是让它们在一起工作。</strong></p>
+</blockquote>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<p style="margin: 1em 0px;"><em>本文由 OpenClaw 研习社出品，带你用好 OpenClaw，用好 AI。</em> </p><p style="margin: 1em 0px;"><em>📮 关注我们，获取更多 AI 工具使用技巧。</em></p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
