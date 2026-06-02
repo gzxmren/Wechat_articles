@@ -1,0 +1,234 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>我用Claude Code写代码，这12个习惯让我效率翻倍</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">我用Claude Code写代码，这12个习惯让我效率翻倍</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: hidden; opacity: 0; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;'><p style="margin: 1em 0px;">↑阅读之前记得关注+星标⭐️，😄，每天才能第一时间接收到更新</p><section class="mp_profile_iframe_wrp"><mp-common-profile class="custom_select_card mp_profile_iframe mp_common_widget" data-alias="CVer_3D" data-from="0" data-headimg="http://mmbiz.qpic.cn/mmbiz_png/smic9hEvy13iaHE3PrEzgw1ZB6Ofg6JSyN8aibaSRDZ84DvBC0MF9SRAFpZNeFKVsvnNTxABwjgVgDZbCNWHdGH2Q/0?wx_fmt=png" data-id="MzI2NjI1OTQ1MA==" data-nickname="杰克王聊AI" data-pluginname="mp-common-profile" data-service_type="1" data-signature="前大厂AI 6年老兵，帮你把 AI 工具变成真实的生产力。"></mp-common-profile></section>
+<p style="margin: 1em 0px;">大家好，我是杰克王，AI 算法 6 年老兵。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">你有没有这种感觉：</strong></p>
+<p style="margin: 1em 0px;">打开 Claude Code，丢进去一句话，等了几分钟，结果差强人意，改了又改，最后还是自己动手。你觉得是模型不行，于是换模型，换 prompt，换工具——但问题从没解决。</p>
+<p style="margin: 1em 0px;">问题不在模型。在<strong style="color: rgb(72, 112, 172);">工作流</strong>。</p>
+<p style="margin: 1em 0px;">一位开发者花了 40 分钟自己重构一段代码，让 Claude 来，4 分钟搞定，质量更高。差距不是智商，是他知道怎么<strong style="color: rgb(72, 112, 172);">用对 Claude</strong>。这篇文章，我把这套方法拆给你看，一共 12 个习惯。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 1：Plan Mode——先想，再动</span></h2>
+<p style="margin: 1em 0px;">大多数人上来就让 Claude 改代码，这是最贵的用法。</p>
+<p style="margin: 1em 0px;">Claude Code 有个隐藏模式：<strong style="color: rgb(72, 112, 172);">Shift+Tab 切换进入 Plan Mode</strong>。这个模式下 Claude 只分析、不执行。你能看到它打算怎么做，审查通过再放手。</p>
+<p style="margin: 1em 0px;">三步走：<strong style="color: rgb(72, 112, 172);">探索 → 计划 → 执行</strong>。能消灭 90% 的"改坏了再改回来"返工成本。</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;">单文件小修改可以跳过。涉及多个文件的改动，必须先 Plan。</p>
+</blockquote>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 2：.claude/ 目录——你的 AI 大脑</span></h2>
+<p style="margin: 1em 0px;">Claude Code 真正的威力藏在这个目录里，大多数人甚至不知道它存在：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>.claude/<br/>├── CLAUDE.md          ← 项目规则说明书<br/>├── CLAUDE.local.md    ← 你的私人规则（不提交 git）<br/>├── settings.json      ← 权限与行为配置<br/>├── agents/            ← 自定义子 Agent<br/>├── skills/            ← 可复用知识包<br/>├── rules/             ← 细粒度路径规则<br/>└── .mcp.json          ← MCP 工具集成<br/></code></pre><p style="margin: 1em 0px;">配置一次，整个团队受益。新人克隆仓库，几分钟内就能达到团队的 AI 使用水准。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 3：CLAUDE.md——只写"去掉会出错"的规则</span></h2>
+<p style="margin: 1em 0px;">很多人把 CLAUDE.md 写成百科全书。这是错的。</p>
+<p style="margin: 1em 0px;">Claude Code 作者 Boris Cherny 对每条规则只问一句话：</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">"去掉这条，Claude 就会犯错吗？"</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">不会出错的，全删。他真实在用的 CLAUDE.md 长这样：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-markdown" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'><span class="hljs-section" style="color: rgb(38, 139, 210);"># Development Workflow</span><br/>Always use <span class="hljs-code" style="color: rgb(133, 153, 0);">`bun`</span>, not <span class="hljs-code" style="color: rgb(133, 153, 0);">`npm`</span>.<br/>Run <span class="hljs-code" style="color: rgb(133, 153, 0);">`bun run typecheck`</span> before claiming done<br/>Never push to main directly<br/>All API routes go through src/api/middleware/auth.ts<br/><span class="hljs-code" style="color: rgb(133, 153, 0);">`User`</span> 和 <span class="hljs-code" style="color: rgb(133, 153, 0);">`UserRecord`</span> 是两种类型，不能混用<br/></code></pre><p style="margin: 1em 0px;">五条。全是血教训。没有废话。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">更妙的一招</strong>：每次 Claude 犯错后，说一句：</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;">"把刚才这个错误的避免规则，写进 CLAUDE.md"</p>
+</blockquote>
+<p style="margin: 1em 0px;">Boris 说，Claude"很擅长把自己的失败提炼成精准的规则"。用几周，文件自动进化成最适合你项目的防错手册。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 4：CLAUDE.local.md——把 PR 反馈变成 AI 记忆</span></h2>
+<p style="margin: 1em 0px;">这个文件和 CLAUDE.md 一起加载，但不提交 git，只属于你一个人。</p>
+<p style="margin: 1em 0px;">每次 code review 收到反馈，立刻粘进去：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-markdown" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'><span class="hljs-section" style="color: rgb(38, 139, 210);"># 来自 PR 反馈（私人）</span><br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">-</span> 新建 SQS consumer 必须同 PR 附带 DLQ 和告警配置<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">-</span> 用 Optional<span class="language-xml"><span class="hljs-tag" style="color: rgb(101, 123, 131);">&lt;<span class="hljs-name" style="color: rgb(220, 50, 47);">T</span>&gt;</span></span>，不用 null 返回值<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">-</span> 新接口的测试必须包含"auth 失败"的 case<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">-</span> 接口有变化就更新 OpenAPI spec，不能漏<br/><br/><span class="hljs-section" style="color: rgb(38, 139, 210);"># 自己的习惯问题</span><br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">-</span> 别用 console.log，用项目的 logger<br/></code></pre><p style="margin: 1em 0px;">这个文件的效果是：你的 code reviewer 帮你训练 AI。两周后，Claude 自动附上 auth 失败测试、自动更新 OpenAPI spec，你在 PR 上的重复反馈会肉眼可见地减少。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 5：Skills——把专业知识打包复用</span></h2>
+<p style="margin: 1em 0px;">Skills 放在 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>.claude/skills/</code>，是比 CLAUDE.md 更细粒度的知识包。</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">对比</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">CLAUDE.md</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">Skills</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">粒度</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">项目全局</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">主题级</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">加载时机</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">每次自动</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">按需调用</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">复用性</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">限本项目</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">跨项目复制</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">适合内容</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">项目规则</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">技术规范/流程</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;">Skills 的核心优势是<strong style="color: rgb(72, 112, 172);">渐进式加载</strong>：Claude 启动时只读 frontmatter（约 100 token），需要时才加载全文。上百个 skill 也不会拖慢会话。</p>
+<p style="margin: 1em 0px;">社区资源：Jeffallan/claude-skills 提供了 <strong style="color: rgb(72, 112, 172);">66 个语言专属 skill</strong>（<strong style="color: rgb(72, 112, 172);">9.4K Stars</strong>），Go、Python、TypeScript、Rust 一应俱全，直接拿来用。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 6：自定义子 Agent——让 Claude 并行干活</span></h2>
+<p style="margin: 1em 0px;">在 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>.claude/agents/</code> 放一个 Markdown 文件，就有了一个专属 Agent：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs language-markdown" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>---<br/>name: pr-review<br/>description: 审查当前 branch 的 diff，找 bug、安全漏洞、规范违反<br/>model: claude-opus-4-5<br/><span class="hljs-section" style="color: rgb(38, 139, 210);">tools: Read, Grep, Bash<br/>---</span><br/><br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">1.</span> 运行 git diff main...HEAD<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">2.</span> 对照 CLAUDE.md 和 rules/ 检查规范<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">3.</span> 标记严重性：Critical / High / Medium / Low<br/><span class="hljs-bullet" style="color: rgb(220, 50, 47);">4.</span> 结尾输出 SHIP / FIX FIRST / REWORK<br/></code></pre><p style="margin: 1em 0px;">触发方式：对话里说"用 pr-review agent 看一下这个 diff"，子 Agent 在隔离上下文里运行，结果汇报回来，主会话不受干扰。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">社区资源</strong>：VoltAgent/awesome-claude-code-subagents 收录了 100+ 开箱即用的 agent（<strong style="color: rgb(72, 112, 172);">20.7K Stars</strong>），security-reviewer、test-writer、debugger、performance-auditor 全有。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 7：插件市场——一行命令扩展超能力</span></h2>
+<p style="margin: 1em 0px;">运行 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/plugin</code> 打开插件市场浏览器。现在有 <strong style="color: rgb(72, 112, 172);">1000+ 插件、75+ 社区市场</strong>。</p>
+<p style="margin: 1em 0px;">入门必装四件套：</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">插件</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">干什么的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><code>/code-review</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">4 个并行 Agent 同时审代码，置信度打分，高信噪比</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><code>/feature-dev</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">给个需求说明，7 阶段自动完成：需求→探索→架构→实现→测试→Review→文档</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Language Server</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">符号级跳转 + 编辑时即时 lint，Anthropic 团队评为最高性价比插件</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><code>/batch</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">把迁移任务扇出给几十个并行 Agent，每个在独立 worktree 跑</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;"><code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/batch</code> 最值得单独说：把"把所有 class component 迁移成 functional component"这种重复性工作交给它，几十个文件同时跑，你去泡杯咖啡回来看结果。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 8：/goal + /rewind + /compact——三个命令改写工作流</span></h2>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);"><code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/goal</code></strong> — 设定完成条件，Claude 自动循环直到达成：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>/goal 所有 test/auth 里的测试通过，lint 干净<br/></code></pre><p style="margin: 1em 0px;">设完可以去干别的，回来看结果。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);"><code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/rewind</code></strong> — Claude 走错了方向时，别往上下文里加"那不对，换个方向"。加这句只会让错误路径留在上下文里继续干扰。直接 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/rewind</code> 回到犯错之前，重新来。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);"><code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/compact</code></strong> — 会话跑长了，上下文变浑浊，Claude 开始绕圈。这时 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/compact &lt;hint&gt;</code> 压缩会话，hint 说明哪些结论要保留。比 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/clear</code> 温和，比什么都不做聪明。</p>
+<p style="margin: 1em 0px;">三个组合用：<code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/goal</code> 定目标，跑偏用 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/rewind</code>，跑长了用 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>/compact</code>。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 9：MCP——让 Claude 看到你的整个技术栈</span></h2>
+<p style="margin: 1em 0px;">MCP（Model Context Protocol）是让 Claude 直接读取外部系统的协议。</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">MCP</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">解锁能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">GitHub MCP</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">直接读 PR、Issues、代码搜索</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Context7</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">实时最新官方文档注入（终结幻觉 API）</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Sentry MCP</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">读真实报错堆栈和 breadcrumb</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Playwright MCP</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">浏览器截图 + UI 自动测试</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Figma MCP</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">读设计稿直接生成代码</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">Postgres MCP</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">直接查询开发数据库</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;">配置在 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>.claude/.mcp.json</code>，团队共用同一份。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">不要贪多</strong>：装太多 MCP，Claude 需要从一大堆工具里选择，决策质量下降。入门先装 GitHub + Context7，再按实际需要加。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 10：Obsidian 三层记忆——给 Claude 持久化项目记忆</span></h2>
+<p style="margin: 1em 0px;">Claude 原生是无状态的，每次会话从零开始。但通过 Obsidian + MCP 可以给它装上长期记忆。</p>
+<p style="margin: 1em 0px;">安装 obsidian-claude-code-mcp，在 vault 里建三层结构：</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">层级</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">存什么</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">多久更新</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><strong style="color: rgb(72, 112, 172);">热存储</strong> <code>10-Daily/</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">每次会话日志，Stop Hook 自动追加</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">实时</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><strong style="color: rgb(72, 112, 172);">温存储</strong> <code>20-Projects/</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">项目 README、架构决策、最近 3 次会话摘要</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">每 PR 一次</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;"><strong style="color: rgb(72, 112, 172);">冷存储</strong> <code>30-Decisions/</code></td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">ADR（架构决策记录）、跨项目通用知识</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">决策敲定后</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;">新会话开始时，Claude 自动读项目 README + 最近 3 次会话日志——两周的上下文 30 秒内重载完毕，不用你每次从头解释项目背景。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 11：并行会话——最被低估的力量倍增器</span></h2>
+<p style="margin: 1em 0px;">一个会话做所有事情，是效率杀手。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">正确做法</strong>：3-5 个 git worktree，每个跑独立 Claude 会话：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>会话 1  →  写新功能<br/>会话 2  →  修 bug<br/>会话 3  →  写单测<br/>会话 4  →  重构旧代码<br/></code></pre><p style="margin: 1em 0px;">用 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>claude --worktree</code> 或桌面版 agent view 当控制台，一眼看到所有会话状态，随时切换。</p>
+<p style="margin: 1em 0px;">Boris 团队实测：并行会话把日均代码产出提升约 3 倍。不是比喻，是实测数字。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>习惯 12：Writer/Reviewer 双会话——内置质量门</span></h2>
+<p style="margin: 1em 0px;">这是最后一个，也是质量提升最直接的一个。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">会话 A</strong> 写代码。写完后：</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;">"用一个新 session 扮演 staff engineer，审查刚才的实现，不带任何先入为主的上下文"</p>
+</blockquote>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">会话 B</strong> 在完全干净的上下文里审查。它没有"我刚才这么做是有原因的"这种自我辩护，发现问题的概率高得多。</p>
+<p style="margin: 1em 0px;">把 B 的 review 结果粘回 A，修完，再让 B 审。循环直到 B 说 LGTM。</p>
+<p style="margin: 1em 0px;">这是用两个 AI 做你的 pair programming 搭档，而不是一个。</p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>结语</span></h2>
+<p style="margin: 1em 0px;">hesreallyhim/awesome-claude-code（<strong style="color: rgb(72, 112, 172);">45K Stars</strong>）整理了所有社区最佳实践，是本文的最佳延伸阅读。</p>
+<p style="margin: 1em 0px;">Claude Code 是目前最强的 AI 编程工具。但大多数人用它的方式，相当于开 Ferrari 去堵车高峰期挪车。</p>
+<p style="margin: 1em 0px;">这 12 个习惯——从 Plan Mode 到双会话 Review——每一个都是"用对了就回不去"的那种改变。</p>
+<p style="margin: 1em 0px;">不需要全部一次搞定。今天先建好 <code style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;color: rgb(72, 112, 172);font-size: 0.9em;font-weight: normal;word-wrap: break-word;padding: 2px 4px;border-radius: 3px;margin: 2px;background-color: rgb(246, 248, 250);word-break: break-all;'>.claude/</code> 目录，写 3 条 CLAUDE.md 规则。明天再加 CLAUDE.local.md。一周后你会发现，同样的 prompt，产出质量完全不一样了。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">配置是工作，执行是验证。开始比完美更重要。</strong></p>
+<hr style="margin-top: 20px;margin-bottom: 20px;border-width: 2px 0px 0px;border-style: solid none none;border-color: rgb(238, 242, 245) currentcolor currentcolor;border-image: none;border-radius: 2px;"/>
+<p style="margin: 1em 0px;">觉得有收获，点个<strong style="color: rgb(72, 112, 172);">在看</strong>支持一下 👇</p>
+<p style="margin: 1em 0px;">感谢阅读。我是杰克王，欢迎加微交流 🚀</p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
