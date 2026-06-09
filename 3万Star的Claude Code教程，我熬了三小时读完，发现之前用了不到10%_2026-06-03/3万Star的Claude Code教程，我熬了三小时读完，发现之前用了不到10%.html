@@ -1,0 +1,198 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>3万Star的Claude Code教程，我熬了三小时读完，发现之前用了不到10%</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">3万Star的Claude Code教程，我熬了三小时读完，发现之前用了不到10%</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: hidden; opacity: 0; "><h1>3万Star的Claude Code教程，我熬了三小时读完，发现之前用了不到10%</h1><p>
+</p><blockquote style="border-left:4px solid #d0d7de;padding:10px 15px;margin:1.5em 0;color:#656d76;background:#fafafa;border-radius:2px;">
+<p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">wuhiufan</p>
+</blockquote><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">我自认为用Claude Code挺熟练的。敲<code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">claude</code>进对话，问它写代码，复制粘贴到编辑器，跑一下看效果。觉得这就是AI编程的全部了。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">直到我花三小时读完了一个GitHub项目——32.9K Star，叫claude-howto。读完之后，我只剩一个想法：<strong style="color:#0969da;font-weight:bold;">我之前用Claude Code的方式，大概只用了它10%的能力。</strong></p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">斜杠命令、记忆系统、Skills、子代理、Hooks、MCP、插件——这些词我都见过，但从没想过它们拼在一起是一整套自动化工作流引擎。就像你买了一台MacBook Pro，结果只用了它上网看视频。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">今天把我的读书笔记分享出来，希望帮你少走弯路。</p><p>
+</p><h2>这个项目到底是什么</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">项目地址：https://github.com/luongnv89/claude-howto</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">一句话概括：<strong style="color:#0969da;font-weight:bold;">目前最完整的Claude Code学习指南，没有之一。</strong></p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">它做了两件别的地方没做到的事：</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">第一，把每个功能从"解决什么问题→怎么配→怎么用在真实项目"这条线讲清楚了，不是甩个功能列表就完事。每个模块都带可直接复制的模板。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">第二，设计了一条学习路径——10个模块，从入门到高级依次递进，每个模块标了预估学习时间和学完能干什么。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">下面我逐个拆。</p><p>
+</p><h2>模块一：斜杠命令——把重复操作变成一句话</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">输入<code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/xxx</code>回车，自动跑一整套工作流。不是简单触发一段提示词，是可以包含多步操作、文件生成、Git操作、API调用的完整任务流。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Claude Code官方内置了60+个斜杠命令，这个项目额外提供了一批可直接复制到项目里的模板：</p><p>
+</p><table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:15px;">
+<thead>
+<tr>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">命令</th>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">干什么</th>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">什么时候用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/optimize</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">分析性能瓶颈，给优化建议和代码</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">写完代码跑一遍，找出O(n²)</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/review</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">自动代码审查，输出结构化报告</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">提PR前自动检查安全问题</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/commit</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">生成规范的commit message</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">团队统一格式</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/pr</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/push-all</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/setup-ci-cd</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">创建PR/一键推送/生成CI/CD配置</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">日常提交、新项目初始化</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/doc-refactor</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">/unit-test-expand</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">重构代码同步更新文档/补单元测试</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">大规模重构、TDD补覆盖率</td>
+</tr>
+</tbody>
+</table><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：把团队里反复做的开发操作变成一句话命令，不用再各自为政，敲斜杠统一标准。</p><p>
+</p><h2>模块二：记忆系统——别让AI每次从零开始</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Claude Code能记住项目背景、团队规范、技术债务。不用每次对话都重复"我们项目用的是XXX框架"。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">三种记忆类型：</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">项目记忆（CLAUDE.md）</strong>：放项目根目录，Claude Code每次启动自动读取。项目背景、团队规范、技术栈约束、anti-patterns全写进去。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">个人记忆（~/.claude/CLAUDE.md）</strong>：记录你个人的偏好、常用工具、工作风格，跨项目都生效。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">目录API记忆</strong>：通过代码接口让AI在读写文件时自动访问目录结构，保持对项目结构的实时理解。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：你的AI不再是"每次对话从零开始的失忆症患者"。上下文理解能力上去了，编程效率才能质变。</p><p>
+</p><h2>模块三：检查点——对话的版本控制</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">保存对话状态到文件，随时回退到任何一个历史节点继续工作。类似Git的commit，但作用于对话。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：实验性开发时特别好用。想试个激进方案？先打检查点再去试。成了继续，败了回退。不再有"做到一半发现方向错了只能从头来"的绝望感。</p><p>
+</p><h2>模块四：Skills——一键召唤专家</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Skill是可复用的Agent技能包，比斜杠命令更重——不是一个操作，是一整套工作流。Claude Code执行任务时会自动调用对应的Skill。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">项目提供的现成Skill：</p><p>
+</p><table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:15px;">
+<thead>
+<tr>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">Skill</th>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">code-review</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">bug-hunt</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">test-engineer</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">代码审查/Bug定位修复/测试生成</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">doc-generator</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">doc-writer</code> <code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">refactor</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">API文档生成/技术文档写作/代码重构含气味分析</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">brand-voice</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">按品牌风格生成文案</td>
+</tr>
+</tbody>
+</table><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：把Claude Code打造成多专家协作团队。代码审查用它、写文档用它、生成测试用它。不用每次从头写提示词，调用Skill就行。</p><p>
+</p><h2>模块五：Hooks——自动化触发器</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Hooks在Claude Code执行过程中自动触发脚本。可以配在提交前、工具执行前、会话结束时、消息发送后。支持command/http/prompt/mcp_tool/agent等触发类型。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">几个实用的Hook示例：</p><p>
+</p><table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:15px;">
+<thead>
+<tr>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">Hook</th>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">触发时机</th>
+<th style="border:1px solid #ddd;padding:8px 12px;background:#f6f8fa;font-weight:bold;text-align:left;">干什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">pre-commit.sh</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">提交前</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">自动检查代码格式、安全问题</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">security-scan.sh</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">工具执行前</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">扫描敏感信息泄露</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">context-tracker.py</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">会话中</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">追踪Token用量避免上下文溢出</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">log-bash.sh</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">工具执行后</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">记录所有Bash操作日志</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px 12px;"><code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">notify-team.sh</code></td>
+<td style="border:1px solid #ddd;padding:8px 12px;">会话结束</td>
+<td style="border:1px solid #ddd;padding:8px 12px;">自动发会话总结到Slack</td>
+</tr>
+</tbody>
+</table><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：搭真正自动化的CI/CD流程。Claude Code跑操作时自动过安全检查、格式化检查、通知团队——不是需要你盯着的工具，是自己跑的系统。</p><p>
+</p><h2>模块六：MCP——让AI直接操作外部工具</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">MCP（Model Context Protocol）是Claude Code连接外部工具和API的标准协议。接上之后，GitHub、数据库、飞书、Slack、各种外部服务——Claude Code都能当原生工具用，不是通过API调用那种。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">项目详细讲了MCP服务器的配置（stdio/HTTP两种方式）、认证方式（API Key/OAuth/Bearer Token）、资源访问权限控制，以及怎么自己写一个MCP服务器。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">我的判断</strong>：MCP让AI编程从"在代码里用AI"升级成"用AI操作整个开发环境"。这是最值得深入的方向之一。</p><p>
+</p><h2>模块七：子代理——多AI同时干活</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Claude Code可以同时跑多个专用AI助手，每个有独立的上下文、专业方向和任务执行能力。主代理协调，子代理干活。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">项目提供的子代理模板：code-reviewer、debugger、test-engineer、documentation-writer、data-scientist、secure-reviewer、performance-optimizer、implementation-agent。每个用YAML配置专属系统提示词、工具集、权限级别和模型选择。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">我的判断</strong>：子代理玩透了，AI编程能力会上一个层次。这是天花板之一。</p><p>
+</p><h2>模块八：高级功能——把Claude Code变成自动化系统</h2><p>
+</p><ul><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">规划模式</strong>：复杂任务AI先出计划，你批准后再执行</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">Auto Mode</strong>：后台安全分类器在每次操作前审查，敏感操作有保护</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">后台任务</strong>：长时间任务放后台跑，不阻塞当前对话</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">权限模式</strong>：从每次确认到完全放权，按需配</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">Print Mode / TUI Mode</strong>：非交互模式用于CI/CD，全屏TUI适合本地开发</li><li>
+</li></ul><p>
+</p><h2>模块九：插件系统——把团队能力打包分发</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">把多个Skills、Hooks、子代理、MCP配置打包成一个可分发的插件，团队成员装了就有完整功能套件。项目给了三个完整插件示例：</p><p>
+</p><ul><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">pr-review</strong>：PR审查插件，3个子代理+3个命令</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">devops-automation</strong>：DevOps自动化插件，3个子代理+4个命令</li><li>
+</li><li><strong style="color:#0969da;font-weight:bold;">documentation</strong>：文档生成插件，3个子代理+4个命令</li><li>
+</li></ul><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：把团队最佳实践封装成插件。新人装了插件就等于拥有了整个团队的工程能力。不是培训，是工具赋能。</p><p>
+</p><h2>模块十：CLI和脚本化——无人值守自动化</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">Claude Code的命令行接口，支持管道、脚本化、CI/CD集成。<code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">claude -p</code>非交互模式接收文件输入、环境变量配API密钥和默认模型、配合GitHub Actions使用。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">学完能做什么</strong>：把Claude Code集成进自动化流水线。真正的AI编程自动化，不需要人盯着。</p><p>
+</p><h2>为什么你真的应该花时间学</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">三个理由：</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">1. 这是最完整的Claude Code教程，没有之一。</strong> 10个模块覆盖全部核心能力，每个带可直接复制的模板。官方文档都没做到这个程度。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">2. 它展示了AI编程工具的正确用法。</strong> 大多数人用Claude Code就是"问问题→给答案"。这个项目告诉你：正确用法是搭成一套可编程自动化系统。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;"><strong style="color:#0969da;font-weight:bold;">3. 它的设计本身就是教学产品。</strong> 不是功能手册的写法，是学习路径的写法。学完一个自然知道下一个该学什么。</p><p>
+</p><h2>怎么获取</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">GitHub直接访问：https://github.com/luongnv89/claude-howto</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">英文版在根目录，中文翻译版在<code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">zh/</code>子目录。想用模板的话，直接去对应模块文件夹，把<code style="background:#f6f8fa;color:#24292f;padding:2px 6px;border-radius:3px;font-size:14px;">.md</code>文件复制到你的项目里，按README说明配置就行。</p><p>
+</p><h2>最后</h2><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">AI编程工具在快速进化，但大多数人的用法远远没到天花板。不是工具不够强，是你不知道它能做什么。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">这个项目帮我把Claude Code的能力边界看清楚了。我现在的用法已经从"问问题"升级成"搭系统"——记忆让AI理解项目上下文，Skills负责专业任务，Hooks做自动化检查，子代理并行处理复杂任务，MCP连接外部工具形成完整生态。</p><p>
+</p><p style="font-size:16px;color:#24292f;line-height:1.9;margin:1em 0;">建议你认真动手去配、去用，别浅读。你可能会发现：之前以为自己会用Claude Code，其实只用了它10%的能力。</p><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
