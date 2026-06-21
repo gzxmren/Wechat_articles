@@ -1,0 +1,414 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Claude Code 使用系列 04｜Skill：把 Claude 从"通才"变成每个领域的"专才"</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Claude Code 使用系列 04｜Skill：把 Claude 从"通才"变成每个领域的"专才"</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: hidden; opacity: 0; "><section align="left" class="md2wx" style='font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;font-size:16px;line-height:1.85;color:#1f1f1f;word-break:break-word;text-align:left;padding:0 2px;'>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">最近让 Claude 帮我起一份技术评审稿，已经记不清是第几次了——每次出来的初稿都"差点意思"。这次漏了容量评估、上次漏了非目标边界、还有一次直接跳进了实现细节没先讲核心概念。每一次我都要把那段熟悉的 prompt 再贴一遍：</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;margin-bottom:0;">"先对齐目标和非目标、再讲粗粒度主逻辑、关键概念先定义、最后才进细化方案。每一版必须包含：背景、目标、非目标、核心概念、方案对比、容量评估、风险点、灰度策略……"</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">模型不是不听话，是它根本不知道我团队评审稿的标准长什么样。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">问题不在模型记性，<strong style="color:#000;font-weight:700;">在我把"流程"塞错了地方</strong>：写在 CLAUDE.md 里太散、做成 slash command 太死、扔进项目文档太重，每一种都不对——所以 LLM 时灵时不灵。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">直到我把这段 prompt——连同它配套的反例、检查清单、过往技术评审的样本——打包成一个 skill，模型才第一次稳定地把每个环节都写到位。从那之后，新人 push 一句"帮我起一份 X 服务的技术评审稿"，Claude 自动找到那个 skill，按上面的流程走，连容量估算的占位表格都自己补了。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这就是 skill 该出场的时刻。</p>
+<h2 style="font-size:22px;font-weight:700;margin:2em 0 0.8em;color:#000;line-height:1.45;">一、Skill 是什么：一个被自动加载的文件夹</h2>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">机制层面就一句话：<strong style="color:#000;font-weight:700;">skill 是一个有约定结构的文件夹，agent 启动时只读它的"目录页"，触发后才把全文加载进上下文</strong>。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">Anthropic 官方在 Engineering Blog 的发布博文（Barry Zhang、Keith Lazuka、Mahesh Murag 合著，2025-10-16）里反复用一个比喻：</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;">"Building a skill for an agent is like putting together an onboarding guide for a new hire."</p>
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-bottom:0;">为 agent 构建一个 skill，就像为一位新员工拼出一份入职指南。</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这个比喻不是修辞——它是 skill 设计哲学的核心：既要让新人能<strong style="color:#000;font-weight:700;">找到对的那一页</strong>（路由），又<strong style="color:#000;font-weight:700;">不能把全本手册压到他面前</strong>（上下文）。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">Skill 的最小骨架</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">一个 skill 长这样：</p>
+<pre style="margin:1.6em 0;padding:1.1em 1.3em;background:#f6f8fa;border-radius:4px;overflow-x:auto;font-size:13.5px;line-height:1.65;color:#24292e;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:13.5px;background:transparent;color:#24292e;padding:0;border-radius:2px;'>my-skill/
+├── SKILL.md            # 入口：frontmatter (name + description) + 主流程
+├── scripts/            # 可执行脚本，给 agent 直接跑（不进上下文）
+├── references/         # 重型文档，按需读
+└── assets/             # 模板、schema、数据
+</code></pre>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>SKILL.md</code> 的 frontmatter 在 agentskills.io 开放标准 和 Anthropic 官方文档 里<strong style="color:#000;font-weight:700;">只有两个必填字段</strong>：</p>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">字段</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">必填</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>name</code></td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">是</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">≤64 字符，小写字母 / 数字 / 连字符。开放标准额外要求与父目录名一致；Anthropic 额外禁止保留字 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>anthropic</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>claude</code>
+</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>description</code></td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">是</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">≤1024 字符，描述"做什么 + 何时用"。不能含 XML 标签</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">
+<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>license</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>compatibility</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>metadata</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>allowed-tools</code>
+</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">否</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">全部可选</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">最小可用示例（来自 Anthropic 官方 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>anthropics/skills</code> 仓库的 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pdf</code> skill）：</p>
+<pre style="margin:1.6em 0;padding:1.1em 1.3em;background:#f6f8fa;border-radius:4px;overflow-x:auto;font-size:13.5px;line-height:1.65;color:#24292e;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:13.5px;background:transparent;color:#24292e;padding:0;border-radius:2px;'>---
+name: pdf
+description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.
+<span style="color: #800080;font-weight: bold;">license: Proprietary. LICENSE.txt has complete terms</span>
+<span style="color: #800080;font-weight: bold;">---</span>
+</code></pre>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这段 description 在说什么？</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;margin-bottom:0;">每当用户想对 PDF 文件做任何事时，使用此 skill。包括：从 PDF 读取或提取文本 / 表格、把多个 PDF 合并成一个、拆分 PDF、旋转页面、加水印、新建 PDF、填 PDF 表单、加密 / 解密 PDF、提取图片、对扫描版 PDF 做 OCR 使其可搜索。如果用户提到 .pdf 文件或要求生成一份，就用这个 skill。</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">注意这一段 description——300 多字符，把"做什么、何时用、关键动作清单"全列出来，几乎就是一份微型的路由表。这是官方推荐的写法。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">核心机制：Progressive Disclosure（渐进式披露）</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这是 skill 工程价值的全部所在。Anthropic 官方对 skill 设计了<strong style="color:#000;font-weight:700;">三层加载</strong>：</p>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">层</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">加载时机</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Token 占用</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">内容性质</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Metadata（name + description）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;"><strong style="color:#000;font-weight:700;">agent 启动时常驻</strong></td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">~100 token / skill</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">路由触发器</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">SKILL.md 主体</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">
+<strong style="color:#000;font-weight:700;">skill 被触发后</strong>加载</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">建议 &lt; 5000 token</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">主流程 + 路由表</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">References / Scripts</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">
+<strong style="color:#000;font-weight:700;">agent 真正需要时</strong>才读</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">不进上下文</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">重型文档、脚本</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">按这个算账，你装 50 个 skill，<strong style="color:#000;font-weight:700;">启动只付 ~5000 token 的开销</strong>——大约相当于一篇短文章。具体哪个被触发、付哪个的全文。如果不分层，把所有内容都堆进单个 SKILL.md，5 万字常驻上下文就崩了——模型注意力被严重稀释，多 skill 共存时连锁退化。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 像一座大型图书馆。进门不是把全馆几十万本书堆在借阅台上，而是分层暴露——大厅看分类索引（文学、科学、历史各在几楼），到对应楼层再看子分类，走到具体书架前才把那一本翻开。每一层只暴露下一层的入口，不暴露内容。skill 的 metadata 就是大厅的索引牌，SKILL.md 是楼层的索引牌，references/ 里才是真正的"书页"，只在你走到面前那一刻才打开。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">Skill 在生态里的位置</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">Anthropic 工程师 Barry Zhang（也是 skill 原型作者）在 X 上对 skill 的来历有一句话定性（原帖）：</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;">"Skills actually came out of a prototype I built demonstrating that Claude Code is a general-purpose agent. It was a natural conclusion once we realized that bash + filesystem were all we needed."</p>
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-bottom:0;">skill 实际上来自我做的一个原型——它证明了 Claude Code 是一个通用 agent。一旦我们意识到 bash + 文件系统就是我们所需要的全部，这就成了一个自然的结论。</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 不是为 Claude.ai 设计的新功能，是在 Claude Code 上证明"bash + filesystem 就够了"之后倒回去做的——所以 skill 的本质特别朴素：<strong style="color:#000;font-weight:700;">给一个会用 bash 的 LLM 塞一个有结构的文件夹</strong>。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">回到 Claude Code 这一侧，skill 跟其它扩展机制的关系，可以拉一张表对齐——这也是系列 01（hook）和 02（settings）之后，第三件该理清的事：</p>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">机制</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">解决什么</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">与 skill 关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Prompt</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">单次会话的临时指令</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Skill 是"持久化、按需加载"的 prompt</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">CLAUDE.md</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">项目级常驻上下文（事实/约定）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">当 CLAUDE.md 的某段从"事实"变成"流程"时，就该抽成 skill</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Slash command</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">用户主动触发的快捷指令</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">
+<strong style="color:#000;font-weight:700;">已被 skill 合并</strong>：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>.claude/commands/X.md</code> 和 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>.claude/skills/X/SKILL.md</code> 等价；skill 是 command 的超集</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Hook（系列 01）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">tool 事件触发的强制脚本</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">skill frontmatter 可配 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>hooks</code> 字段限定生命周期</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Settings（系列 02）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">启动和运行时的配置 / 权限</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">skill 的开关与管控面之一</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">MCP</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">跨进程的工具 / 数据连接</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">互补：skill 教 agent "怎么做流程"，MCP 提供"做流程要调的工具"</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Plugin</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">整包分发渠道</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">skill 是 plugin 可打包的资产之一</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">记住一个判断：<strong style="color:#000;font-weight:700;">当 prompt 开始重复、CLAUDE.md 开始膨胀、slash command 不够灵活、工程师每人一套口诀的时候，skill 就该上场</strong>。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">description 是路由触发器，不是文档</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这是 skill 工程化里被低估最严重的一条。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">中文圈一位作者做过一个 650 次实验：同一个 skill，只改 description，把它的激活率从 <strong style="color:#000;font-weight:700;">37% 拉到 100%</strong>——20 倍差距。</p>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">写法</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">反例</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">正例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">视角</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">"This skill helps you..."（介绍式）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">"Use when user mentions X / Load when..."（触发式）</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">关键词</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">"code review tool"（笼统）</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">"Triggers on: code review, PR review, refactor suggestion..."（穷举触发词）</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">长度</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">一句话简介</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">3-5 句话 + 触发词清单 + 不适用场景</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">人称</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">第一 / 第二人称</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">第三人称客观描述 + 行为动词</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">Anthropic 官方 Authoring Best Practices 给的三条铁律：第三人称、含 what + when、关键词具体。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">记住：description 不是给人读的"产品介绍"，是给 LLM 看的"路由表条目"。一个 skill 写得再好，description 写错了，模型永远不会调它。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">时间线锚点</h3>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">日期</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">2025-10-16</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Anthropic 发布 Agent Skills，配套发布 pptx/xlsx/docx/pdf 四个预置 skill</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">2025-12-18</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Skills 升级为厂商中立开放标准 agentskills.io；Atlassian / Canva / Cloudflare / Figma / Notion / Sentry 等首批合作</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">Anthropic 的剧本和 MCP 一模一样：先自家发布、跑通工程价值，过两个月推开放标准、拉伙伴。skill 想成为 agent 工作流的事实标准。</p>
+<h2 style="font-size:22px;font-weight:700;margin:2em 0 0.8em;color:#000;line-height:1.45;">二、值得装的 skill：从官方到职能清单</h2>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">光讲机制没用，得给具体例子。挑 skill 实际上沿两条线走：要么按<strong style="color:#000;font-weight:700;">来源</strong>（官方 / 标杆个人 / 公司），要么按<strong style="color:#000;font-weight:700;">职能</strong>（开发 / 产品 / 设计）。下面把这两条线串起来看——所有数字都是 2026 年 6 月中旬的实时核对。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">1. Anthropic 官方 anthropics/skills（17 个，14w star）</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">开放标准发布时的 reference implementation。按用途分四组：</p>
+<ul style="margin:1.4em 0;padding-left:1.6em;color:#1f1f1f;"><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">文档系</strong>：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pptx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>xlsx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>docx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pdf</code> — 让 Claude 真正能"做"一份能交付的 Excel / Word / PPT / PDF，不再只是输出 markdown 代码块</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">创作系</strong>：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>canvas-design</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>algorithmic-art</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>brand-guidelines</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>theme-factory</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>slack-gif-creator</code> — 画封面、做图、生成可交付海报、按品牌色调</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">工程系</strong>：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>mcp-builder</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>webapp-testing</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>claude-api</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>frontend-design</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>web-artifacts-builder</code> — 建 MCP server、用 Playwright 测网页、调 Anthropic API</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">协作系</strong>：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>skill-creator</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>doc-coauthoring</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>internal-comms</code> — 用 skill 写 skill 的自举案例 / 文档协作 / 内部沟通</li></ul>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">第一次想造 skill 直接调 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>skill-creator</code>——它按官方 Best Practices 带你过一遍 description 写法、目录结构、命名规范。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">2. 标志性的个人作品</h3>
+<h4 style="font-size:16px;font-weight:700;margin:1.5em 0 0.4em;color:#000;">Garry Tan / garrytan/gstack（10.5w star）</h4>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这是 2026 年 3 月以来最值得关注的一个 skill 案例。Y Combinator 现任 CEO Garry Tan 直接把自己每天用的 Claude Code 配置开源，叫 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>gstack</code>——<strong style="color:#000;font-weight:700;">23 个 slash command 各自对应一个"职能岗"</strong>：CEO / Eng Manager / Designer / DevEx / QA / Security / Release Manager / Doc Engineer / Browser 九大职能。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">三个月冲到 10w+ star，Hacker News 双榜霸榜。一个掌管硅谷头部孵化器的 CEO 亲手开 skill repo——这件事本身就是"skill 已经不是程序员玩具"的最强证据。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">但要补一句前提：gstack 是一个 CEO + 重度 vibe coder 的工作配置，把"评审 / 设计 / 安全 / 发布"全摊给 agent。<strong style="color:#000;font-weight:700;">普通工程师团队照搬不一定合适</strong>——你团队需要的可能就 5-6 个 skill，而不是 23 个。gstack 真正的参考价值是**"按职能岗划分 skill"的思路**，不是"把 23 个全装上"。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">围观争议也是这个角度：Mo Bitar 在 X 上发了一个尖锐的视频指责"AI is making CEOs delusional"（AI 让 CEO 们产生了妄想），说 gstack 不过是"一堆 prompt 文件"——争议反过来证明了关注度，也提醒大家不要把别人的工作流直接当模板抄。</p>
+<h4 style="font-size:16px;font-weight:700;margin:1.5em 0 0.4em;color:#000;">Jesse Vincent / obra/superpowers（21w star，14 个 skill）</h4>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">资深工程师风格的 skill 框架，全部用 gerund form 命名：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>brainstorming</code>（强制头脑风暴前置）、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>writing-plans</code>（多步任务写实施计划）、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>test-driven-development</code>（强制 TDD）、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>systematic-debugging</code>、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>requesting-code-review</code>（让 Claude 自己找 reviewer）、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>executing-plans</code>、<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>subagent-driven-development</code>……每一个都是把"资深工程师的工作纪律"硬编码成模型行为。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">3. 按职能挑：开发 / 产品 / 设计 三张清单</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">Garry Tan 把 CEO 视角拆成 23 个职能岗，Jesse Vincent 把"资深工程师纪律"拆成 14 个 skill。但绝大多数读者既不是 CEO 也不需要照搬整套工程师纪律——更可能要的是"我这个职能下，市面公认最值得装的几个"。下面按开发 / 产品 / 设计三类挑。</p>
+<h4 style="font-size:16px;font-weight:700;margin:1.5em 0 0.4em;color:#000;">开发类（5 个）</h4>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Skill</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Star</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">用途 / 看点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">mattpocock/skills</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">12.76w</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">TypeScript 圈头牌 KOL Matt Pocock 的 19 个工程师 skill；<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>diagnose</code>（bug 系统化复现 → 最小化 → 假设 → 修复 → 回归）是社区最被引用的 debug 模板，<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>handoff</code> 解决长会话压缩交接</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Jeffallan/claude-skills</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">9856</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">66 个全栈 skill：FastAPI / Django / pytest / Postgres tuning / Docker workflow；后端不写 Node 的最完整套件</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">trailofbits/skills</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">5689</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">全球顶级安全咨询公司 Trail of Bits 出品：semgrep-rule-creator / CodeQL / variant-analysis / YARA authoring；Snyk 评测里被列为 cybersecurity 的"gold standard"</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">laravel/boost</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">3505</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Laravel 12 官方亲自下场——强制 AI 写代码遵循 Laravel 最佳实践；框架方写 skill 的代表案例，agentskills.io 列入 client showcase</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">agamm/claude-code-owasp</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">233</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">OWASP Top 10:2025 + ASVS 5.0 + Agentic AI Security 一站式 skill，20+ 语言的安全 quirk；写代码时自动激活，相当于 OWASP 速查表常驻 context</td>
+</tr>
+</tbody>
+</table>
+<h4 style="font-size:16px;font-weight:700;margin:1.5em 0 0.4em;color:#000;">产品类（4 个）</h4>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Skill</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Star</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">用途 / 看点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">anthropics/knowledge-work-plugins</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">2.05w</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Anthropic 官方 knowledge worker plugin 集，含 product-management plugin：写 spec / 排路线图 / 综合用户研究 / stakeholder 更新；原生连 Slack / Linear / Jira / Notion / Figma / Amplitude / Pendo</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">phuryn/pm-skills</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">1.75w</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">PM Skills Marketplace：100+ skill / command / plugin，覆盖 discovery → strategy → execution → launch → growth 全周期；PM 圈"装一个顶十个"的选择</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">deanpeters/Product-Manager-Skills</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">5101</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">49 个方法论级 PM skill：Working Backwards / JTBD / Lean UX Canvas / Opportunity Solution Tree / RICE / ICE / Kano / Geoffrey Moore 定位；每个 skill 都对应 Marty Cagan 级别的具体框架</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">yunshu0909/yunshu_skillshub</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">664</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">中文圈唯一上 500+ 的 PM 方向 skill 集；PRD 模板贴合国内业务话术，适合不习惯英文 skill 输出风格的国内 PM</td>
+</tr>
+</tbody>
+</table>
+<h4 style="font-size:16px;font-weight:700;margin:1.5em 0 0.4em;color:#000;">设计类（4 个）</h4>
+<table style="border-collapse:collapse;margin:1.6em 0;width:100%;font-size:14px;line-height:1.6;" width="100%">
+<thead>
+<tr>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Skill</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">Star</th>
+<th align="left" style="border-top:2px solid #1f1f1f;border-bottom:1px solid #1f1f1f;padding:0.6em 0.8em;text-align:left;font-weight:700;color:#000;background:transparent;">用途 / 看点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">VoltAgent/awesome-design-md</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">8.99w</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">73+ 世界级品牌（Linear / Notion / Stripe / Apple / Vercel / Tesla / Airbnb / Spotify / Cohere / xAI 等）的 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>DESIGN.md</code> + preview.html + 配色字体；复制一份到项目根目录，AI 就能仿照该品牌视觉语言生成 UI</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">nextlevelbuilder/ui-ux-pro-max-skill</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">9.12w</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">50+ 样式、97 个调色板、57 字体对的"设计数据库"skill；明度对比 / 间距网格 / 动效曲线都数据化，适合不懂设计的工程师秒变"懂行 UI"</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Figma 官方 Claude Code Plugin</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">官方维护</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">安装 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>figma@claude-plugins-official</code> 后自动注入 Figma skills：教 Claude 理解 token / variable / style / component，从 frame 生成代码 / 写回画布 / 提取 design tokens；设计师圈事实标准</td>
+</tr>
+<tr>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">Magdoub/claude-wireframe-skill</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">58</td>
+<td align="left" style="border-bottom:1px solid #e0e0e0;padding:0.6em 0.8em;text-align:left;color:#1f1f1f;">生成黑白线框 / 信息架构图（ASCII / Mermaid / HTML 骨架）；填补"PRD → 线框 → 工程"链路的低保真原型空白</td>
+</tr>
+</tbody>
+</table>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">一句调研判断：dev 方向已经卷出第二梯队（按语言 / 框架 / 安全细分），PM 类的"年度框架"位置还空着（最可能被 Anthropic 官方 knowledge-work-plugins 收编），设计类被 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>DESIGN.md</code> 范式 + Figma 官方两条腿快速重塑——<strong style="color:#000;font-weight:700;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>DESIGN.md</code> 正在成为"设计师的 superpowers"</strong>。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">4. 公司级 skill 案例（趋势最值得看的一类）</h3>
+<ul style="margin:1.4em 0;padding-left:1.6em;color:#1f1f1f;"><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">vercel-labs/agent-skills</strong>（2.7w star，8 个 skill）— 把 React / Next 最佳实践 / Vercel 部署 / view transitions 打成 skill，<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>npx skills add vercel-labs/agent-skills</code> 一行装上拿到"框架团队级"上下文</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">Cursor 2.4</strong> — 原生支持 Agent Skills 开放标准（官方 docs）。Cursor 是消费方而非供应方——它跟进开放标准是 skill ecosystem 形成的关键信号</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">Stripe</strong> — 在 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>docs.stripe.com/.well-known/skills/index.json</code> 公开发布 3 个核心 skill。<strong style="color:#000;font-weight:700;">well-known 范式特别值得关注</strong>——任何公司可以在自己域名下用同样路径暴露 skill 给所有 agent 消费</li><li style="margin:0.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">MicrosoftDocs/Agent-Skills</strong>（192 个 skill）— 覆盖 Azure / .NET / M365 的全家桶级 skill 库</li></ul>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">两个<strong style="color:#000;font-weight:700;">注册中心</strong>值得记住：skills.sh（截至 2026 年 5 月底累计 61 万 skill，最大索引站）和 agentskills.io（Anthropic 主导的开放标准）。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这层趋势特别值得注意：<strong style="color:#000;font-weight:700;">当公司开始把自家产品文档以 skill 形式发布</strong>，意味着 agent 不再需要"通过文档摸索 API"，而是直接被产品方喂"该怎么用我"。SaaS 文档的形态正在被改写。</p>
+<h2 style="font-size:22px;font-weight:700;margin:2em 0 0.8em;color:#000;line-height:1.45;">三、几条 skill 工程化的最佳实践</h2>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">机制和清单讲完，再讲怎么写。这部分把过去半年公众号写过的几个相关话题串起来看——skill 不是单独的一件事，是 AI 工程化基线的一环。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">1. 把"事实"留给 CLAUDE.md，把"流程"抽成 skill</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">CLAUDE.md 适合放<strong style="color:#000;font-weight:700;">项目级的常驻事实</strong>——技术栈是什么、目录约定、命名规约、不准跑的命令。它一直在上下文里，模型每次对话都看得到。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 适合放<strong style="color:#000;font-weight:700;">触发式的流程</strong>——"写技术评审走 8 步、每步有自检规则"、"评审代码按 5 个角度看"、"做产品方案先对齐目标边界"。这些是<strong style="color:#000;font-weight:700;">只在做某件事时才需要的细节</strong>，常驻代价太大、不放出来又会"重复教模型"。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">判断信号：<strong style="color:#000;font-weight:700;">当 CLAUDE.md 的某一节越写越长、最后看起来像个 workflow 而不是事实清单时，把它抽出来做 skill</strong>。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">2. Hub-and-Spoke：SKILL.md 只放路由，细节进 spoke</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">我之前在公众号写过一篇关于 Perplexity Agent Skill 工程化方法论的解读，里面 Perplexity 那句话特别值得记住：</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;">"If you write skills like you write code, you will fail."</p>
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-bottom:0;">如果你像写代码那样写 skill，你一定会失败。</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">代码追求稳定、可读、可复用；skill 追求"在恰当时机以最少 token 把模型行为搬到正确轨道上"。两者目标不同，原则自然相反。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">具体的写法就是 hub-and-spoke：SKILL.md 是 hub，只放路由表 + 主流程概述 + 对 spoke 文件的引用；details / templates / 长清单全放进 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>references/</code> 目录，hub 在主流程里说"如果要做 X，去读 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>references/x.md</code>"。模型只在真的需要时才去付 spoke 的 token 成本。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>anthropics/skills</code> 里的 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pdf</code> skill 就是这个模式的典型——SKILL.md 主体只几百行讲流程，遇到"填表单"路由到 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>forms.md</code>、遇到"OCR 扫描件"路由到 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>ocr.md</code>、复杂任务则交给 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>scripts/</code> 下的 Python 脚本。常驻只有 hub，spoke 按需读。这是一个 skill 能写得很重又不破上下文预算的关键。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">3. 配合 hook 做强制校验（呼应系列 01）</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 是"建议怎么做"，hook 是"做完必须过"——两件事配合一起用。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">举个例子：一个评审 skill 里写了"段落控制在某个长度"、"必须有目标和非目标章节"等格式规则。但模型还是会偶尔忘——这时候 hook 就该上场了。挂一个 PostToolUse hook，每次模型写完 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>.md</code> 文件，自动跑一遍 lint，把不合规的地方直接 flag 出来，强迫修。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">Skill 教模型该怎么做，hook 兜底"必须做对"</strong>。前者是软建议（可被遗忘），后者是硬约束（不可绕过）。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">4. Eval-driven：用 skill 写 skill / 用 skill 审 skill</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 是文本，不是代码——但写完同样需要 eval。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">实操办法：<strong style="color:#000;font-weight:700;">写一个 audit skill 自动跑你的 skill 库</strong>——按 Anthropic Best Practices 和 Perplexity 公开的方法论挨个扫 <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>~/.claude/skills/</code> 下的 SKILL.md，找 description 写法、长度、token 浪费、redundancy 之类的问题，输出审计报告，再决定哪些 skill 该改。这个 audit skill 大约每周跑一次。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">更进一步是用 skill-creator 写新 skill——它会按官方 Best Practices 带你过一遍 description 写法、目录结构、命名规范，比自己从头写少踩很多坑。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">让 skill A 帮你管 skill B，这个递归套路是真的能跑通的——也是 skill 不同于 prompt 的一个关键性质：<strong style="color:#000;font-weight:700;">skill 可以被另一个 skill 当对象操作</strong>。</p>
+<h3 style="font-size:18px;font-weight:700;margin:1.8em 0 0.6em;color:#000;line-height:1.5;">5. 命名：gerund form 是官方推荐，但不是硬规则</h3>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">skill 名字用"动词 + ing"（gerund form）形式，是 Anthropic Authoring Best Practices 明确推荐的：</p>
+<blockquote style="margin:1.6em 0;padding:0.8em 1.2em 0.8em 1.4em;border-left:3px solid #1f1f1f;background:#f7f7f7;color:#4a4a4a;font-size:15px;line-height:1.8;">
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-top:0;">"Consider using gerund form (verb + -ing) for Skill names, as this clearly describes the activity or capability the Skill provides."</p>
+<p style="margin:0.5em 0;color:#4a4a4a;line-height:1.8;font-size:15px;margin-bottom:0;">考虑使用 gerund 形式（动词 + -ing）来命名 skill，因为这种形式能清晰描述 skill 所提供的活动或能力。</p>
+</blockquote>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">文档给的正例：<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>processing-pdfs</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>analyzing-spreadsheets</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>managing-databases</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>testing-code</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>writing-documentation</code>。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">但<strong style="color:#000;font-weight:700;">这里有一个有意思的反差</strong>：Anthropic 自家仓库的 17 个官方 skill（<code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pdf</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>pptx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>docx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>xlsx</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>skill-creator</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>mcp-builder</code> / <code style='font-family:"JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;font-size:14px;background:#f4f4f4;color:#1f1f1f;padding:0.1em 0.4em;border-radius:2px;'>webapp-testing</code> 等）<strong style="color:#000;font-weight:700;">几乎全部用名词形式</strong>。文档原文用的是 "Consider using"（建议）不是 must，并把名词形式列为 "Acceptable alternatives"。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">所以这条是<strong style="color:#000;font-weight:700;">推荐风格不是硬规则</strong>——Jesse Vincent 的 superpowers 框架把它执行得最彻底（全部 gerund），Anthropic 自己仓库反而更松。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">在团队范围内<strong style="color:#000;font-weight:700;">定一种风格</strong>比"用哪一种"更重要。挑一种风格、所有 skill 统一——避免一半 gerund 一半 noun 的混乱。</p>
+<h2 style="font-size:22px;font-weight:700;margin:2em 0 0.8em;color:#000;line-height:1.45;">四、几条最值得记住的启发</h2>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">把这四节拉回到一个判断上：<strong style="color:#000;font-weight:700;">skill 是 AI 时代团队最小的工程化沉淀单元</strong>。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">具体一点：</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">第一条</strong>：每个工程师手里都有"口诀"——做评审 / 写 PRD / 出测试 / 接 API 时反复贴的那段 prompt。在 skill 之前，这些口诀只能散在脑子里、笔记里、Slack 历史里。在 skill 之后，它们终于有了一个<strong style="color:#000;font-weight:700;">可分发、可版本化、可评估、可演进</strong>的载体。不写 skill = 团队每个人都在重新教 LLM 同一件事。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">第二条</strong>：前两天 Claude 用那个评审 skill 跑了一份新稿子，又踩到一个新坑——"非目标"那节漏了一条边界。我回去给 SKILL.md 补了一行：<strong style="color:#000;font-weight:700;">"生成前必须自检 8 个章节是否齐全"</strong>。这种动作每周会发生一两次。每补一条，下次模型自动避开。这才是 skill 和 prompt 模板最大的区别——<strong style="color:#000;font-weight:700;">skill 是踩坑库的容器</strong>。prompt 模板只能告诉你"应该这么写"，写完出问题没法回追；skill 的 Gotchas / 反模式 / 救场命令可以<strong style="color:#000;font-weight:700;">长出来</strong>。一个用了半年的成熟 skill，往往背后是几十次真实事故沉淀下来的教训。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">第三条</strong>：<strong style="color:#000;font-weight:700;">skill 改写了团队的知识沉淀路径</strong>。过去做团队 wiki：写一篇文档、放到 Confluence、希望大家读、半年后发现没人读。skill 翻转了这个流程——文档不是给人读的，是给 agent 读的；不需要团队成员主动学，agent 在他们调用工具时自动按 skill 执行。<strong style="color:#000;font-weight:700;">新人入职拉个仓库，全套规范当天上手</strong>——这是 wiki 时代做不到的。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;"><strong style="color:#000;font-weight:700;">第四条</strong>：<strong style="color:#000;font-weight:700;">skill 工程化能力，决定一个团队从 AI 时代拿到多少红利</strong>。这话听着抽象，但已经有一批公司用真金白银证明了——Garry Tan 把 CEO 视角的工作流打成 23 个 skill 开源、Vercel 把最佳实践打成 skill 分发给开发者、Stripe 把 API 文档暴露在 well-known、Microsoft 一家放出 192 个覆盖 Azure / .NET / M365 的 skill、skills.sh 已经累积 61 万 skill。这些公司和个人不是在"用 AI"——他们在<strong style="color:#000;font-weight:700;">让自家的产品和经验被 AI agent 自动消费</strong>。SaaS 文档形态正在被改写，护城河形态也在被改写。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">另一种节奏完全不同：把 skill 当 prompt 的高级版本——攒一堆"装哪些 skill"的清单，但 SKILL.md 没有 hub-spoke、description 写不到位、装上后从没被自动触发过、更没想过自己也可以"发布"skill 让别人消费。这两种节奏的距离不会一直在——但谁先从"用 skill"跨到"做 skill 工程化"，谁就先到下一个台阶。</p>
+<hr style="border:none;border-top:1px solid #e0e0e0;margin:2.5em auto;width:100%;" width="100%"/>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">回到开头那个场景。当我把那段反复贴出去的技术评审 prompt 终于打包成 skill 之后，我没有立刻感到"哇 AI 帮我做了好多事"——我感到的是"我终于不用再贴一遍了"。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">但更深一层的事情是：<strong style="color:#000;font-weight:700;">那个 skill 现在是团队资产，不是我个人的口诀</strong>。任何一个新人写技术评审，Claude 会自动按上面规则跑；任何一次新踩的坑，可以回去补一条，下次大家都不会再踩；任何一个之前没意识到的盲点，可以让另一个 audit skill 审出来再改。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">这个杠杆放大的不是"我能更快完成任务"——是"团队的隐性经验，第一次可以被显性沉淀、版本化分发、持续演进"。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">不写 skill，你不是在用 prompt 工程，你是在反复教 LLM 同一件事。</p>
+<p style="margin:1.5em 0;color:#1f1f1f;line-height:1.85;">写 skill，你才真正进入了 AI 工程化。</p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
