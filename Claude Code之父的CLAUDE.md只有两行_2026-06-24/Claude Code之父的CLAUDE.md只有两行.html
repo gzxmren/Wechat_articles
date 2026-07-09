@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Claude Code之父的CLAUDE.md只有两行</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Claude Code之父的CLAUDE.md只有两行</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content autoTypeSetting24psection" id="js_content" style="visibility: hidden; opacity: 0; "><section data-layout-id="0" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">Claude Code 之父自己的 CLAUDE.md<span style="font-weight: bold;" textstyle="">就两行</span>。</span></section><section data-layout-id="1" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">一行是提 PR 自动合并，一行是提 PR 发审批频道。没了。</span></section><section data-layout-id="2" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">我看到这个的时候第一反应是，我那几千 token 的 CLAUDE.md 是不是全白写了。</span></section><section data-layout-id="3" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">他的原话是，当系统提示你的配置已经几千 token 时，<span style="font-weight: bold;" textstyle="">直接删掉重写</span>。用最少的东西把模型拉回正轨，跑偏了再一点点加。你会发现每换一代模型，需要加的越来越少。</span></section><section data-layout-id="4" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">这跟大部分人的本能完全相反。</span></section><section data-layout-id="5" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">我们拿到新工具的第一件事就是堆配置、堆规则、堆脚手架，生怕漏了什么。但他说这是<span style="font-weight: bold;" textstyle="">过度工程化</span>，因为模型每代都在变强，你今天费劲搭的东西很快就白搭了。</span></section><section data-layout-id="6" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf=""><span style="font-weight: bold;" textstyle="">他们团队真正的规则写在代码库里</span>，全队每周共建。看到队友犯了可避免的错，直接让 Claude 在 PR 上把规则加进去。不是一个人闷头写一份巨长的个人配置，而是让规则长在协作里。</span></section><section data-layout-id="7" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">同样的逻辑也解释了为什么 Claude Code 坚持做 CLI 不做 GUI。</span></section><section data-layout-id="8" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">因为模型进步太快，做不出一个半年后还不过时的界面。CLI 反而是最轻的壳，模型能力变了，壳不用换。</span></section><section data-layout-id="9" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">还有个细节让我印象很深。他说自己查一个内存泄漏，做 heap dump、开 DevTools、翻代码翻了半天没搞定。队友直接把问题丢给 Claude Code，它自己写了个小工具分析 heap dump，比他更快找到了泄漏点。</span></section><section data-layout-id="10" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">造这个工具的人，用这个工具的方式比我们还轻。</span></section><section data-layout-id="11" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">他最后说了句我觉得特别到位的话，Agent 能做什么这件事每换一代模型就变，新人往往比老人用得还溜，因为老人的脑子还停在过去。</span></section><section data-layout-id="12" style="font-size: 17px;font-weight: 400;color: rgba(0,0,0,0.9);line-height: 1.8;margin-bottom: 24px;"><span leaf="">一句话总结他的哲学就是，模型在飞涨，人的最优策略不是堆配置堆工具，是<span style="font-weight: bold;" textstyle="">做减法、保持轻</span>，把判断让给越来越强的模型，然后不断推翻自己过时的使用习惯。</span></section><p style="display: none;"><mp-style-type data-value="3"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    

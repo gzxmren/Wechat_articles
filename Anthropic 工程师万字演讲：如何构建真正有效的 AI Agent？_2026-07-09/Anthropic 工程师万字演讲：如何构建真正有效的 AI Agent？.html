@@ -1,0 +1,180 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Anthropic 工程师万字演讲：如何构建真正有效的 AI Agent？</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Anthropic 工程师万字演讲：如何构建真正有效的 AI Agent？</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;'><p style="margin: 1em 0px;"><img alt="封面图片" data-ratio="0.5" data-type="png" data-w="1080" src="assets/84b96b0321f358ab56c804b9390bcf8c.png" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title="封面图片"/></p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>"Don't build agents for everything."</strong>
+——别把什么任务都做成 Agent，那是模型该干的事。</p>
+</blockquote>
+<p style="margin: 1em 0px;">这是 Anthropic 工程师 <strong>Barry Zhang</strong> 在 AI Engineer Summit 上一场 15 分钟演讲《How We Build Effective Agents》最扎心的一句话。</p>
+<p style="margin: 1em 0px;">Barry Zhang 就职于 Anthropic 的 Applied AI 团队，专门陪企业和创业公司一起造 Agent 系统。这场演讲不聊架构图、不推框架、不炫技，只讲一件事：</p>
+<p style="margin: 1em 0px;"><strong>过去两年，我们踩过的坑、看穿的假象、总结出的三条铁律。</strong></p>
+<p style="margin: 1em 0px;">这篇文章带你把这场演讲的精华吃透，很多观点会颠覆你对 Agent 的理解。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 一、AI 系统的三阶段进化：你到底在哪一阶段？</span></h2>
+<p style="margin: 1em 0px;">Barry 一开始就画了一条清晰的进化线，帮你定位自己正处在什么位置。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 第一阶段：简单功能</span></h3>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section><strong>总结、分类、信息提取</strong></section></li><li style="margin-left: 1.2em;"><section>一次 LLM 调用搞定</section></li><li style="margin-left: 1.2em;"><section>两年前看着像魔法，<strong>今天已经是基础能力</strong></section></li><li style="margin-left: 1.2em;"><section>便宜、快、可靠、易 debug</section></li></ul>
+<p style="margin: 1em 0px;"><strong>Barry 的提醒</strong>：<strong>这些能力被严重低估</strong>。很多团队一上来就要做 Agent，其实用一个更好的 prompt 就能解决 80% 的问题。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 第二阶段：Workflow（工作流）</span></h3>
+<p style="margin: 1em 0px;">一次 LLM 调用不够用了，就把多个模型调用串起来：</p>
+<pre style="border-radius: 5px;line-height: 2;margin: 1em 0.5em;padding: 0.5em;box-shadow: rgba(0, 0, 0, 0.55) 0px 1px 5px;font-size: 12px;background: rgb(253, 246, 227);"><section style="display: block;background-repeat: no-repeat;width: 100%;height: 16px;"><svg height="12" version="1.1" viewbox="0 0 450 130" width="45" xmlns="http://www.w3.org/2000/svg"><ellipse cx="65" cy="65" fill="rgb(237,108,96)" rx="50" ry="52" stroke="rgb(220,60,54)" stroke-width="2"></ellipse><ellipse cx="225" cy="65" fill="rgb(247,193,81)" rx="50" ry="52" stroke="rgb(218,151,33)" stroke-width="2"></ellipse><ellipse cx="385" cy="65" fill="rgb(100,200,86)" rx="50" ry="52" stroke="rgb(27,161,37)" stroke-width="2"></ellipse></svg></section><code class="hljs" style='font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Roboto Mono", "Courier New", "Microsoft YaHei", monospace;display: block;overflow-x: auto;margin: 0.5em;padding: 3px 5px;color: rgb(88, 110, 117);background: rgb(253, 246, 227);'>提取意图 → 查数据库 → 生成响应 → 校验输出<br/></code></pre><ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section><strong>路径由你写代码定死</strong></section></li><li style="margin-left: 1.2em;"><section>模型只负责"模糊部分"（理解语言、生成文本）</section></li><li style="margin-left: 1.2em;"><section><strong>可预测、可控、易调试</strong></section></li><li style="margin-left: 1.2em;"><section>Anthropic 认为这已经是 Agent 系统的起点</section></li></ul>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 第三阶段：Agent（真正的智能体）</span></h3>
+<p style="margin: 1em 0px;"><strong>核心区别</strong>：<strong>谁决定下一步</strong>？</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>Workflow：<strong>你的代码</strong>决定路径</section></li><li style="margin-left: 1.2em;"><section>Agent：<strong>模型自己</strong>决定路径</section></li></ul>
+<p style="margin: 1em 0px;">Agent 会观察环境反馈、自己决定调什么工具、自己判断走哪条路。<strong>自主性带来能力，但也带来成本、延迟和错误后果的同步上升。</strong></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 二、别把 Agent 当默认升级方向（重点！）</span></h2>
+<p style="margin: 1em 0px;">这是全场最重的一击。</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>Agent 不是通用升级包。它是一个针对特定问题的特定工具。</strong>
+<strong>能用 Workflow 就用 Workflow。只有必须用 Agent 时才用 Agent。</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">Barry 给出了一个 <strong>"是否要上 Agent" 的 4 步判断清单</strong>：</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 判断 1：任务复杂度</span></h3>
+<p style="margin: 1em 0px;">▪️ <strong>决策树能画出来？</strong> → 用 Workflow，别用 Agent
+▪️ <strong>路径模糊、开放、无法穷举？</strong> → 才考虑 Agent</p>
+<p style="margin: 1em 0px;"><strong>反例</strong>：用户问退款政策 → 查订单 → 判断条件 → 回复。这种路径清晰的任务，写工作流成本更低、更可控。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 判断 2：任务价值</span></h3>
+<p style="margin: 1em 0px;">Agent <strong>烧 token 是家常便饭</strong>。Barry 举了个非常具体的例子：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;">如果你做的是高频客服系统，<strong>每次任务预算只有 10 美分，大概只能支撑 3-5 万 token</strong>。
+这种情况下，用工作流覆盖最常见问题就行了。</p>
+</blockquote>
+<p style="margin: 1em 0px;"><strong>但如果你说"token 花多少都无所谓"</strong>，那 Barry 半开玩笑地说：<strong>"Anthropic 商业团队很愿意和你聊聊。"</strong></p>
+<p style="margin: 1em 0px;"><strong>翻译过来</strong>：Agent 不是便宜方案，任务价值必须撑得起成本。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 判断 3：关键能力是否可靠</span></h3>
+<p style="margin: 1em 0px;">Agent 干活时的每一步"关键能力"（写代码、调试、错误恢复）必须都够可靠。</p>
+<p style="margin: 1em 0px;">▪️ <strong>任何一环卡壳</strong> → 成本飙升、重试次数飙升、延迟飙升
+▪️ <strong>解决方案</strong>：缩小任务范围，让 Agent 干更聚焦的事</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 判断 4：错误代价</span></h3>
+<p style="margin: 1em 0px;">问自己两个问题：
+▪️ <strong>错误有多贵？</strong>
+▪️ <strong>错误有多难发现？</strong></p>
+<p style="margin: 1em 0px;">如果错误<strong>贵、不可逆、还难发现</strong> → 自主性就变成风险。</p>
+<p style="margin: 1em 0px;"><strong>Anthropic 的建议</strong>：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>只给<strong>只读权限</strong></section></li><li style="margin-left: 1.2em;"><section>加<strong>人工审批环节</strong></section></li><li style="margin-left: 1.2em;"><section><strong>限制执行范围</strong></section></li></ul>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 三、编码 Agent 为什么好使？（一个完美案例）</span></h2>
+<p style="margin: 1em 0px;">Barry 用<strong>编码 Agent</strong>作为"完美 Agent 用例"的模板，值得每个想做 Agent 的团队反复看：</p>
+<p style="margin: 1em 0px;">▪️ <strong>任务模糊</strong> —— 从设计文档到 PR，无法提前穷举步骤
+▪️ <strong>价值巨大</strong> —— 一次正确的代码修改，杠杆效应极高
+▪️ <strong>模型能力过硬</strong> —— Claude 在编码上已经很强
+▪️ <strong>结果可验证</strong> —— 单元测试、CI 流水线可以<strong>客观判断成功</strong></p>
+<p style="margin: 1em 0px;"><strong>核心洞察</strong>：<strong>Agent 系统最重要的属性之一是"结果可验证"</strong>。这也是为什么客服和编码是 Anthropic 反复推的两大黄金场景。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 四、保持简单：Agent 的核心结构就 3 件事</span></h2>
+<p style="margin: 1em 0px;">Barry 反复强调：<strong>大多数团队一上来就把 Agent 搞得太复杂</strong>。</p>
+<p style="margin: 1em 0px;">Anthropic 内部对 Agent 的定义简单到令人震惊：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>Agent = Model + Tools + Loop（在一个 Environment 里跑）</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">三大核心组件：</p>
+<p style="margin: 1em 0px;">🔹 <strong>1. Environment（环境）</strong> —— Agent 操作的系统（浏览器、IDE、操作系统、API 环境）
+🔹 <strong>2. Tools（工具集）</strong> —— Agent 采取行动和拿反馈的接口
+🔹 <strong>3. System Prompt（系统提示）</strong> —— 定义 Agent 的目标、约束、期望行为</p>
+<p style="margin: 1em 0px;">然后就是一个 <strong>model decision loop</strong>：观察 → 决策 → 执行 → 拿反馈 → 循环。</p>
+<p style="margin: 1em 0px;"><strong>关键洞察</strong>：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>不同 Agent 应用（编码、搜索、Computer Use）看起来天差地别，但它们的后端架构几乎一模一样。</strong></p>
+</blockquote>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🚨 大多数团队犯的错</span></h3>
+<p style="margin: 1em 0px;">一上来就急着加：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>复杂的 reflection loops</section></li><li style="margin-left: 1.2em;"><section>多 Agent 编排图</section></li><li style="margin-left: 1.2em;"><section>花哨的框架抽象</section></li></ul>
+<p style="margin: 1em 0px;"><strong>结果</strong>：系统贵、慢、没法 debug。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>✅ 正确的迭代顺序</span></h3>
+<p style="margin: 1em 0px;">▪️ <strong>先跑通最简单的 Model + Tools + Loop</strong>
+▪️ <strong>确认基本行为对了</strong>
+▪️ <strong>再考虑优化</strong>：缓存轨迹、并行工具调用、加进度可视化增强用户信任</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 五、Think Like Your Agent（像 Agent 一样思考）</span></h2>
+<p style="margin: 1em 0px;">这是全场最反直觉、也最有实操价值的一条。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 开发者常犯的错</span></h3>
+<p style="margin: 1em 0px;">从<strong>自己的视角</strong>去理解 Agent，然后被 Agent 各种"反常错误"搞得莫名其妙。</p>
+<p style="margin: 1em 0px;"><strong>Barry 的解决方法</strong>：<strong>把自己塞进 Agent 的上下文窗口里</strong>。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 Agent 的真实处境</span></h3>
+<p style="margin: 1em 0px;">▪️ 每一步决策只能基于<strong>有限的上下文</strong>（比如 10k-20k token）
+▪️ Computer Use 场景下，Agent <strong>只能看到静态截图</strong>
+▪️ <strong>推理和工具执行期间如同"闭眼操作"</strong>——它其实什么都看不到</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 换位思考练习</span></h3>
+<p style="margin: 1em 0px;">Barry 建议每个 Agent 开发者都做一遍：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>假装你自己是那个 Agent，只拿到 Agent 拿到的信息，去完成这个任务，看你能不能做到。</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">做完这个练习，你会发现 Agent 真正需要的是：</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>屏幕分辨率信息</section></li><li style="margin-left: 1.2em;"><section>推荐操作</section></li><li style="margin-left: 1.2em;"><section>明确的限制条件</section></li></ul>
+<p style="margin: 1em 0px;">而不是无休止地探索。</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 直接问模型自己</span></h3>
+<p style="margin: 1em 0px;">Barry 分享了一个骚操作：<strong>直接问 Claude 就行</strong>。</p>
+<p style="margin: 1em 0px;">▪️ "我的指令有没有模糊的地方？"
+▪️ "你理解这个工具描述吗？"
+▪️ "为什么你做了这个决策？"
+▪️ "我怎么帮你做更好的决策？"</p>
+<p style="margin: 1em 0px;"><strong>用模型来 debug 模型</strong>——这就是弥合开发者与 Agent 认知鸿沟的最快方式。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 六、Barry 对 Agent 未来的 3 大预测</span></h2>
+<p style="margin: 1em 0px;">演讲最后，Barry 分享了他对 Agent 系统未来的 3 个判断，每一条都值得记下来：</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 预测 1：预算感知 Agent（Budget-aware Agents）</span></h3>
+<p style="margin: 1em 0px;">现在的 Agent <strong>像脱缰的野马</strong>，token 想花就花。</p>
+<p style="margin: 1em 0px;">未来的 Agent 必须能：
+▪️ 定义时间预算、金钱预算、token 预算
+▪️ 在预算范围内做决策
+▪️ 生产环境部署才能真正放心</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 预测 2：自进化工具（Self-evolving Tools）</span></h3>
+<p style="margin: 1em 0px;">现在工具都是人类工程师定义的。</p>
+<p style="margin: 1em 0px;">未来的 Agent 或许能：
+▪️ <strong>自己设计工具</strong>
+▪️ <strong>自己改进工具</strong>（meta-tools）
+▪️ 让工具集适配不同用例</p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;"><span>🔹 预测 3：多 Agent 协作</span></h3>
+<p style="margin: 1em 0px;">Barry 预计<strong>多 Agent 系统会在今年年底大量进入生产</strong>。优势非常明确：</p>
+<p style="margin: 1em 0px;">▪️ 并行化提升效率
+▪️ 关注点分离
+▪️ 保护主 Agent 的上下文窗口</p>
+<p style="margin: 1em 0px;"><strong>但关键挑战是</strong>：Agent 之间怎么通信？如何实现<strong>异步通信</strong>，超越目前"用户-助手轮流对话"的模式？</p>
+<p style="margin: 1em 0px;">这是 2026 年 Agent 圈最值得关注的技术命题之一。</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>✅ 七、三句话记住这场演讲</span></h2>
+<p style="margin: 1em 0px;">如果你只想记住三句话，就是这三句：</p>
+<p style="margin: 1em 0px;">▪️ <strong>1. 别什么都做成 Agent</strong> —— Agent 是特定工具，不是通用升级
+▪️ <strong>2. 保持简单</strong> —— Model + Tools + Loop 就够了，别加花活
+▪️ <strong>3. 像 Agent 一样思考</strong> —— 塞进它的上下文窗口，从它的视角看世界</p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<h2 style="margin: 1em 0px;text-align: center;font-size: 1.2em;border-bottom: 1px solid rgb(247, 247, 247);font-weight: bold;"><span>🎯 写在最后</span></h2>
+<p style="margin: 1em 0px;">Barry Zhang 这场演讲的独特之处，在于它<strong>打破了 Agent 时代的"复杂性崇拜"</strong>。</p>
+<p style="margin: 1em 0px;">在一个人人都在拼多 Agent 编排、拼 reflection loops、拼各种炫技架构的年代，<strong>Anthropic 一线工程师告诉你</strong>：</p>
+<blockquote style="background: rgba(175, 184, 193, 0.2);border-left: 0.5em solid rgb(204, 204, 204);margin: 1.5em 0px;padding: 0.5em 10px;font-style: italic;font-size: 0.9em;">
+<p style="margin: 1em 0px;"><strong>最好的 Agent 系统，长得都很简单。复杂只应该是最后的手段，不是第一选择。</strong></p>
+</blockquote>
+<p style="margin: 1em 0px;">如果你正在做 Agent，不妨用这场演讲的四步判断清单，重新审视一下你手上的方案——</p>
+<ul style="padding-left: 1.2em;"><li style="margin-left: 1.2em;"><section>这个任务真的需要 Agent 吗？</section></li><li style="margin-left: 1.2em;"><section>我是不是把系统搞太复杂了？</section></li><li style="margin-left: 1.2em;"><section>我理解 Agent 眼中看到的世界吗？</section></li></ul>
+<p style="margin: 1em 0px;">想清楚这三个问题，你就领先了大多数 Agent 开发团队。</p>
+<p style="margin: 1em 0px;"><strong>📺 视频原址</strong>：https://youtu.be/D7_ipDqhtwk<sup class="footnote" style="color: rgb(0, 105, 194);">[1]</sup></p>
+<hr style="border-width: 1px medium medium;border-style: solid none none;border-color: rgb(221, 221, 221) currentcolor currentcolor;border-image: none;margin-top: 2em;margin-bottom: 2em;"/>
+<p style="margin: 1em 0px;">📖 <strong>本文由 OpenClaw 研习社整理，欢迎转发给正在做 Agent 的伙伴。</strong></p>
+<h3 style="margin: 1em 0px;font-size: 1em;font-weight: bold;">引用链接</h3><section><p style="margin: 0px;display: flex;font-size: 0.9em;"><span class="footnote-num" style="display: inline;width: 10%;">[1]</span><span class="footnote-txt" style="display: inline;width: 90%;word-wrap: break-word;word-break: break-all;"><i>https://youtu.be/D7_ipDqhtwk</i></span></p></section></section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
