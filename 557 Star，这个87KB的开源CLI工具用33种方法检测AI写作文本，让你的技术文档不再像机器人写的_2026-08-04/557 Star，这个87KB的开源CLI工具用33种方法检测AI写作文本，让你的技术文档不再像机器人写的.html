@@ -1,0 +1,86 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>557 Star，这个87KB的开源CLI工具用33种方法检测AI写作文本，让你的技术文档不再像机器人写的</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">557 Star，这个87KB的开源CLI工具用33种方法检测AI写作文本，让你的技术文档不再像机器人写的</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section style="padding:0 4px;max-width:100%;box-sizing:border-box;">
+<p style="font-size:15px;color:#333;line-height:1.8;margin:0 0 20px;">你让AI帮你写了一篇技术文档，看起来语句流畅、结构清晰，但总觉得哪里不对劲——「not only...but also」的句式像批发的，「it is worth noting that」每一段都来一次，结尾永远有个「in conclusion」。</p>
+<p style="font-size:18px;font-weight:bold;color:#c0392b;line-height:1.7;margin:0 0 16px;">AI写的东西有种说不出的「机器人味」，你闻得到但说不清。</p>
+<p style="font-size:14px;color:#888;line-height:1.6;margin:0 0 28px;">0xwilliamortiz 开源了一个87KB的零依赖CLI工具 humanizer，把Wikipedia上总结的33种AI写作特征做成了终端里的对照手册——你可以一条条查，也可以直接扫你的草稿看中了多少条。</p>
+<img data-ratio="0.5" data-type="png" data-w="1080" src="assets/2fae384de7712c1c19daa16743b55509.png" style="width: 100%;max-width: 600px;border-radius: 4px;margin: 8px 0px 24px;display: block;height: auto !important;"/>
+<hr style="border:none;border-top:1px dashed #d0d0d0;margin:28px 0;"/>
+<p style="font-size:17px;font-weight:bold;color:#1a1a1a;margin:0 0 4px;">33种AI写作特征，从破折号到假热情全覆盖</p>
+<p style="font-size:13px;color:#999;margin:0 0 20px;">基于 Wikipedia「Signs of AI writing」条目整理</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;">humanizer 把每种特征都配了 <strong>before（AI写的）</strong> 和 <strong>after（人写的）</strong> 对照。举几个程序员最常中招的：</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>破折号上瘾（Em dash abuse）</strong>——AI特别喜欢用「—」连接句子，真人写技术文档通常用逗号或句号。</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>「不仅仅是X，更是Y」句式</strong>——AI最爱用的万能模板，「这个工具不仅仅是一个框架，更是一个生态系统」。程序员写推荐的时候，几乎不会用这个句式。</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>可制造的激情（Manufactured enthusiasm）</strong>——AI写开头总爱来个「In today's rapidly evolving tech landscape...」，真程序员开篇往往是一句「这玩意儿能解决什么问题」。</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>标题里的emoji</strong>——AI写文章特别喜欢每段小标题前面塞个emoji。真人程序员写的技术文档，通常只有代码里的注释才会出现emoji。</p>
+<p style="font-size:16px;font-weight:bold;color:#c0392b;margin:20px 0;">humanizer的规则不是玄学——33条全部来自Wikipedia社区数百位编辑的共识。它不是猜测，是一个对照检查清单。</p>
+<hr style="border:none;border-top:1px dashed #d0d0d0;margin:28px 0;"/>
+<p style="font-size:17px;font-weight:bold;color:#1a1a1a;margin:0 0 4px;">安装和使用：87KB零依赖，2条命令搞定</p>
+<p style="font-size:13px;color:#999;margin:0 0 20px;">Windows x64 二进制，终端直跑，数据不出机器</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;">下载解压后直接跑：</p>
+<p style="background:#f5f5f5;padding:12px 14px;border-radius:4px;font-size:13px;color:#333;font-family:monospace;line-height:1.6;margin:0 0 16px;">
+.\humanizer.exe<br/>
+.\humanizer.exe show 14    # 查看第14条规则+对照<br/>
+.\humanizer.exe check README.md    # 扫描草稿中了多少条<br/>
+.\humanizer.exe search hedging    # 搜关键词匹配的规则<br/>
+.\humanizer.exe prompt    # 输出完整提示词，直接贴给AI让它自查
+</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;">也可以用 <strong>npx humanizer</strong> 进入交互界面，保持在终端里随时切过去查一条。整个过程<strong>不需要网络、不需要API key，所有数据留在本地</strong>——你草稿里写了什么，只有你知道。</p>
+<hr style="border:none;border-top:1px dashed #d0d0d0;margin:28px 0;"/>
+<p style="font-size:17px;font-weight:bold;color:#1a1a1a;margin:0 0 4px;">程序员为什么需要这个：3个高频场景</p>
+<p style="font-size:13px;color:#999;margin:0 0 20px;">不只是写公众号，你的日常里有太多AI在替你「说话」</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>场景一：GitHub README 和项目文档。</strong>你用AI生成了一份漂亮的README，但每个段落都以「This project provides...」「Additionally...」「Furthermore...」开头。Review 你项目的人扫一眼就知道是AI写的——第一印象直接从「这个开发者挺认真」变成「README都懒得自己写」。</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>场景二：给非技术同事写邮件。</strong>AI写的邮件礼貌过头，「I hope this email finds you well」「Please do not hesitate to reach out」——你的同事会想：这人平时说话挺直接的，怎么发邮件跟外交部发言人似的？</p>
+<p style="font-size:14px;color:#555;line-height:1.8;margin:0 0 16px;"><strong>场景三：技术博客和团队Wiki。</strong>你让AI帮你把笔记扩写成一篇博客，但AI扩写之后全是「it is noteworthy that」「in the realm of」「as previously mentioned」。读者看不到你的思考过程，只看到一堆包装过的空话。</p>
+<p style="font-size:16px;font-weight:bold;color:#c0392b;margin:20px 0;">人和AI的分界线不在「会不会写」，而在「有没有真实的判断力」。humanizer 就是帮你在AI的流水线输出和人的真实表达之间，划出那条线的工具。</p>
+<p style="background:#f0f7f0;padding:12px 14px;border-radius:4px;font-size:14px;color:#444;line-height:1.8;margin:16px 0;">
+<strong>用 humanizer 的最低成本工作流：</strong><br/>
+→ 让AI写完草稿<br/>
+→ 跑 humanizer check draft.md，看中了多少条<br/>
+→ 对命中的条目逐条改，一次只改一两句就会明显不同<br/>
+→ 最后跑 humanizer prompt 把规则粘贴给AI，让它自查一遍
+</p>
+<hr style="border:none;border-top:1px dashed #d0d0d0;margin:28px 0;"/>
+<p style="background:#fdf6ec;padding:14px 16px;border-radius:4px;border-left:4px solid #e6a23c;font-size:14px;color:#333;line-height:1.8;margin:0;">
+<strong>总结——</strong><br/>
+AI帮你写了80%的内容，但你得负责把那20%的「人味」加回去。humanizer 没有魔法，它就是33条老编辑们总结的AI写作特征。你对照着一条条改，改完后你的文档、邮件、README读起来就像是你自己写的。不是你用了AI，是你用AI时没有丢掉自己的判断力。这才是一个程序员区别于AI流水线的地方。
+</p>
+<p style="font-size:13px;color:#aaa;text-align:center;margin:32px 0 0;line-height:1.8;">
+💬 你用AI写文档时最常中招的「机器人味」是哪条？破折号上瘾还是「not only...but also」？评论区说说，我来帮你诊断。
+</p>
+<p style="font-size:13px;color:#aaa;text-align:center;margin:0;line-height:1.8;">
+---
+</p>
+<p style="font-size:13px;color:#aaa;text-align:center;margin:0;line-height:1.8;">
+📂 更多同类内容，点击合集「程序员效率工具库」→
+</p>
+<p style="font-size:13px;color:#aaa;text-align:center;margin:0;line-height:1.8;">
+如果觉得有用，点个「在看」↘
+</p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
