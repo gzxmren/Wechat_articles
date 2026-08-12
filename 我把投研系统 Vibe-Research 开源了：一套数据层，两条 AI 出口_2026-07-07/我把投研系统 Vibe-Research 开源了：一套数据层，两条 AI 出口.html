@@ -1,0 +1,132 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>我把投研系统 Vibe-Research 开源了：一套数据层，两条 AI 出口</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">我把投研系统 Vibe-Research 开源了：一套数据层，两条 AI 出口</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><section data-provider="WenYan" style='font-family: system-ui, "Apple Color Emoji", "Segoe UI", "Segoe UI Symbol", "Noto Sans", "Roboto", sans-serif;line-height: 1.75;font-size: 16px;color: rgb(0, 0, 0);caret-color: rgb(0, 0, 0);'><blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;">欢迎加入我的知识星球「Simon林的星球」，获取详细代码、配置文件和 Skill</p>
+</blockquote>
+<p style="margin: 1em 0px;">大家好，我是 Simon。</p>
+<p style="margin: 1em 0px;">先甩结论：我把自己天天在用的<strong style="color: rgb(72, 112, 172);">个人投研系统 Vibe-Research 开源了</strong>，大A、美股、港股都能看，代码全公开。</p>
+<p style="margin: 1em 0px;">但这篇不教你怎么用，讲一件更值钱的事——<strong style="color: rgb(72, 112, 172);">它的架构，为什么这么搭。</strong></p>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>一句话架构：一套数据层，两条 AI 出口</span></h2>
+<p style="margin: 1em 0px;">市面上大部分「AI 荐股」产品都在干同一件事：<strong style="color: rgb(72, 112, 172);">替你下结论</strong>。给你一个方向，对错没人负责，跟着走还提心吊胆。</p>
+<p style="margin: 1em 0px;">Vibe-Research 反着来：<strong style="color: rgb(72, 112, 172);">数据我配齐，结论交给你自己接入的 AI。</strong></p>
+<p style="margin: 1em 0px;">拆开就两层：</p>
+<ul style="padding-left: 1rem;margin-left: 1rem;font-size: 0.9rem;list-style-type: disc;"><li><section>底下<strong style="color: rgb(72, 112, 172);">一套数据层</strong>：行情、研报、估值、财务、公告、资金面、资讯，全打通。</section></li><li><section>上面<strong style="color: rgb(72, 112, 172);">两条 AI 出口</strong>：网页里直接问 AI，或者挂进你自己的 agent。</section></li></ul>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">数据和 AI 彻底解耦</strong>，是整个框架最关键的一步。数据是死的、客观的；AI 是你自己挑的、随时能换的。谁也不绑谁。</p>
+<p style="margin: 1em 0px;"><img alt="" data-ratio="0.5583333333333333" data-type="png" data-w="1080" src="assets/ca8389e8d0fa9c9c8874c596b2471d61.png" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title=""/></p>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>数据源：三个开源引擎，star 是最直接的背书</span></h2>
+<p style="margin: 1em 0px;">一个投研系统值不值，先看<strong style="color: rgb(72, 112, 172);">底料硬不硬</strong>。</p>
+<p style="margin: 1em 0px;">Vibe-Research 的数据层，是三个我自己开源的数据引擎，<strong style="color: rgb(72, 112, 172);">随仓库开箱即用</strong>，clone 下来就能跑：</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">数据引擎</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">覆盖</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">体量</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">星标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">a-stock-data</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">大A 全栈</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">10 层架构 · 40 端点 · 13 源</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">★ 6.4k</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">global-stock-data</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">美股 / 港股</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">7 层架构 · 17 端点 · 零鉴权</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">★ 1.1k</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">investment-news</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">全球产业链资讯</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">12 赛道对应大A板块 · 100+ 源</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">刚上线</td>
+</tr>
+</tbody></table>
+<p style="margin: 1em 0px;">行情、研报、资金面、筹码、公告、打板情绪……全覆盖。<strong style="color: rgb(72, 112, 172);">star 数摆在这，够不够硬自己判断。</strong></p>
+<p style="margin: 1em 0px;"><img alt="" data-ratio="0.5583333333333333" data-type="png" data-w="1080" src="assets/b80f6571d82a192af3f6a303c14faba2.png" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title=""/></p>
+<p style="margin: 1em 0px;">踩过的坑也说两句：有的数据源<strong style="color: rgb(72, 112, 172);">高频调用会封 IP</strong>；有的库财务数值<strong style="color: rgb(72, 112, 172);">直接放大三四倍</strong>，对不上就得换源。这些我都趟过了，怎么绕过——完整方案在星球。</p>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>七大功能：配齐一个完整的投研看板</span></h2>
+<p style="margin: 1em 0px;">数据配齐了，上层做了七个模块，从盘面到个体、从资讯到沉淀，一站到位：</p>
+<table style="display: table;text-align: left;overflow-x: auto;border-collapse: collapse;margin: 1.4em auto;max-width: 100%;table-layout: fixed;overflow: auto;word-wrap: break-word;word-break: break-all;">
+<thead>
+<tr>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">模块</th>
+<th style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;text-align: center;font-weight: bold;color: rgb(72, 112, 172);background: rgb(247, 247, 247);">干什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">每日复盘</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">大盘 · 全球市场 · 市场情绪 · 板块资金一屏，一键交给 AI 复盘</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">资讯雷达</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">12 赛道 100+ 公开源，AI 一键提炼当天「今日要点」</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">板块中心</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">按产业环节拆解板块骨架，挂上自己关注的方向</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">标的数据</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">估值 · 分位 · 财务 · 研报 · 公告 · 资金面一屏聚合，大A + 美港股通用</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">我的持仓</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">本地记盈亏，数据只存本地、不上传</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">研究记录</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">复盘 / 要点 / 问答沉淀在本地，随时回看</td>
+</tr>
+<tr>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">接入 AI</td>
+<td style="border: 1px solid rgb(217, 223, 228);padding: 9px 12px;font-size: 0.75em;line-height: 22px;vertical-align: top;">订阅或 API 接入任意大模型</td>
+</tr>
+</tbody></table>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>框架的优越性，藏在三个细节里</span></h2>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">一、两条 AI 出口，工具中立。</strong></p>
+<p style="margin: 1em 0px;">系统 AI 给小白：网页里填个 key，直接问。MCP 通道给高手：挂进自己的 agent，免 key。豆包、DeepSeek、Claude、Codex……<strong style="color: rgb(72, 112, 172);">任意 AI 都能跑</strong>，提示词是通用资产，不绑死任何一家。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">二、全链路流式 + 工具溯源。</strong></p>
+<p style="margin: 1em 0px;">问 AI、复盘、提要点，全是<strong style="color: rgb(72, 112, 172);">逐字流式</strong>输出。AI 调了哪个数据工具、拿了什么，<strong style="color: rgb(72, 112, 172);">实时溯源</strong>看得见——不是黑箱丢你一段话完事。</p>
+<p style="margin: 1em 0px;"><strong style="color: rgb(72, 112, 172);">三、中立，是最难被复制的护城河。</strong></p>
+<p style="margin: 1em 0px;">Vibe-Research <strong style="color: rgb(72, 112, 172);">只呈现客观事实</strong>：榜单、数据、公开信息。不荐股、不预测涨跌、不给买卖时机、不做主观评分。方向和结论，全由你自己的 AI 给。</p>
+<p style="margin: 1em 0px;">在一个被割怕了的市场里，<strong style="color: rgb(72, 112, 172);">「我不替你做决定」反而是最强的信任状。</strong></p>
+<p style="margin: 1em 0px;"><img alt="" data-ratio="0.5583333333333333" data-type="png" data-w="1080" src="assets/a8bcef529ac08456f74651cbcbf0e1e7.png" style="max-width: 100%;margin: 0px auto;display: block;height: auto !important;" title=""/></p>
+<h2 style="padding: 1px 12.5px;color: rgb(255, 255, 255);margin: 1.2em 0px 1em;border-radius: 4px;display: inline-block;background-color: rgb(72, 112, 172);font-size: 1.3em;"><span>为什么开源</span></h2>
+<p style="margin: 1em 0px;">说白了：<strong style="color: rgb(72, 112, 172);">框架公开，能力沉淀。</strong></p>
+<p style="margin: 1em 0px;">数据怎么接、AI 怎么挂、七个模块怎么搭——全开源，谁都能看。但真正把它用出花、接自己的策略、往框架里填内容，是另一回事。</p>
+<p style="margin: 1em 0px;">完整代码、每个模块的配置、怎么两步接入你自己的 AI，我都整理在星球了。</p>
+<blockquote style="display: block;font-size: 0.9em;border-left: 3px solid rgb(72, 112, 172);padding: 0.5em 1em;margin: 0px;background: rgb(246, 248, 250);color: rgb(64, 70, 79);">
+<p style="margin: 1em 0px;">⚠️ 本内容仅为技术分享，不构成任何投资建议。</p>
+</blockquote>
+<p style="margin: 1em 0px;"><em style="padding: 0px 3px 0px 0px;">Simon · Claude Code 深度玩家</em>
+<em style="padding: 0px 3px 0px 0px;">知识星球「Simon林的星球」— 配置文件、完整代码、Skill 全部在星球</em></p>
+</section><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    

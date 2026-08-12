@@ -1,0 +1,75 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Claude Code会话能互传了：别再复制上下文</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">Claude Code会话能互传了：别再复制上下文</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content defaultNoSetting" id="js_content" style="visibility: visible; opacity: 1; "><article class="article" style="box-sizing: border-box;color: #11110f;padding: 28px 0 38px;border-top: 12px solid #11110f;background: #f3f0e8;font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;font-size: 17px;line-height: 1.9;letter-spacing: 0.008em;"><h1 style="margin: 0 0 34px;padding: 0 0 26px;border-bottom: 3px solid #11110f;color: #11110f;font-size: 31px;line-height: 1.25;font-weight: 850;letter-spacing: -0.045em;">Claude Code会话能互传了：别再复制上下文</h1>
+<p style="margin: 0 0 18px;margin-bottom: 26px;color: #393731;font-family: 'Songti SC', 'STSong', Georgia, serif;font-size: 19px;line-height: 1.85;">今天凌晨 03:55，Claude Developers 公布了一个很容易被低估的更新：<strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">Claude Code 的不同会话，现在可以互相发送消息。</strong></p>
+<p style="margin: 0 0 18px;color: #302f2a;">你不必再打开另一个终端，把背景重新解释一遍。可以直接告诉当前 Claude：“把这次字段改名通知给 weekly-digest 会话。”系统会发送一份摘要，另一个会话在任务进行中接收并继续处理。</p>
+<img alt="Claude Developers 公布跨会话消息" data-ratio="0.5027777777777778" data-w="720" src="assets/f3220a3a31ade166c13174193f6b6869.png" style="display: block;width: 100%;max-width: 100%;margin: 24px auto;border: 1px solid rgb(143, 139, 130);border-radius: 0px;background: rgb(243, 240, 232);box-shadow: none;height: auto !important;"/>
+<p style="margin: 0 0 18px;color: #302f2a;">这不是“共享全部上下文”。官方特意写清楚：传过去的是摘要，不是你的历史记录，也不是文件。这个边界决定了它到底是提效工具，还是新的混乱放大器。</p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">以前最浪费Token的，是重复交接</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">多会话并行时，真正昂贵的往往不是模型回答，而是人类反复做交接。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">一个会话改了数据库字段，另一个会话还在写周报查询；一个会话发现接口需要新增参数，另一个会话仍按旧契约补测试。你通常要复制 commit、路径、错误和下一步，再担心漏掉关键边界。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">官方演示里，左侧会话把 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">users.name</code> 改成 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">display_name</code>，随后通知右侧的 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">weekly-digest</code>。右侧收到摘要后，发现自己的查询仍读取旧字段，于是切换到新字段继续工作。</p>
+<img alt="官方演示中两个会话接力处理字段改名" data-ratio="0.525" data-w="1080" src="assets/e12882f94b360b84dcbc9ed5de42db6f.jpg" style="display: block;width: 100%;max-width: 100%;margin: 24px auto;border: 1px solid rgb(143, 139, 130);border-radius: 0px;background: rgb(243, 240, 232);box-shadow: none;height: auto !important;"/>
+<p style="margin: 0 0 18px;color: #302f2a;">这类交接不需要把整段聊天倒给对方。对接收者真正有用的通常只有四项：发生了什么、影响哪里、证据是什么、接下来要做什么。</p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">我先做了版本门槛检查</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">本机今天早上的 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">claude --version</code> 返回 <strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">2.1.198</strong>。npm 官方注册表同时显示：<code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">latest</code> 标签是 <strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">2.1.224</strong>，<code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">stable</code> 标签是 <strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">2.1.220</strong>，<code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">next</code> 标签已经到 <strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">2.1.225</strong>。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">本机帮助里已经有 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">claude agents</code>，能查看和管理后台会话；但版本仍落后于今天官方演示对应的最新发布，因此我没有把“帮助里看见 Agent 列表”冒充成“跨会话互传已在本机验证成功”。</p>
+<img alt="本机版本与 npm 发布标签的真实检查" data-ratio="1.0972222222222223" data-w="1080" src="assets/3955da3fffaab859a16a4b56661fac58.png" style="display: block;width: 100%;max-width: 100%;margin: 24px auto;border: 1px solid rgb(143, 139, 130);border-radius: 0px;background: rgb(243, 240, 232);box-shadow: none;height: auto !important;"/>
+<p style="margin: 0 0 18px;color: #302f2a;">这里的结论很明确：功能事实来自官方发布；本机只验证了版本差距与现有命令面。<strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">没有升级、没有启动两条会话、没有收到消息，就不能写本机 PASS。</strong></p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">正确用法，是传交接包，不是传一句“你看着办”</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">跨会话消息最怕模糊。发送者如果只说“另一个模块改了，你跟一下”，接收者仍要重新调查，还可能沿着错误假设继续跑。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">更稳的消息可以固定成下面这份模板：</p>
+<pre style="margin: 22px 0;overflow-x: auto;border: 1px solid #aaa69b;line-height: 1.64;padding: 18px 0;border-top: 2px solid #11110f;border-right: 0;border-bottom: 2px solid #11110f;border-left: 0;border-radius: 0;background: #f3f0e8;"><code class="language-text" style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;font-weight: 650;padding: 0;border: 0;background: transparent;font-size: 14px;color: #252521;white-space: pre-wrap;overflow-wrap: anywhere;word-break: break-word;">变更：users.name 已改为 users.display_name
+影响：weekly-digest 的用户查询和测试夹具
+证据：迁移 031 已执行，相关测试通过
+动作：更新查询与夹具，不修改迁移文件
+边界：不要读取或复制另一会话的未提交文件
+</code></pre>
+<p style="margin: 0 0 18px;color: #302f2a;">它只有五行，却把事实、范围和权限说清楚。摘要越短，越要避免省略验证状态和禁止事项。</p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">两条会话照着这四步开</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">第一步，先检查双方版本：</p>
+<pre style="margin: 22px 0;overflow-x: auto;border: 1px solid #aaa69b;line-height: 1.64;padding: 18px 0;border-top: 2px solid #11110f;border-right: 0;border-bottom: 2px solid #11110f;border-left: 0;border-radius: 0;background: #f3f0e8;"><code class="language-bash" style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;font-weight: 650;padding: 0;border: 0;background: transparent;font-size: 14px;color: #252521;white-space: pre-wrap;overflow-wrap: anywhere;word-break: break-word;">claude --version
+npm view @anthropic-ai/claude-code version dist-tags --json
+</code></pre>
+<p style="margin: 0 0 18px;color: #302f2a;">第二步，给会话起能表达职责的名字，不要使用 <code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">session-1</code>、<code style="padding: 2px 5px;border: 1px solid #aaa69b;font-size: 0.92em;font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;background: #e9e3d8;color: #8e3d29;font-weight: 650;">test2</code> 这种看不出所有权的标签：</p>
+<pre style="margin: 22px 0;overflow-x: auto;border: 1px solid #aaa69b;line-height: 1.64;padding: 18px 0;border-top: 2px solid #11110f;border-right: 0;border-bottom: 2px solid #11110f;border-left: 0;border-radius: 0;background: #f3f0e8;"><code class="language-bash" style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;border-color: #aaa69b;border-radius: 2px;font-weight: 650;padding: 0;border: 0;background: transparent;font-size: 14px;color: #252521;white-space: pre-wrap;overflow-wrap: anywhere;word-break: break-word;">claude --name user-profiles
+claude --name weekly-digest
+</code></pre>
+<p style="margin: 0 0 18px;color: #302f2a;">第三步，让发送会话明确说出目标会话与交接包。官方演示使用自然语言通知；接收会话在当前任务中收到摘要，不需要重新开一轮解释。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">第四步，接收者先复述影响范围，再改代码。若目标会话不存在、名称不唯一、版本不支持或消息迟迟不到，就停止重发，改用 commit、PR 或明确的文本交接。</p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">会传话，不等于会自动解决冲突</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">跨会话通信解决的是“信息送达”，没有解决文件隔离、提交顺序和最终所有权。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">两个会话如果同时改同一工作目录，消息再及时也可能互相覆盖。需要并行写代码时，仍应使用独立 worktree 或分支；需要共享结果时，仍应通过 commit、测试和 diff 交付。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">还要注意一条安全边界：收到另一会话的消息，不应自动获得更高权限。尤其是删除、发布、生产变更和密钥操作，必须由当前会话重新按自己的权限规则判断。</p>
+<h2 style="margin: 44px 0 20px;padding: 16px 0 13px;border-top: 3px solid #11110f;border-bottom: 1px solid #8f8b82;border-left: 0;color: #11110f;font-size: 23px;line-height: 1.4;font-weight: 830;letter-spacing: -0.025em;">最适合它的，不是所有并行任务</h2>
+<p style="margin: 0 0 18px;color: #302f2a;">跨会话互传最适合存在明确依赖、但不需要共享全部文件的工作：后端字段影响前端、接口变化影响文档、修复结论影响测试、数据口径影响报告。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">如果两个任务完全独立，就别为了“多 Agent”制造聊天；如果两个任务高度耦合到同一批文件，也不该只靠消息协调，合并成一个负责人反而更省。</p>
+<p style="margin: 0 0 18px;color: #302f2a;">Claude Code 这次真正减少的，是复制上下文的成本。它没有让所有会话变成一个大脑，而是给它们加了一条可控的交接通道。</p>
+<p style="margin: 0 0 18px;color: #302f2a;"><strong style="padding: 0;background: transparent;text-decoration: underline;color: #11110f;font-weight: 830;text-decoration-color: #7c8961;text-decoration-thickness: 0.16em;text-underline-offset: 0.12em;">把事实压成一份好摘要，把修改留在各自边界里，这个功能才会省 Token；否则只是让错误跑得更快。</strong></p>
+<p style="margin: 0 0 18px;color: #302f2a;text-align: center;"><a class="weapp_text_link" data-miniprogram-appid="wx4ce8bbe8bb918493" data-miniprogram-nickname="重置雷达" data-miniprogram-path="pages/index/index?platform=claude" data-miniprogram-servicetype="0" data-miniprogram-type="text" style="text-decoration: none;border-bottom: 1px solid #7c8961;display: inline-block;padding: 9px 15px;border: 2px solid #11110f;border-radius: 0;background: #7c8961;color: #11110f;font-weight: 820;">查看 Claude 额度与重置信号</a></p></article><p style="display: none;"><mp-style-type data-value="10000"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
