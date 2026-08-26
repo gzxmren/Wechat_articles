@@ -1,0 +1,29 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>滚IC怎么“滚”？</title>
+        <style>
+            body { 
+                font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+                line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto;
+                padding: 20px;
+            }
+            h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #2c3e50; }
+            img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 4px; }
+            .rich_media_title { font-size: 28px; font-weight: bold; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+            pre, blockquote { page-break-inside: avoid; }
+            blockquote { border-left: 5px solid #dfe2e5; padding: 10px 15px; color: #6a737d; background: #fafbfc; margin: 20px 0; }
+            #js_content, .rich_media_content { visibility: visible !important; opacity: 1 !important; }
+            pre { display: block; padding: 16px; overflow-x: auto; white-space: pre-wrap; background-color: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 13px; }
+        </style>
+    </head>
+    <body>
+        <div class="rich_media_title">滚IC怎么“滚”？</div>
+        <div class="content">
+            <div class="rich_media_content js_underline_content autoTypeSetting24psection" id="js_content" style="visibility: visible; opacity: 1; "><section><span leaf="">今天这篇讨论的是滚IC/IM的换仓时间节点的选择。</span></section><section><span leaf="">先抛结论：<span style="font-weight: bold" textstyle="">从历史数据回测来看，按月换仓、在到期日前1-3天切换到次月合约效果最佳。</span></span></section><section><span leaf=""><span style="font-weight: normal" textstyle="">很多朋友可能和我一样都是看大牛猫的文章，接触到的“滚IC”。他对于</span></span><span data-pm-slice='1 1 ["para",null]' leaf=""><span style="font-weight: normal" textstyle="">“滚IC”换仓时间节点的推荐，早些年是推荐在到期日前一周内切换到次月合约。貌似是在经历了24-25年初的熊市之后，可以看出他对于极致追求</span></span><span data-pm-slice='1 1 ["para",null]' leaf=""><span style="font-weight: normal" textstyle="">“滚IC”贴水利润最大化的态度发生了变化，现在推荐的是季度换仓，两份合约之间差额在60点/月以上就可以切换。比如说现在IC2609和IC2612分别是7861点和7680点，差额181，月均在60.3就可以切换。</span></span></section><section><span data-pm-slice='1 1 ["para",null]' leaf=""><span style="font-weight: normal" textstyle="">我观察了一下IM，如果按季度换仓，IM两份合约之间的基差可以达到210点，也就是70点/月。前段时间，我也是按季度进行的滚仓。也就是在我持有的合约和次季度合约之间差额超过210点进行切换。</span></span></section><section><span data-pm-slice='1 1 ["para",null]' leaf=""><span style="font-weight: normal" textstyle="">这两天，我重新用codex回测了换仓时间点的选择。结果令人意外，相较于“择时”换仓，采用到期日前固定时间换仓的效果更佳。</span></span></section><section><span data-pm-slice='1 1 ["para",null]' leaf="">我回测了一共5种情况，分别是：</span></section><section><span data-pm-slice='1 1 ["para",null]' leaf="">情况1-3: 按月换仓，到期前1、3、7日；</span></section><section><span data-pm-slice='1 1 ["para",null]' leaf="">情况4: 按季换仓，IC与次季度差额超过2.2%、IM差额2.7%；</span></section><section><span data-pm-slice='1 1 ["para",null]' leaf="">情况5: 按季换仓，IC与次季度差额超过2%、IM差额2.5%。</span></section><section><span data-pm-slice='1 1 ["para",null]' leaf="">结论如下：</span></section><section nodeleaf="" style="text-align: center;"><img class="rich_pages wxw-img" data-aistatus="1" data-imgfileid="100001983" data-ratio="0.3235685752330226" data-s="300,640" data-type="png" data-w="1502" src="assets/04fc96f56aa859a6df57c5c6d9bc56b0.png" type="block"/></section><section><span leaf="">注：1）以上回测已包含交易费用；2）除换仓策略以外的完整投资策略我放在附录。</span></section><section><span leaf="">可以看到采用逐月换仓的方法比季度换仓策略长期来看可以提高1个点的收益率，最大回撤还能得到优化。需要的只是一年多操作9次换仓，每次带来时间成本可能2分钟左右？看上去还是非常值得投入的。</span></section><section><span leaf="">同时考虑到到期前1、3个交易日的效果差异非常小，实际操作上到期前1-3个交易日换仓都可以。</span></section><section><span leaf="">因为目前我持有的已经是2612，今年就不折腾了，从2701开始我会采用逐月换仓。</span></section><section><span leaf=""><br/></span></section><section><span leaf="">附录：完整投资策略</span></section><section><span leaf="">投资策略分为基础配置、期货敞口、IM网格和Put保险四部分。 </span></section><section><span leaf="">1、境内资产中，红利低波目标占家庭总投资资产的15%，黄金占10%，白银占5%。 </span></section><section><span leaf="">2、海外资金与境内资金相互隔离，不主动跨资金池调拨。纳指100的目标占家庭总投资资产的20%，海外资金池扣除纳指配置后的剩余资金全部放入美元货币基金。 </span></section><section><span leaf="">3、股指期货方面，通过IC维持相当于家庭总投资资产10%的中证500名义敞口，通过IM维持40%的中证1000基础名义敞口。IC和IM使用逐月合约，在合约到期前3个交易日换到下月合约。目标仓按整手计算，资产价格和家庭总资产变化导致目标手数改变时进行调整。 </span></section><section><span leaf="">4、IM基础仓之外另设网格仓。网格顶部采用当年IM的最高点；出现更高点位后，顶部随之更新并开始新的回撤周期。从年内最高点首次回撤2000点时增加1手IM，此后每再下跌1000点增加1手。每一手网格仓独立管理，从自己的买入点位反弹1000点后平仓止盈。网格仓单独计算，不抵扣40%的IM基础仓。</span></section><section><span leaf="">5、（因中证1000的put2022年才发布，本文回测数据未考虑put）中证1000的IM持仓配置MO认沽期权保险。始终选择剩余期限在3至6个月之间的合约；买入其中当日可以交易和估值的最低行权价Put。如果期限、到期月份或最低行权价不再符合要求，就进行换仓。 Put数量按照保护全部IM仓位计算，包括40%基础仓和额外网格仓。计算目标是：中证1000从当前点位跌至Put行权价时，Put上涨至平值价格所产生的收益能够覆盖全部IM损失。保护不足时补买Put。 Put组合另设市值上限。每持有1手IM，最多保留16万元Put市值。例如持有4手IM时，Put市值上限为64万元。Put上涨并超过上限后，卖出超额部分；IM手数增加或保护力度不足时重新补仓。</span></section><section><span leaf="">6、资产实际比例与目标偏离超过约1个百分点时进行再平衡。</span></section><p style="display: none;"><mp-style-type data-value="3"></mp-style-type></p></div>
+        </div>
+    </body>
+    </html>
+    
